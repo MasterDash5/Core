@@ -1,0 +1,34 @@
+name: DashNetworkCore
+version: 6.0.0
+author: MasterDash5
+description: "DashNetwork main plugin."
+softdepend: [ProtocolSupport, ViaVersion]
+main: dashnetwork.core.Core
+api-version: 1.15
+
+permissions:
+  dashnetwork.staff:
+    default: op
+  dashnetwork.admin:
+    default: op
+  dashnetwork.owner:
+    default: false
+
+commands:
+  anvil:
+  center:
+  clearchat:
+    aliases: [cc]
+  clearlag:
+    aliases: [cl]
+  colorlist:
+    aliases: [colors]
+  console:
+  crash:
+  mattsarmorstands:
+  oplist:
+    aliases: [ops]
+  ping:
+  spin:
+  versionlist:
+    aliases: [verlist]
