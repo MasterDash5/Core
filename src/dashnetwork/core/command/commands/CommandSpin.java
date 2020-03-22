@@ -1,10 +1,7 @@
 package dashnetwork.core.command.commands;
 
 import dashnetwork.core.command.CoreCommand;
-import dashnetwork.core.utils.MessageBuilder;
-import dashnetwork.core.utils.MessageUtils;
-import dashnetwork.core.utils.SenderUtils;
-import dashnetwork.core.utils.User;
+import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.ClickEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -29,7 +26,7 @@ public class CommandSpin extends CoreCommand {
             target = (Player) sender;
 
         if (target == null)
-            MessageUtils.message(sender, "&6&l» &6Usage: &7/spin <player>");
+            MessageUtils.usage(sender, label, "<player>");
         else {
             User user = User.getUser(target);
             boolean spinning = !user.isSpinning();

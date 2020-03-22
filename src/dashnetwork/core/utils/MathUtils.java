@@ -12,6 +12,7 @@ public class MathUtils {
         return largest;
     }
 
+    // I don't remember what this was for
     public static String formatBytes(long bytes) {
         String s = (bytes < 0L) ? "-" : "";
         long b = (bytes == Long.MIN_VALUE) ? Long.MAX_VALUE : Math.abs(bytes);

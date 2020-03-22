@@ -3,6 +3,7 @@ package dashnetwork.core.command.commands;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.DirectionUtils;
 import dashnetwork.core.utils.MessageUtils;
+import dashnetwork.core.utils.PermissionType;
 import dashnetwork.core.utils.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;

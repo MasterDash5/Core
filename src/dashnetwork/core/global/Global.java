@@ -1,6 +1,7 @@
 package dashnetwork.core.global;
 
 import dashnetwork.core.Core;
+import dashnetwork.core.global.listeners.CommandListener;
 import dashnetwork.core.global.listeners.PortalListener;
 import dashnetwork.core.global.listeners.WeatherListener;
 import org.bukkit.Bukkit;
@@ -12,6 +13,7 @@ public class Global {
 
     public Global() {
         PluginManager manager = Bukkit.getPluginManager();
+        manager.registerEvents(new CommandListener(), plugin);
         manager.registerEvents(new PortalListener(), plugin);
         manager.registerEvents(new WeatherListener(), plugin);
     }

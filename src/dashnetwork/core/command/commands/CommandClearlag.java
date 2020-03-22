@@ -68,7 +68,7 @@ public class CommandClearlag extends CoreCommand {
         builder.addLine("&6&l» &6" + SenderUtils.getDisplayName(sender) + " &7cleared &6" + removed + " &7entities");
         builder.addHoverEvent(HoverEvent.Action.SHOW_TEXT, "&6Removed: &7" + ListUtils.fromList(removedList, false, true));
 
-        MessageUtils.broadcast(false, worlds, builder.build());
+        MessageUtils.broadcast(false, worlds, PermissionType.NONE, builder.build());
     }
 
     @Override

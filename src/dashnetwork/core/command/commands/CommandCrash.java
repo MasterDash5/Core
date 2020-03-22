@@ -4,14 +4,14 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import dashnetwork.core.command.CoreCommand;
+import dashnetwork.core.utils.ListUtils;
 import dashnetwork.core.utils.MessageUtils;
-import dashnetwork.core.utils.SenderUtils;
+import dashnetwork.core.utils.PermissionType;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class CommandCrash extends CoreCommand {
             target = Bukkit.getPlayer(args[0]);
 
         if (target == null)
-            MessageUtils.message(sender, "&6&l» &6Usage: &7/crash <player>");
+            MessageUtils.usage(sender, label, "<player>");
         else {
             PacketContainer packet = new PacketContainer(PacketType.Play.Server.EXPLOSION);
             packet.getDoubles().write(0, Double.MAX_VALUE);
@@ -61,16 +61,8 @@ public class CommandCrash extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (SenderUtils.isOwner(sender) && args.length == 1) {
-            List<String> players = new ArrayList<>();
-
-            for (Player online : Bukkit.getOnlinePlayers())
-                if (SenderUtils.canSee(sender, online))
-                    players.add(online.getName());
-
-            return players;
-        }
-
+        if (args.length == 1)
+            return ListUtils.getOnlinePlayers(sender);
         return null;
     }
 

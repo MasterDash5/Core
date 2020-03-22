@@ -18,10 +18,12 @@ public class User implements CommandSender {
 
     private static List<User> users = new ArrayList<>();
     private Player player;
+    private boolean inCommandSpy;
     private boolean spinning;
 
     private User(Player player) {
         this.player = player;
+        this.inCommandSpy = false;
         this.spinning = false;
     }
 
@@ -45,8 +47,16 @@ public class User implements CommandSender {
         return player;
     }
 
+    public boolean inCommandSpy() {
+        return inCommandSpy;
+    }
+
     public boolean isSpinning() {
         return spinning;
+    }
+
+    public void setInCommandSpy(boolean inCommandSpy) {
+        this.inCommandSpy = inCommandSpy;
     }
 
     public void setSpinning(boolean spinning) {

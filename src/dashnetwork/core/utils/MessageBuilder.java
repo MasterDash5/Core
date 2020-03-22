@@ -46,7 +46,7 @@ public class MessageBuilder {
         return lines.size() <= 0;
     }
 
-    public TextComponent[] build() {
+    public TextComponent[] build() { // TODO: Fix colors with new lines
         int size = lines.size();
         TextComponent[] components = new TextComponent[size];
 

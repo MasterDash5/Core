@@ -2,7 +2,7 @@ package dashnetwork.core.command;
 
 import dashnetwork.core.Core;
 import dashnetwork.core.utils.MessageUtils;
-import dashnetwork.core.utils.SenderUtils;
+import dashnetwork.core.utils.PermissionType;
 import org.bukkit.command.*;
 
 import java.util.ArrayList;
@@ -47,28 +47,5 @@ public abstract class CoreCommand implements CommandExecutor, TabCompleter {
 
     protected abstract void onCommand(CommandSender sender, String label, String[] args);
     protected abstract List<String> onTabComplete(CommandSender sender, String label, String[] args);
-
-    protected enum PermissionType {
-        OWNER,
-        ADMIN,
-        STAFF,
-        OP,
-        NONE;
-
-        public boolean hasPermission(CommandSender sender) {
-            switch (this) {
-                case OWNER:
-                    return SenderUtils.isOwner(sender);
-                case ADMIN:
-                    return SenderUtils.isAdmin(sender);
-                case STAFF:
-                    return SenderUtils.isStaff(sender);
-                case OP:
-                    return sender.isOp();
-                default:
-                    return true;
-            }
-        }
-    }
 
 }

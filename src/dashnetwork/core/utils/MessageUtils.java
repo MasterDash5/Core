@@ -34,7 +34,7 @@ public class MessageUtils {
         sender.sendMessage(components);
     }
 
-    public static void broadcast(boolean showConsole, Collection<World> worlds, String message) {
+    public static void broadcast(boolean showConsole, Collection<World> worlds, PermissionType permission, String message) {
         List<Player> players = new ArrayList<>();
 
         if (worlds != null)
@@ -44,7 +44,8 @@ public class MessageUtils {
             players.addAll(Bukkit.getOnlinePlayers());
 
         for (Player player : players)
-            message(player, message);
+            if (permission.hasPermission(player))
+                message(player, message);
 
         if (showConsole)
             message(Bukkit.getConsoleSender(), message);
@@ -52,7 +53,7 @@ public class MessageUtils {
         players.clear();
     }
 
-    public static void broadcast(boolean showConsole, Collection<World> worlds, BaseComponent[] components) {
+    public static void broadcast(boolean showConsole, Collection<World> worlds, PermissionType permission, BaseComponent[] components) {
         List<Player> players = new ArrayList<>();
 
         if (worlds != null)
@@ -62,7 +63,8 @@ public class MessageUtils {
             players.addAll(Bukkit.getOnlinePlayers());
 
         for (Player player : players)
-            message(player, components);
+            if (permission.hasPermission(player))
+                message(player, components);
 
         if (showConsole)
             message(Bukkit.getConsoleSender(), components);
@@ -79,6 +81,10 @@ public class MessageUtils {
             builder.addHoverEvent(HoverEvent.Action.SHOW_TEXT, "&6at &7" + element.getClassName() + ": &6" + String.valueOf(element.getLineNumber()).replace("-1", "Unknown source"));
 
         message(sender, builder.build());
+    }
+
+    public static void usage(CommandSender sender, String label, String usage) {
+        message(sender, "&6&l» &7Usage: &6/" + label + " " + usage);
     }
 
     public static void noPermissions(CommandSender sender) {

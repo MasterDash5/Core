@@ -3,6 +3,7 @@ package dashnetwork.core.command.commands;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.ListUtils;
 import dashnetwork.core.utils.MessageUtils;
+import dashnetwork.core.utils.PermissionType;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;

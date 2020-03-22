@@ -3,6 +3,7 @@ package dashnetwork.core.command.commands;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.GrammarUtils;
 import dashnetwork.core.utils.MessageUtils;
+import dashnetwork.core.utils.PermissionType;
 import dashnetwork.core.utils.SenderUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -27,7 +28,7 @@ public class CommandPing extends CoreCommand {
             target = (Player) sender;
 
         if (target == null)
-            MessageUtils.message(sender, "&6&l» &6Usage: &7/ping <player>");
+            MessageUtils.usage(sender, label, "<player>");
         else
             MessageUtils.message(sender, "&6&l» &7" + GrammarUtils.possessive(target.getName()) + " ping: &6" + target.spigot().getPing() + "ms");
     }

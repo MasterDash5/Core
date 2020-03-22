@@ -1,5 +1,9 @@
 package dashnetwork.core.utils;
 
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,6 +45,16 @@ public class ListUtils {
             return "None";
 
         return string;
+    }
+
+    public static List<String> getOnlinePlayers(CommandSender sender) {
+        List<String> players = new ArrayList<>();
+
+        for (Player online : Bukkit.getOnlinePlayers())
+            if (sender == null || SenderUtils.canSee(sender, online))
+                players.add(online.getName());
+
+        return players;
     }
 
 }

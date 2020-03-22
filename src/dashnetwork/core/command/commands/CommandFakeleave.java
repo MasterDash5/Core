@@ -1,30 +1,31 @@
 package dashnetwork.core.command.commands;
 
 import dashnetwork.core.command.CoreCommand;
+import dashnetwork.core.utils.ListUtils;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
-import dashnetwork.core.utils.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
 
-public class CommandConsole extends CoreCommand {
+public class CommandFakeleave extends CoreCommand {
 
-    public CommandConsole() {
-        super("console", PermissionType.OWNER);
+    public CommandFakeleave() {
+        super("fakeleave", PermissionType.ADMIN);
     }
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
         if (args.length > 0)
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), StringUtils.unsplit(args, " "));
+            MessageUtils.broadcast(true, null, PermissionType.NONE, "&8[&4-&8] &c" + args[0]);
         else
-            MessageUtils.message(sender, "&6&l» &6Usage: &7/console <command>");
+            MessageUtils.usage(sender, label, "<name>");
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
+        if (args.length == 0)
+            return ListUtils.getOnlinePlayers(sender);
         return null;
     }
 
