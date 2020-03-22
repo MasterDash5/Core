@@ -23,12 +23,18 @@ commands:
     aliases: [cl]
   colorlist:
     aliases: [colors]
+  commandspy:
+    aliases: [cmdspy, cs]
   console:
   crash:
+  fakejoin:
+  fakeleave:
+  fakeop:
   mattsarmorstands:
   oplist:
     aliases: [ops]
   ping:
   spin:
+  test:
   versionlist:
     aliases: [verlist]

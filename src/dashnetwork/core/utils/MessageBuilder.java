@@ -1,9 +1,9 @@
 package dashnetwork.core.utils;
 
 import net.md_5.bungee.api.chat.*;
+import org.bukkit.ChatColor;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class MessageBuilder {
 
@@ -46,7 +46,113 @@ public class MessageBuilder {
         return lines.size() <= 0;
     }
 
-    public TextComponent[] build() { // TODO: Fix colors with new lines
+    public TextComponent[] build() {
+        List<TextComponent> components = new ArrayList<>();
+
+        for (int i = 0; i < lines.size(); i++) {
+            String line = lines.get(i);
+            ClickEvent clickEvent = clickEvents.get(i);
+            HoverEvent hoverEvent = hoverEvents.get(i);
+            List<TextComponent> translated = new ArrayList<>();
+            String[] array = line.split("§");
+
+            TextComponent temp = new TextComponent();
+
+            if (clickEvent != null)
+                temp.setClickEvent(clickEvent);
+
+            if (hoverEvent != null)
+                temp.setHoverEvent(hoverEvent);
+
+            for (int j = 0; j < array.length; j++) {
+                String split = array[i];
+                ChatColor color = ChatColor.WHITE;
+
+                if (split.isEmpty())
+                    continue;
+
+                if (j > 0) {
+                    if (split.length() > 1) {
+                        color = ChatColor.getByChar(split.substring(0, 1));
+                        split = split.substring(1);
+                    } else {
+                        color = ChatColor.getByChar(split);
+                        split = "";
+                    }
+                }
+
+                if (color.equals(ChatColor.RESET))
+                    color = ChatColor.WHITE;
+
+                if (!temp.getText().isEmpty()) {
+                    translated.add(temp);
+                    temp = new TextComponent();
+
+                    if (clickEvent != null)
+                        temp.setClickEvent(clickEvent);
+
+                    if (hoverEvent != null)
+                        temp.setHoverEvent(hoverEvent);
+                }
+
+                temp.setText(split);
+
+                if (color.isColor()) {
+                    if (temp.getColorRaw() != null) {
+                        translated.add(temp);
+                        temp = new TextComponent();
+
+                        if (clickEvent != null)
+                            temp.setClickEvent(clickEvent);
+
+                        if (hoverEvent != null)
+                            temp.setHoverEvent(hoverEvent);
+                    }
+
+                    temp.setColor(color.asBungee());
+                } else {
+                    final TextComponent last = temp;
+                    translated.add(temp);
+
+                    temp = new TextComponent();
+                    temp.setBold(last.isBold());
+                    temp.setObfuscated(last.isObfuscated());
+                    temp.setItalic(last.isItalic());
+                    temp.setUnderlined(last.isUnderlined());
+                    temp.setStrikethrough(last.isStrikethrough());
+
+                    if (clickEvent != null)
+                        temp.setClickEvent(clickEvent);
+
+                    if (hoverEvent != null)
+                        temp.setHoverEvent(hoverEvent);
+
+                    switch (color) {
+                        case BOLD:
+                            temp.setBold(true);
+                        case MAGIC:
+                            temp.setObfuscated(true);
+                        case ITALIC:
+                            temp.setItalic(true);
+                        case UNDERLINE:
+                            temp.setUnderlined(true);
+                        case STRIKETHROUGH:
+                            temp.setStrikethrough(true);
+                    }
+                }
+            }
+
+            temp.addExtra("\n");
+
+            translated.add(temp);
+            components.addAll(translated);
+        }
+
+        return components.toArray(new TextComponent[components.size()]);
+    }
+
+    @Deprecated
+    public TextComponent[] buildOld() { // TODO: Fix colors with new lines
         int size = lines.size();
         TextComponent[] components = new TextComponent[size];
 

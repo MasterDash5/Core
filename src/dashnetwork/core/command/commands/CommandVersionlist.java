@@ -26,7 +26,7 @@ public class CommandVersionlist extends CoreCommand {
         String viaversion = VersionUtils.hasViaVersion() ? "Yes" : "No";
 
         for (Player online : Bukkit.getOnlinePlayers()) {
-            if (SenderUtils.canSee(sender, online))
+            if (!SenderUtils.canSee(sender, online))
                 continue;
 
             String version = VersionUtils.getPlayerVersion(online);

@@ -2,6 +2,7 @@ package dashnetwork.core;
 
 import dashnetwork.core.command.commands.*;
 import dashnetwork.core.creative.Creative;
+import dashnetwork.core.global.Global;
 import dashnetwork.core.skyblock.Skyblock;
 import dashnetwork.core.survival.Survival;
 import dashnetwork.core.tasks.SpinTask;
@@ -21,6 +22,7 @@ public class Core extends JavaPlugin {
 
         // Register per world
         new Creative();
+        new Global();
         new Skyblock();
         new Survival();
 
@@ -30,12 +32,17 @@ public class Core extends JavaPlugin {
         new CommandClearchat();
         new CommandClearlag();
         new CommandColorlist();
+        new CommandCommandspy();
         new CommandConsole();
         new CommandCrash();
+        new CommandFakejoin();
+        new CommandFakeleave();
+        new CommandFakeop();
         new CommandMattsarmorstands();
         new CommandOplist();
         new CommandPing();
         new CommandSpin();
+        new CommandTest();
         new CommandVersionlist();
 
         // Register tasks
