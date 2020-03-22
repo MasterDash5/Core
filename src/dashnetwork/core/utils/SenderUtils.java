@@ -2,6 +2,7 @@ package dashnetwork.core.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class SenderUtils {
@@ -11,8 +12,10 @@ public class SenderUtils {
             return ((Player) sender).getDisplayName();
         else if (sender.equals(Bukkit.getConsoleSender()))
             return "Console";
+        else if (sender instanceof Entity)
+            return ((Entity) sender).getCustomName();
 
-        return sender.getName(); // Could be a random entity.
+        return sender.getName();
     }
 
     public static boolean canSee(CommandSender sender, Player player) {
