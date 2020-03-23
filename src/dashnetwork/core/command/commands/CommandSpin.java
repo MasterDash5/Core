@@ -4,6 +4,7 @@ import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.ClickEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -35,8 +36,7 @@ public class CommandSpin extends CoreCommand {
 
             if (spinning) {
                 MessageBuilder builder = new MessageBuilder();
-                builder.addLine("&6&l» &7Spin me right round baby right round");
-                builder.addClickEvent(ClickEvent.Action.OPEN_URL, "https://youtu.be/fpmTe3TDdVU");
+                builder.append("&6&l» &7Spin me right round baby right round").clickEvent(ClickEvent.Action.OPEN_URL, "https://youtu.be/fpmTe3TDdVU");
 
                 MessageUtils.message(target, builder.build());
             }

@@ -20,7 +20,6 @@ public class CommandVersionlist extends CoreCommand {
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        MessageBuilder message = new MessageBuilder();
         Map<String, List<String>> versionlist = new HashMap<>();
         String protocolsupport = VersionUtils.hasProtocolSupport() ? "Yes" : "No";
         String viaversion = VersionUtils.hasViaVersion() ? "Yes" : "No";
@@ -36,11 +35,11 @@ public class CommandVersionlist extends CoreCommand {
             versionlist.put(version, players);
         }
 
-        for (Map.Entry<String, List<String>> entry : versionlist.entrySet()) {
-            message.addLine("&6&l» &7[&6" + entry.getKey() + "&7] " + ListUtils.fromList(entry.getValue(), false, true));
-            message.addHoverEvent(HoverEvent.Action.SHOW_TEXT, "&6ProtocolSupport: &7" + protocolsupport);
-            message.addHoverEvent(HoverEvent.Action.SHOW_TEXT, "&6ViaVersion: &7" + viaversion);
-        }
+        MessageBuilder message = new MessageBuilder();
+
+        for (Map.Entry<String, List<String>> entry : versionlist.entrySet())
+            message.append("&6&l» &7[&6" + entry.getKey() + "&7] " + ListUtils.fromList(entry.getValue(), false, true))
+                    .hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6ProtocolSupport: &7" + protocolsupport + "\n&6ViaVersion: &7" + viaversion);
 
         if (message.isEmpty())
             MessageUtils.message(sender, "&6&l» &7Currently no online players");

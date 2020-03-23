@@ -18,7 +18,7 @@ public class MessageUtils {
     private static boolean consoleColors = false;
 
     public static void message(CommandSender sender, String message) {
-        message = color(message);
+        message = ChatColor.translateAlternateColorCodes('&', message);
 
         if (!consoleColors && sender.equals(Bukkit.getConsoleSender()))
             message = ChatColor.stripColor(message);
@@ -73,12 +73,13 @@ public class MessageUtils {
     }
 
     public static void error(CommandSender sender, Exception exception) {
-        MessageBuilder builder = new MessageBuilder();
-        builder.addLine("&6&l» &7An error occurred... hover for more info");
-        builder.addHoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + exception.getClass().getName());
+        String stacktrace = "&6" + exception.getClass().getName();
 
         for (StackTraceElement element : exception.getStackTrace())
-            builder.addHoverEvent(HoverEvent.Action.SHOW_TEXT, "&6at &7" + element.getClassName() + ": &6" + String.valueOf(element.getLineNumber()).replace("-1", "Unknown source"));
+            stacktrace += "\n&6at &7" + element.getClassName() + ": &6" + String.valueOf(element.getLineNumber()).replace("-1", "Unknown source");
+
+        MessageBuilder builder = new MessageBuilder();
+        builder.append("&6&l» &7An error occurred... hover for more info").hoverEvent(HoverEvent.Action.SHOW_TEXT, stacktrace);
 
         message(sender, builder.build());
     }
@@ -97,10 +98,6 @@ public class MessageUtils {
 
     public static void playerCommandOnly() {
         message(Bukkit.getConsoleSender(), "&6&l» &7Only players can use this command");
-    }
-
-    public static String color(String string) {
-        return ChatColor.translateAlternateColorCodes('&', string);
     }
 
 }

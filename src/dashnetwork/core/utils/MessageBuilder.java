@@ -1,74 +1,65 @@
 package dashnetwork.core.utils;
 
-import net.md_5.bungee.api.chat.*;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MessageBuilder {
 
-    private Map<Integer, String> lines;
-    private Map<Integer, ClickEvent> clickEvents;
-    private Map<Integer, HoverEvent> hoverEvents;
+    private List<MessageComponent> messageComponents = new ArrayList<>();
 
-    public MessageBuilder() {
-        lines = new HashMap<>();
-        clickEvents = new HashMap<>();
-        hoverEvents = new HashMap<>();
-    }
+    public MessageComponent append(String append) {
+        MessageComponent messageComponent = new MessageComponent(append);
+        messageComponents.add(messageComponent);
 
-    public MessageBuilder addLine(String message) {
-        lines.put(lines.size(), MessageUtils.color(message));
-        return this;
-    }
-
-    public MessageBuilder addClickEvent(ClickEvent.Action action, String string) {
-        int line = lines.size() - 1;
-
-        if (hoverEvents.containsKey(line))
-            string = TextComponent.toLegacyText(hoverEvents.get(line).getValue()) + "\n" + string;
-
-        clickEvents.put(line, new ClickEvent(action, string));
-        return this;
-    }
-
-    public MessageBuilder addHoverEvent(HoverEvent.Action action, String string) {
-        int line = lines.size() - 1;
-
-        if (hoverEvents.containsKey(line))
-            string = TextComponent.toLegacyText(hoverEvents.get(line).getValue()) + "\n" + string;
-
-        hoverEvents.put(line, new HoverEvent(action, TextComponent.fromLegacyText(string)));
-        return this;
+        return messageComponent;
     }
 
     public boolean isEmpty() {
-        return lines.size() <= 0;
+        return messageComponents.isEmpty();
     }
 
     public BaseComponent[] build() {
-        List<BaseComponent> components = new ArrayList<>();
-        int length = lines.size();
+        List<BaseComponent> baseComponents = new ArrayList<>();
 
-        for (int i = 0; i < length; i++) {
-            String line = lines.get(i);
-            ClickEvent clickEvent = clickEvents.get(i);
-            HoverEvent hoverEvent = hoverEvents.get(i);
-            List<BaseComponent> current = new ArrayList<>();
+        for (MessageComponent messageComponent : messageComponents)
+            for (BaseComponent baseComponent : messageComponent.getBaseComponents())
+                baseComponents.add(baseComponent);
 
-            if (i < length - 1)
-                line += "\n";
+        return baseComponents.toArray(new BaseComponent[baseComponents.size()]);
+    }
 
-            for (BaseComponent component : TextComponent.fromLegacyText(line)) {
-                component.setClickEvent(clickEvent);
-                component.setHoverEvent(hoverEvent);
-                current.add(component);
-            }
+    public class MessageComponent {
 
-            components.addAll(current);
+        private List<BaseComponent> components = new ArrayList<>();
+
+        public MessageComponent(String text) {
+            for (BaseComponent component : TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', text)))
+                components.add(component);
         }
 
-        return components.toArray(new BaseComponent[components.size()]);
+        public MessageComponent clickEvent(ClickEvent.Action action, String string) {
+            for (BaseComponent component : components)
+                component.setClickEvent(new ClickEvent(action, string));
+            return this;
+        }
+
+        public MessageComponent hoverEvent(HoverEvent.Action action, String string) {
+            for (BaseComponent component : components)
+                component.setHoverEvent(new HoverEvent(action, TextComponent.fromLegacyText(ChatColor.translateAlternateColorCodes('&', string))));
+            return this;
+        }
+
+        private List<BaseComponent> getBaseComponents() {
+            return components;
+        }
+
     }
+
 
 }

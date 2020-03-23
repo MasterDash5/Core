@@ -4,6 +4,7 @@ import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
@@ -65,8 +66,10 @@ public class CommandClearlag extends CoreCommand {
         }
 
         MessageBuilder builder = new MessageBuilder();
-        builder.addLine("&6&l» &6" + SenderUtils.getDisplayName(sender) + " &7cleared &6" + removed + " &7entities");
-        builder.addHoverEvent(HoverEvent.Action.SHOW_TEXT, "&6Removed: &7" + ListUtils.fromList(removedList, false, true));
+        builder.append("&6&l» ");
+        builder.append(SenderUtils.getDisplayName(sender)).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + sender.getName());
+        builder.append(" ");
+        builder.append("&7cleared &6" + removed + " entities").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(removedList, false, true));
 
         MessageUtils.broadcast(false, worlds, PermissionType.NONE, builder.build());
     }

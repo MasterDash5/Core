@@ -21,8 +21,11 @@ public class ListUtils {
             for (String entry : list)
                 duplicates.put(entry, duplicates.getOrDefault(entry, 0) + 1);
 
-            for (Map.Entry<String, Integer> entry : duplicates.entrySet())
-                formatted.add(entry.getKey() + " x" + entry.getValue());
+            for (Map.Entry<String, Integer> entry : duplicates.entrySet()) {
+                int amount = entry.getValue();
+
+                formatted.add(entry.getKey() + (amount > 1 ? " x" + amount : ""));
+            }
 
             list = formatted;
         }

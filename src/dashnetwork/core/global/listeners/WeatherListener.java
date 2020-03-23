@@ -8,7 +8,7 @@ public class WeatherListener implements Listener {
 
     @EventHandler
     public void onWeatherChange(WeatherChangeEvent event) {
-        if (event.toWeatherState())
+        if (event.toWeatherState() && !event.getWorld().getName().equals("Survival"))
             event.setCancelled(true);
     }
 
