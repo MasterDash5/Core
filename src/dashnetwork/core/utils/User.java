@@ -18,13 +18,17 @@ public class User implements CommandSender {
 
     private static List<User> users = new ArrayList<>();
     private Player player;
+    private boolean hasMagicCarpet;
     private boolean inCommandSpy;
     private boolean spinning;
 
     private User(Player player) {
         this.player = player;
+        this.hasMagicCarpet = false;
         this.inCommandSpy = false;
         this.spinning = false;
+
+        users.add(this);
     }
 
     public static List<User> getUsers(boolean createNew) {
@@ -39,12 +43,15 @@ public class User implements CommandSender {
         for (User user : users)
             if (user.getPlayer().equals(player))
                 return user;
-
         return new User(player);
     }
 
     public Player getPlayer() {
         return player;
+    }
+
+    public boolean hasMagicCarpet() {
+        return hasMagicCarpet;
     }
 
     public boolean inCommandSpy() {
@@ -53,6 +60,10 @@ public class User implements CommandSender {
 
     public boolean isSpinning() {
         return spinning;
+    }
+
+    public void setMagicCarpet(boolean magicCarpet) {
+        this.hasMagicCarpet = magicCarpet;
     }
 
     public void setInCommandSpy(boolean inCommandSpy) {
