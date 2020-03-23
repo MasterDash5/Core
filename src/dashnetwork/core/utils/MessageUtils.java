@@ -27,10 +27,6 @@ public class MessageUtils {
     }
 
     public static void message(CommandSender sender, BaseComponent[] components) {
-        if (!consoleColors && sender.equals(Bukkit.getConsoleSender()))
-            for (int i = 0; i < components.length; i++)
-                components[i] = new TextComponent(ChatColor.stripColor(components[i].toLegacyText()));
-
         sender.sendMessage(components);
     }
 

@@ -18,13 +18,11 @@ public class User implements CommandSender {
 
     private static List<User> users = new ArrayList<>();
     private Player player;
-    private boolean hasMagicCarpet;
     private boolean inCommandSpy;
     private boolean spinning;
 
     private User(Player player) {
         this.player = player;
-        this.hasMagicCarpet = false;
         this.inCommandSpy = false;
         this.spinning = false;
 
@@ -35,7 +33,6 @@ public class User implements CommandSender {
         if (createNew)
             for (Player online : Bukkit.getOnlinePlayers())
                 getUser(online);
-
         return users;
     }
 
@@ -50,20 +47,12 @@ public class User implements CommandSender {
         return player;
     }
 
-    public boolean hasMagicCarpet() {
-        return hasMagicCarpet;
-    }
-
     public boolean inCommandSpy() {
         return inCommandSpy;
     }
 
     public boolean isSpinning() {
         return spinning;
-    }
-
-    public void setMagicCarpet(boolean magicCarpet) {
-        this.hasMagicCarpet = magicCarpet;
     }
 
     public void setInCommandSpy(boolean inCommandSpy) {

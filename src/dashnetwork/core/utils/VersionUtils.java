@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import protocolsupport.api.ProtocolSupportAPI;
+import protocolsupport.api.ProtocolType;
 import us.myles.ViaVersion.api.Via;
 import us.myles.ViaVersion.api.protocol.ProtocolVersion;
 
@@ -31,6 +32,28 @@ public class VersionUtils {
 
         if (hasViaVersion)
             return ProtocolVersion.getProtocol(Via.getAPI().getPlayerVersion(player)).getName(); // ViaVersion's api sucks
+
+        return getServerVersion();
+    }
+
+    public static String getOldest() {
+        if (hasProtocolSupport)
+            return "1.4.7";
+        return getServerVersion();
+    }
+
+    public static String getLatest() {
+        if (hasViaVersion) {
+            for (ProtocolVersion version : ProtocolVersion.getProtocols()) {
+                int highest = 0;
+                int id = version.getId();
+
+                if (ProtocolVersion.isRegistered(version.getId()) && id > highest)
+                    highest = id;
+
+                return ProtocolVersion.getProtocol(highest).getName();
+            }
+        }
 
         return getServerVersion();
     }
