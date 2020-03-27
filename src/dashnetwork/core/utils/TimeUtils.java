@@ -46,10 +46,8 @@ public class TimeUtils {
 
         temp = duration / ONE_SECOND;
 
-        if (duration > 0L) {
-            duration -= temp * ONE_SECOND;
-            builder.append(temp).append(duration > 0L ? "." + duration : "").append(" second").append(temp > 1L || duration > 0L ? "s" : "");
-        }
+        if (temp > 0L)
+            builder.append(temp).append(" second").append(temp > 1L ? "s" : "");
 
         return builder.toString();
 	}

@@ -4,34 +4,37 @@ import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.*;
 
-public class CommandVersionlist extends CoreCommand {
+public class CommandList extends CoreCommand {
 
-    public CommandVersionlist() {
-        super("versionlist", PermissionType.NONE);
+    public CommandList() {
+        super("list", PermissionType.NONE);
     }
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        Map<String, List<UUID>> versionlist = new HashMap<>();
+        Map<String, List<UUID>> onlinelist = new HashMap<>();
         MessageBuilder message = new MessageBuilder();
 
-        for (Player online : Bukkit.getOnlinePlayers()) {
-            if (!SenderUtils.canSee(sender, online))
-                continue;
+        for (World world : Bukkit.getWorlds()) {
+            for (Player online : world.getPlayers()) {
+                if (!SenderUtils.canSee(sender, online))
+                    continue;
 
-            String version = VersionUtils.getPlayerVersion(online);
-            List<UUID> players = versionlist.getOrDefault(version, new ArrayList<>());
+                String worldName = world.getName();
+                List<UUID> players = onlinelist.getOrDefault(worldName, new ArrayList<>());
 
-            players.add(online.getUniqueId());
-            versionlist.put(version, players);
+                players.add(online.getUniqueId());
+                onlinelist.put(worldName, players);
+            }
         }
 
-        for (Map.Entry<String, List<UUID>> entry : versionlist.entrySet()) {
+        for (Map.Entry<String, List<UUID>> entry : onlinelist.entrySet()) {
             List<String> displaynames = new ArrayList<>();
             List<String> names = new ArrayList<>();
 

@@ -1,15 +1,16 @@
 package dashnetwork.core.command.commands;
 
 import dashnetwork.core.command.CoreCommand;
-import dashnetwork.core.utils.ListUtils;
-import dashnetwork.core.utils.MessageUtils;
-import dashnetwork.core.utils.PermissionType;
+import dashnetwork.core.utils.*;
+import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CommandOplist extends CoreCommand {
 
@@ -19,12 +20,23 @@ public class CommandOplist extends CoreCommand {
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        List<String> names = new ArrayList<>();
+        Map<String, String> operators = new HashMap<>();
+        MessageBuilder message = new MessageBuilder();
 
         for (OfflinePlayer operator : Bukkit.getOperators())
-            names.add(operator.getName());
+            operators.put(operator.getName(), operator.isOnline() ? "&aOnline" : "&cOffline &7for &6" + TimeUtils.millisecondsToWords(operator.getLastSeen()));
 
-        MessageUtils.message(sender, "&6&l» &6Operators: &7" + ListUtils.fromList(names, false, false));
+        message.append("&6&l» &6Operators:");
+
+        for (Map.Entry<String, String> entry : operators.entrySet()) {
+            message.append(" ");
+            message.append(entry.getKey()).hoverEvent(HoverEvent.Action.SHOW_TEXT, entry.getValue());
+        }
+
+        if (operators.isEmpty())
+            message.append("&7 None");
+
+        MessageUtils.message(sender, message.build());
     }
 
     @Override

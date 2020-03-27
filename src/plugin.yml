@@ -30,7 +30,13 @@ commands:
   fakejoin:
   fakeleave:
   fakeop:
+  foxshot:
+    aliases: [foxcannon]
+  list:
+    aliases: [online, glist]
   mattsarmorstands:
+  nightvision:
+    aliases: [nv, see]
   oplist:
     aliases: [ops]
   ping:

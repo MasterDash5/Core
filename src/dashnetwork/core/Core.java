@@ -38,7 +38,10 @@ public class Core extends JavaPlugin {
         new CommandFakejoin();
         new CommandFakeleave();
         new CommandFakeop();
+        new CommandFoxshot();
+        new CommandList();
         new CommandMattsarmorstands();
+        new CommandNightvision();
         new CommandOplist();
         new CommandPing();
         new CommandSpin();

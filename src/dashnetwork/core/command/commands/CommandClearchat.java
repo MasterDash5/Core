@@ -18,14 +18,18 @@ public class CommandClearchat extends CoreCommand {
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
+        String lines = "";
+
         for (int i = 0; i < 100; i++)
-            MessageUtils.broadcast(false, null, PermissionType.NONE, " ");
+            lines += "\n";
 
-        MessageBuilder builder = new MessageBuilder();
-        builder.append("&6&l» &7Chat was cleared by ");
-        builder.append(SenderUtils.getDisplayName(sender)).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + sender.getName());
+        MessageUtils.broadcast(false, null, PermissionType.NONE, lines);
 
-        MessageUtils.broadcast(true, null, PermissionType.NONE, builder.build());
+        MessageBuilder message = new MessageBuilder();
+        message.append("&6&l» &7Chat was cleared by ");
+        message.append(SenderUtils.getDisplayName(sender)).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + sender.getName());
+
+        MessageUtils.broadcast(true, null, PermissionType.NONE, message.build());
     }
 
     @Override
