@@ -32,9 +32,18 @@ commands:
   fakeop:
   foxshot:
     aliases: [foxcannon]
+  google:
+  invisibility:
+    aliases: [invis]
+  killears:
   list:
     aliases: [online, glist]
+  login:
+    aliases: [register]
   mattsarmorstands:
+  modlist:
+    aliases: [modslist]
+  moonphase:
   nightvision:
     aliases: [nv, see]
   oplist:

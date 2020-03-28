@@ -18,11 +18,15 @@ public class User implements CommandSender {
 
     private static List<User> users = new ArrayList<>();
     private Player player;
+    private List<String> mods;
+    private String client;
     private boolean inCommandSpy;
     private boolean spinning;
 
     private User(Player player) {
         this.player = player;
+        this.mods = new ArrayList<>();
+        this.client = "Vanilla";
         this.inCommandSpy = false;
         this.spinning = false;
 
@@ -47,16 +51,28 @@ public class User implements CommandSender {
         return player;
     }
 
+    public List<String> getMods() {
+        return mods;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
+    }
+
     public boolean inCommandSpy() {
         return inCommandSpy;
     }
 
-    public boolean isSpinning() {
-        return spinning;
-    }
-
     public void setInCommandSpy(boolean inCommandSpy) {
         this.inCommandSpy = inCommandSpy;
+    }
+
+    public boolean isSpinning() {
+        return spinning;
     }
 
     public void setSpinning(boolean spinning) {

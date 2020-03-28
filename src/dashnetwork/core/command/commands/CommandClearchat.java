@@ -5,10 +5,12 @@ import dashnetwork.core.utils.MessageBuilder;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
 import dashnetwork.core.utils.SenderUtils;
+import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
+import java.util.UUID;
 
 public class CommandClearchat extends CoreCommand {
 
