@@ -24,6 +24,10 @@ public class MessageBuilder {
         return messageComponents.isEmpty();
     }
 
+    public int getSize() {
+        return messageComponents.size();
+    }
+
     public BaseComponent[] build() {
         List<BaseComponent> baseComponents = new ArrayList<>();
 

@@ -45,7 +45,7 @@ public class CommandList extends CoreCommand {
             }
 
             message.append("&6&l» &7[&6" + entry.getKey() + "&7] " + ListUtils.fromList(displaynames, false, true))
-                    .hoverEvent(HoverEvent.Action.SHOW_TEXT, ListUtils.fromList(names, false, true));
+                    .hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(names, false, true));
         }
 
         if (message.isEmpty())

@@ -7,6 +7,7 @@ import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.ListUtils;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
+import dashnetwork.core.utils.SenderUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -25,8 +26,12 @@ public class CommandCrash extends CoreCommand {
     public void onCommand(CommandSender sender, String label, String[] args) {
         Player target = null;
 
-        if (args.length > 0)
+        if (args.length > 0) {
             target = Bukkit.getPlayer(args[0]);
+
+            if (!SenderUtils.canSee(sender, target))
+                target = null;
+        }
 
         if (target == null)
             MessageUtils.usage(sender, label, "<player>");

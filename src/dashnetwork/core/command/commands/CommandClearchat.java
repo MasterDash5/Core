@@ -20,12 +20,8 @@ public class CommandClearchat extends CoreCommand {
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        String lines = "";
-
         for (int i = 0; i < 100; i++)
-            lines += "\n";
-
-        MessageUtils.broadcast(false, null, PermissionType.NONE, lines);
+            MessageUtils.broadcast(false, null, PermissionType.NONE, " ");
 
         MessageBuilder message = new MessageBuilder();
         message.append("&6&l» &7Chat was cleared by ");

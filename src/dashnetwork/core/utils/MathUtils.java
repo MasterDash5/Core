@@ -2,6 +2,34 @@ package dashnetwork.core.utils;
 
 public class MathUtils {
 
+    public static double getDistance(double double1, double double2) {
+        if (double1 > double2)
+            return double1 - double2;
+
+        return double2 - double1;
+    }
+
+    public static float getDistance(float float1, float float2) {
+        if (float1 > float2)
+            return float1 - float2;
+
+        return float2 - float1;
+    }
+
+    public static int getDistance(int int1, int int2) {
+        if (int1 > int2)
+            return int1 - int2;
+
+        return int2 - int1;
+    }
+
+    public static long getDistance(long long1, long long2) {
+        if (long1 > long2)
+            return long1 - long2;
+
+        return long2 - long1;
+    }
+
     public static int getLargestInt(int... numbers) {
         Integer largest = null;
 
@@ -10,18 +38,6 @@ public class MathUtils {
                 largest = number;
 
         return largest;
-    }
-
-    // I don't remember what this was for
-    public static String formatBytes(long bytes) {
-        String s = (bytes < 0L) ? "-" : "";
-        long b = (bytes == Long.MIN_VALUE) ? Long.MAX_VALUE : Math.abs(bytes);
-        return (b < 1000L) ? (bytes + " B") : ((b < 999950L) ?
-                String.format("%s%.1f kB", new Object[] { s, Double.valueOf(b / 1000.0D) }) : (((b /= 1000L) < 999950L) ?
-                String.format("%s%.1f MB", new Object[] { s, Double.valueOf(b / 1000.0D) }) : (((b /= 1000L) < 999950L) ?
-                String.format("%s%.1f GB", new Object[] { s, Double.valueOf(b / 1000.0D) }) : (((b /= 1000L) < 999950L) ?
-                String.format("%s%.1f TB", new Object[] { s, Double.valueOf(b / 1000.0D) }) : (((b /= 1000L) < 999950L) ?
-                String.format("%s%.1f PB", new Object[] { s, Double.valueOf(b / 1000.0D) }) : String.format("%s%.1f EB", new Object[] { s, Double.valueOf(b / 1000000.0D) }))))));
     }
 
 }

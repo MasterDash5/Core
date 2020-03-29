@@ -44,7 +44,7 @@ public class CommandClearlag extends CoreCommand {
                 if (entity.getCustomName() == null) {
                     String name = entity.getName();
 
-                    if (LazyUtils.anyEquals(type, EntityType.DROPPED_ITEM, EntityType.EXPERIENCE_ORB, EntityType.AREA_EFFECT_CLOUD, EntityType.BAT)) {
+                    if (LazyUtils.anyEquals(type, EntityType.DROPPED_ITEM, EntityType.EXPERIENCE_ORB, EntityType.BAT)) {
                         removedList.add(name);
                         entity.remove();
                         removed++;

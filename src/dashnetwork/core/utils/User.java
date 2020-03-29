@@ -20,6 +20,9 @@ public class User implements CommandSender {
     private Player player;
     private List<String> mods;
     private String client;
+    private boolean inOwnerChat;
+    private boolean inAdminChat;
+    private boolean inStaffChat;
     private boolean inCommandSpy;
     private boolean spinning;
 
@@ -27,6 +30,9 @@ public class User implements CommandSender {
         this.player = player;
         this.mods = new ArrayList<>();
         this.client = "Vanilla";
+        this.inOwnerChat = false;
+        this.inAdminChat = false;
+        this.inStaffChat = false;
         this.inCommandSpy = false;
         this.spinning = false;
 
@@ -61,6 +67,30 @@ public class User implements CommandSender {
 
     public void setClient(String client) {
         this.client = client;
+    }
+
+    public boolean inOwnerChat() {
+        return inOwnerChat;
+    }
+
+    public void setInOwnerChat(boolean inOwnerChat) {
+        this.inOwnerChat = inOwnerChat;
+    }
+
+    public boolean inAdminChat() {
+        return inAdminChat;
+    }
+
+    public void setInAdminChat(boolean inAdminChat) {
+        this.inAdminChat = inAdminChat;
+    }
+
+    public boolean inStaffChat() {
+        return inStaffChat;
+    }
+
+    public void setInStaffChat(boolean inStaffChat) {
+        this.inStaffChat = inStaffChat;
     }
 
     public boolean inCommandSpy() {

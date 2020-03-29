@@ -23,18 +23,29 @@ public class CommandOplist extends CoreCommand {
         Map<String, String> operators = new HashMap<>();
         MessageBuilder message = new MessageBuilder();
 
-        for (OfflinePlayer operator : Bukkit.getOperators())
-            operators.put(operator.getName(), operator.isOnline() ? "&aOnline" : "&cOffline &7for &6" + TimeUtils.millisecondsToWords(operator.getLastSeen()));
+        for (OfflinePlayer operator : Bukkit.getOperators()) {
+            String status = "&cOffline";
+            long seen = operator.getLastSeen();
 
-        message.append("&6&l» &6Operators:");
+            if (operator.isOnline())
+                status = "&aOnline";
+            else if (seen > 0)
+                status = "&cOffline &7for &6" + TimeUtils.millisecondsToWords(seen);
+
+            operators.put(operator.getName(), status);
+        }
+
+        message.append("&6&l» &7Operators: ");
 
         for (Map.Entry<String, String> entry : operators.entrySet()) {
-            message.append(" ");
-            message.append(entry.getKey()).hoverEvent(HoverEvent.Action.SHOW_TEXT, entry.getValue());
+            if (message.getSize() > 1)
+                message.append("&6, ");
+
+            message.append("&6" + entry.getKey()).hoverEvent(HoverEvent.Action.SHOW_TEXT, entry.getValue());
         }
 
         if (operators.isEmpty())
-            message.append("&7 None");
+            message.append("&7None");
 
         MessageUtils.message(sender, message.build());
     }

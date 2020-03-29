@@ -1,13 +1,13 @@
 package dashnetwork.core.command.commands;
 
 import dashnetwork.core.command.CoreCommand;
-import dashnetwork.core.utils.GrammarUtils;
-import dashnetwork.core.utils.MessageUtils;
-import dashnetwork.core.utils.PermissionType;
+import dashnetwork.core.utils.*;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CommandMoonphase extends CoreCommand {
@@ -28,7 +28,14 @@ public class CommandMoonphase extends CoreCommand {
                     MessageUtils.message(sender, "&6&l» &7Invalid moon phase");
                 else {
                     World world = player.getWorld();
-                    world.setFullTime(formatTime(world.getFullTime()) + phase.timeToAdd);
+                    long time = world.getFullTime();
+
+                    while (time - 24000 > 0)
+                        time -= 24000;
+
+                    time += phase.timeToAdd;
+
+                    world.setFullTime(time);
 
                     MessageUtils.message(player, "&6&l» &7Moon phase set to &6" + GrammarUtils.capitalization(phase.name().replace("_", " ")));
                 }
@@ -40,14 +47,15 @@ public class CommandMoonphase extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
+        if (args.length == 1) {
+            List<String> phases = new ArrayList<>();
+
+            for (Phase phase : Phase.values())
+                phases.addAll(Arrays.asList(phase.references));
+
+            return phases;
+        }
         return null;
-    }
-
-    private long formatTime(long time) {
-        while (time - 24000 > 0)
-            time -= 24000;
-
-        return time;
     }
 
     private enum Phase {
