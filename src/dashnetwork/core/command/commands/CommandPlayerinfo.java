@@ -24,7 +24,7 @@ public class CommandPlayerinfo extends CoreCommand {
         if (args.length > 0)
             target = Bukkit.getPlayer(args[0]);
 
-        if (target == null)
+        if (target == null || !SenderUtils.canSee(sender, target))
             MessageUtils.usage(sender, label, "<player>");
         else {
             User user = User.getUser(target);

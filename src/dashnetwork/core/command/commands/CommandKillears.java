@@ -4,6 +4,7 @@ import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.ListUtils;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
+import dashnetwork.core.utils.SenderUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -24,7 +25,7 @@ public class CommandKillears extends CoreCommand {
         if (args.length > 0)
             target = Bukkit.getPlayer(args[0]);
 
-        if (target == null)
+        if (target == null || !SenderUtils.canSee(sender, target))
             MessageUtils.usage(sender, label, "<player>");
         else {
             MessageUtils.message(target, "&c&lRIP YOUR EARS");

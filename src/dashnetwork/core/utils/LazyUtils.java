@@ -18,6 +18,20 @@ public class LazyUtils {
         return false;
     }
 
+    public static boolean anyStartsWith(String string, String... starts) {
+        for (String startsObject : starts)
+            if (string.startsWith(startsObject))
+                return true;
+        return false;
+    }
+
+    public static boolean anyEndsWith(String string, String... ends) {
+        for (String endsObject : ends)
+            if (string.endsWith(endsObject))
+                return true;
+        return false;
+    }
+
     public static boolean anyContains(String string, String... contains) {
         for (String containsObject : contains)
             if (string.contains(containsObject))

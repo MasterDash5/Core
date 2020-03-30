@@ -26,15 +26,19 @@ public class CommandStaffchat extends CoreCommand {
             else if (sender instanceof Player)
                 target = (Player) sender;
 
-            User user = User.getUser(target);
-            boolean inStaffChat = !user.inStaffChat();
+            if (target == null || !SenderUtils.canSee(sender, target))
+                MessageUtils.usage(sender, label, "<player>");
+            else {
+                User user = User.getUser(target);
+                boolean inStaffChat = !user.inStaffChat();
 
-            user.setInStaffChat(inStaffChat);
+                user.setInStaffChat(inStaffChat);
 
-            if (inStaffChat)
-                MessageUtils.message(target, "&6&l» &7You are now in StaffChat");
-            else
-                MessageUtils.message(target, "&6&l» &7You are no longer in StaffChat");
+                if (inStaffChat)
+                    MessageUtils.message(target, "&6&l» &7You are now in StaffChat");
+                else
+                    MessageUtils.message(target, "&6&l» &7You are no longer in StaffChat");
+            }
         } else {
             if (hasArgs)
                 MessageUtils.broadcast(true, null, PermissionType.STAFF, "&9&lStaff &6Console &6&l> &6" + StringUtils.unsplit(args, " "));

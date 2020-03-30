@@ -9,10 +9,10 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class CommandCommandspy extends CoreCommand {
+public class CommandPingspy extends CoreCommand {
 
-    public CommandCommandspy() {
-        super("commandspy", PermissionType.STAFF);
+    public CommandPingspy() {
+        super("pingspy", PermissionType.ADMIN);
     }
 
     @Override
@@ -24,32 +24,32 @@ public class CommandCommandspy extends CoreCommand {
         else if (sender instanceof Player)
             target = (Player) sender;
 
-        if (target == null || !SenderUtils.canSee(sender, target)) {
+        if (target == null || !SenderUtils.canSee(sender, target))
             MessageUtils.usage(sender, label, "<player>");
-        } else {
+        else {
             User user = User.getUser(target);
-            boolean inCommandSpy = !user.inCommandSpy();
+            boolean inPingSpy = !user.inPingSpy();
 
-            user.setInCommandSpy(inCommandSpy);
+            user.setInPingSpy(inPingSpy);
 
-            if (inCommandSpy) {
-                MessageUtils.message(target, "&6&l» &7You are now in CommandSpy");
+            if (inPingSpy) {
+                MessageUtils.message(target, "&6&l» &7You are now in PingSpy");
 
                 if (!sender.equals(target)) {
                     MessageBuilder message = new MessageBuilder();
                     message.append("&6&l» ");
                     message.append("&6" + target.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + target.getName());
-                    message.append("&7 is now in CommandSpy");
+                    message.append("&7 is now in PingSpy");
                     MessageUtils.message(sender, message.build());
                 }
             } else {
-                MessageUtils.message(target, "&6&l» &7You are no longer in CommandSpy");
+                MessageUtils.message(target, "&6&l» &7You are no longer in PingSpy");
 
                 if (!sender.equals(target)) {
                     MessageBuilder message = new MessageBuilder();
                     message.append("&6&l» ");
                     message.append("&6" + target.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + target.getName());
-                    message.append("&7 is now in CommandSpy");
+                    message.append("&7 is no longer in PingSpy");
                     MessageUtils.message(sender, message.build());
                 }
             }

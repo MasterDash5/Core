@@ -25,7 +25,7 @@ public class CommandClearchat extends CoreCommand {
 
         MessageBuilder message = new MessageBuilder();
         message.append("&6&l» &7Chat was cleared by ");
-        message.append(SenderUtils.getDisplayName(sender)).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + sender.getName());
+        message.append("&6" + SenderUtils.getDisplayName(sender)).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + sender.getName());
 
         MessageUtils.broadcast(true, null, PermissionType.NONE, message.build());
     }

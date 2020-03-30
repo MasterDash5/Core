@@ -26,18 +26,22 @@ public class CommandOwnerchat extends CoreCommand {
             else if (sender instanceof Player)
                 target = (Player) sender;
 
-            User user = User.getUser(target);
-            boolean inOwnerChat = !user.inOwnerChat();
+            if (target == null || !SenderUtils.canSee(sender, target))
+                MessageUtils.usage(sender, label, "<player>");
+            else {
+                User user = User.getUser(target);
+                boolean inOwnerChat = !user.inOwnerChat();
 
-            user.setInOwnerChat(inOwnerChat);
+                user.setInOwnerChat(inOwnerChat);
 
-            if (inOwnerChat)
-                MessageUtils.message(target, "&6&l» &7You are now in OwnerChat");
-            else
-                MessageUtils.message(target, "&6&l» &7You are no longer in OwnerChat");
+                if (inOwnerChat)
+                    MessageUtils.message(target, "&6&l» &7You are now in OwnerChat");
+                else
+                    MessageUtils.message(target, "&6&l» &7You are no longer in OwnerChat");
+            }
         } else {
             if (hasArgs)
-                MessageUtils.broadcast(true, null, PermissionType.ADMIN, "&9&lOwner &6Console &6&l> &6" + StringUtils.unsplit(args, " "));
+                MessageUtils.broadcast(true, null, PermissionType.ADMIN, "&9&lOwner &6Console &6&l> &c" + StringUtils.unsplit(args, " "));
             else
                 MessageUtils.usage(sender, label, "<message>");
         }

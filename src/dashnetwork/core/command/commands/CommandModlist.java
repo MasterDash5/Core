@@ -23,7 +23,7 @@ public class CommandModlist extends CoreCommand {
         if (args.length > 0)
             target = Bukkit.getPlayer(args[0]);
 
-        if (target == null) {
+        if (target == null || !SenderUtils.canSee(sender, target)) {
             Map<String, List<UUID>> modlist = new HashMap<>();
             MessageBuilder message = new MessageBuilder();
 

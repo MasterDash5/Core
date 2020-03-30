@@ -1,4 +1,4 @@
-package dashnetwork.core.tasks;
+package dashnetwork.core.global.tasks;
 
 import dashnetwork.core.utils.User;
 import org.bukkit.Location;

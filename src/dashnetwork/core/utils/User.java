@@ -24,6 +24,10 @@ public class User implements CommandSender {
     private boolean inAdminChat;
     private boolean inStaffChat;
     private boolean inCommandSpy;
+    private boolean inSignSpy;
+    private boolean inBookSpy;
+    private boolean inAltSpy;
+    private boolean inPingSpy;
     private boolean spinning;
 
     private User(Player player) {
@@ -34,6 +38,10 @@ public class User implements CommandSender {
         this.inAdminChat = false;
         this.inStaffChat = false;
         this.inCommandSpy = false;
+        this.inSignSpy = false;
+        this.inBookSpy = false;
+        this.inAltSpy = false;
+        this.inPingSpy = false;
         this.spinning = false;
 
         users.add(this);
@@ -51,6 +59,10 @@ public class User implements CommandSender {
             if (user.getPlayer().equals(player))
                 return user;
         return new User(player);
+    }
+
+    public void remove() {
+        users.remove(this);
     }
 
     public Player getPlayer() {
@@ -99,6 +111,38 @@ public class User implements CommandSender {
 
     public void setInCommandSpy(boolean inCommandSpy) {
         this.inCommandSpy = inCommandSpy;
+    }
+
+    public boolean inSignSpy() {
+        return this.inSignSpy;
+    }
+
+    public void setInSignSpy(boolean inSignSpy) {
+        this.inSignSpy = inSignSpy;
+    }
+
+    public boolean inBookSpy() {
+        return inBookSpy;
+    }
+
+    public void setInBookSpy(boolean inBookSpy) {
+        this.inBookSpy = inBookSpy;
+    }
+
+    public boolean inAltSpy() {
+        return inAltSpy;
+    }
+
+    public void setInAltSpy(boolean inAltSpy) {
+        this.inAltSpy = inAltSpy;
+    }
+
+    public boolean inPingSpy() {
+        return inPingSpy;
+    }
+
+    public void setInPingSpy(boolean inPingSpy) {
+        this.inPingSpy = inPingSpy;
     }
 
     public boolean isSpinning() {

@@ -5,7 +5,8 @@ import dashnetwork.core.creative.Creative;
 import dashnetwork.core.global.Global;
 import dashnetwork.core.skyblock.Skyblock;
 import dashnetwork.core.survival.Survival;
-import dashnetwork.core.tasks.SpinTask;
+import dashnetwork.core.global.tasks.SpinTask;
+import dashnetwork.core.utils.DataUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Core extends JavaPlugin {
@@ -20,14 +21,19 @@ public class Core extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        DataUtils.startup();
+
         // Register per world
-        new Creative();
         new Global();
+
+        new Creative();
         new Skyblock();
         new Survival();
 
         // Register commands
+        new CommandAdminchat();
         new CommandAnvil();
+        new CommandBookspy();
         new CommandCenter();
         new CommandClearchat();
         new CommandClearlag();
@@ -49,13 +55,22 @@ public class Core extends JavaPlugin {
         new CommandMoonphase();
         new CommandNightvision();
         new CommandOplist();
+        new CommandOwnerchat();
         new CommandPing();
+        new CommandPlayerinfo();
+        new CommandRespawn();
+        new CommandSignspy();
         new CommandSpin();
+        new CommandStaffchat();
         new CommandTest();
         new CommandVersionlist();
+    }
 
-        // Register tasks
-        new SpinTask().runTaskTimer(this, 0, 1);
+    @Override
+    public void onDisable() {
+        DataUtils.save();
+
+        instance = null;
     }
 
 }

@@ -15,7 +15,7 @@ public abstract class CoreCommand implements CommandExecutor, TabCompleter {
     private PermissionType permission;
 
     public CoreCommand(String label, PermissionType permission) {
-        PluginCommand command = plugin.getServer().getPluginCommand(label);
+        PluginCommand command = plugin.getCommand(label);
         command.setExecutor(this);
         command.setTabCompleter(this);
 

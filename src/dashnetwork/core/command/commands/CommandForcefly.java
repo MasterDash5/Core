@@ -4,38 +4,37 @@ import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.List;
 
-public class CommandRespawn extends CoreCommand {
+public class CommandForcefly extends CoreCommand {
 
-    public CommandRespawn() {
-        super("respawn", PermissionType.ADMIN);
+    public CommandForcefly() {
+        super("forcefly", PermissionType.ADMIN);
     }
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
         Player target = null;
 
-        if (args.length > 2)
+        if (args.length > 0)
             target = Bukkit.getPlayer(args[0]);
 
         if (target == null || !SenderUtils.canSee(sender, target))
             MessageUtils.usage(sender, label, "<player>");
         else {
-            target.spigot().respawn();
+            target.setAllowFlight(true);
+            target.setFlying(true);
 
-            MessageUtils.message(sender, "&6&l» &7You have been forced to respawn");
+            MessageUtils.message(target, "&6&l» &7You have been forced to fly");
 
             if (!sender.equals(target)) {
                 MessageBuilder message = new MessageBuilder();
-                message.append("&6&l» &7Forced ");
+                message.append("&6&l» ");
                 message.append("&6" + target.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + target.getName());
-                message.append("&7 to respawn");
+                message.append("&7 has been forced to fly");
                 MessageUtils.message(sender, message.build());
             }
         }

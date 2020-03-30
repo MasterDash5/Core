@@ -2,43 +2,45 @@ package dashnetwork.core.command.commands;
 
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
-import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class CommandFakeop extends CoreCommand {
+public class CommandSignspy extends CoreCommand {
 
-    public CommandFakeop() {
-        super("fakeop", PermissionType.ADMIN);
+    public CommandSignspy() {
+        super("signspy", PermissionType.STAFF);
     }
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
         Player target = null;
 
-        if (args.length > 0)
+        if (args.length > 0 && SenderUtils.isAdmin(sender))
             target = Bukkit.getPlayer(args[0]);
+        else if (sender instanceof Player)
+            target = (Player) sender;
 
         if (target == null || !SenderUtils.canSee(sender, target))
             MessageUtils.usage(sender, label, "<player>");
         else {
-            String name = target.getName();
+            User user = User.getUser(target);
+            boolean inSignSpy = !user.inSignSpy();
 
-            MessageBuilder builder = new MessageBuilder();
-            builder.append("&6&l» &7Fake opped ");
-            builder.append(target.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + name);
+            user.setInSignSpy(inSignSpy);
 
-            MessageUtils.message(sender, builder.build());
-            MessageUtils.message(target, "&7&o[" + sender.getName() + ": Opped " + name + "]");
+            if (inSignSpy)
+                MessageUtils.message(target, "&6&l» &7You are now in SignSpy");
+            else
+                MessageUtils.message(target, "&6&l» &7You are no longer in SignSpy");
         }
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1)
+        if (args.length == 1 && SenderUtils.isAdmin(sender))
             return ListUtils.getOnlinePlayers(sender);
         return null;
     }

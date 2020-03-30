@@ -26,7 +26,7 @@ public class CommandSpin extends CoreCommand {
         else if (sender instanceof Player)
             target = (Player) sender;
 
-        if (target == null)
+        if (target == null || !SenderUtils.canSee(sender, target))
             MessageUtils.usage(sender, label, "<player>");
         else {
             User user = User.getUser(target);
@@ -35,26 +35,18 @@ public class CommandSpin extends CoreCommand {
             user.setSpinning(spinning);
 
             if (spinning) {
-                MessageBuilder builder = new MessageBuilder();
-                builder.append("&6&l» &7Spin me right round baby right round").clickEvent(ClickEvent.Action.OPEN_URL, "https://youtu.be/fpmTe3TDdVU");
+                MessageBuilder message = new MessageBuilder();
+                message.append("&6&l» &7Spin me right round baby right round").clickEvent(ClickEvent.Action.OPEN_URL, "https://youtu.be/fpmTe3TDdVU");
 
-                MessageUtils.message(target, builder.build());
+                MessageUtils.message(target, message.build());
             }
         }
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1) {
-            List<String> players = new ArrayList<>();
-
-            for (Player online : Bukkit.getOnlinePlayers())
-                if (SenderUtils.canSee(sender, online))
-                    players.add(online.getName());
-
-            return players;
-        }
-
+        if (args.length == 1)
+            return ListUtils.getOnlinePlayers(sender);
         return null;
     }
 

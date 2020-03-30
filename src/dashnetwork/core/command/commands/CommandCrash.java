@@ -26,14 +26,10 @@ public class CommandCrash extends CoreCommand {
     public void onCommand(CommandSender sender, String label, String[] args) {
         Player target = null;
 
-        if (args.length > 0) {
+        if (args.length > 0)
             target = Bukkit.getPlayer(args[0]);
 
-            if (!SenderUtils.canSee(sender, target))
-                target = null;
-        }
-
-        if (target == null)
+        if (target == null || !SenderUtils.canSee(sender, target))
             MessageUtils.usage(sender, label, "<player>");
         else {
             PacketContainer packet = new PacketContainer(PacketType.Play.Server.EXPLOSION);

@@ -12,6 +12,8 @@ import org.bukkit.entity.EntityType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class CommandClearlag extends CoreCommand {
 
@@ -76,15 +78,8 @@ public class CommandClearlag extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (SenderUtils.isAdmin(sender) && args.length > 0) {
-            List<String> worlds = new ArrayList<>();
-
-            for (World world : Bukkit.getWorlds())
-                worlds.add(world.getName());
-
-            return worlds;
-        }
-
+        if (args.length > 0)
+            return Bukkit.getWorlds().stream().map(world -> world.getName()).collect(Collectors.toList());
         return null;
     }
 
