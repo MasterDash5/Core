@@ -25,7 +25,6 @@ public class CommandClearlag extends CoreCommand {
     public void onCommand(CommandSender sender, String label, String[] args) {
         List<World> worlds = new ArrayList<>();
         List<String> removedList = new ArrayList<>();
-        int removed = 0;
 
         if (args.length > 0) {
             for (String arg : args) {
@@ -49,19 +48,16 @@ public class CommandClearlag extends CoreCommand {
                     if (LazyUtils.anyEquals(type, EntityType.DROPPED_ITEM, EntityType.EXPERIENCE_ORB, EntityType.BAT)) {
                         removedList.add(name);
                         entity.remove();
-                        removed++;
                     }
 
                     if (LazyUtils.anyEquals(type, EntityType.ARROW, EntityType.SPECTRAL_ARROW) && entity.isOnGround()) {
                         removedList.add(name);
                         entity.remove();
-                        removed++;
                     }
 
                     if (entity.fromMobSpawner()) {
                         removedList.add(name);
                         entity.remove();
-                        removed++;
                     }
                 }
             }
@@ -71,7 +67,7 @@ public class CommandClearlag extends CoreCommand {
         message.append("&6&l» ");
         message.append(SenderUtils.getDisplayName(sender)).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + sender.getName());
         message.append("&7 cleared ");
-        message.append("&6" + removed + " entities").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(removedList, false, true));
+        message.append("&6" + removedList.size() + " entities").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(removedList, false, true));
 
         MessageUtils.broadcast(true, worlds, PermissionType.NONE, message.build());
     }

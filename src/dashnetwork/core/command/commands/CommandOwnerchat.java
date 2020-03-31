@@ -2,6 +2,7 @@ package dashnetwork.core.command.commands;
 
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
+import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -34,10 +35,27 @@ public class CommandOwnerchat extends CoreCommand {
 
                 user.setInOwnerChat(inOwnerChat);
 
-                if (inOwnerChat)
+                if (inOwnerChat) {
                     MessageUtils.message(target, "&6&l» &7You are now in OwnerChat");
-                else
+
+                    if (!sender.equals(target)) {
+                        MessageBuilder message = new MessageBuilder();
+                        message.append("&6&l» ");
+                        message.append("&6" + target.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + target.getName());
+                        message.append("&7 is now in OwnerChat");
+                        MessageUtils.message(sender, message.build());
+                    }
+                } else {
                     MessageUtils.message(target, "&6&l» &7You are no longer in OwnerChat");
+
+                    if (!sender.equals(target)) {
+                        MessageBuilder message = new MessageBuilder();
+                        message.append("&6&l» ");
+                        message.append("&6" + target.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + target.getName());
+                        message.append("&7 is no longer in OwnerChat");
+                        MessageUtils.message(sender, message.build());
+                    }
+                }
             }
         } else {
             if (hasArgs)

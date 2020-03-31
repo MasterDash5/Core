@@ -17,7 +17,7 @@ public class CommandThefurpysong extends CoreCommand {
     public void onCommand(CommandSender sender, String label, String[] args) {
         MessageUtils.message(sender, "&7The Furpy Song: by Skullrama's Crazy Friend");
         MessageUtils.message(sender, " ");
-        MessageUtils.message(sender, "&6(Theme from Icuroshitsuji closing season 1)");
+        MessageUtils.message(sender, "&6(Theme from Ikuroshitsuji closing season 1)");
         MessageUtils.message(sender, " ");
         MessageUtils.message(sender, "&6One day at my lunch, Skull told me 'bout a bunch.");
         MessageUtils.message(sender, "&6Then days after that, my life changed forever.");

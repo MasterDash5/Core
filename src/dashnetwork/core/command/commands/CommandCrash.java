@@ -44,8 +44,9 @@ public class CommandCrash extends CoreCommand {
 
             try {
                 ProtocolLibrary.getProtocolManager().sendServerPacket(target, packet);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (Exception exception) {
+                MessageUtils.error(sender, exception);
+                exception.printStackTrace();
             }
 
             final Player player = target;

@@ -5,7 +5,6 @@ import dashnetwork.core.creative.Creative;
 import dashnetwork.core.global.Global;
 import dashnetwork.core.skyblock.Skyblock;
 import dashnetwork.core.survival.Survival;
-import dashnetwork.core.global.tasks.SpinTask;
 import dashnetwork.core.utils.DataUtils;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -44,7 +43,10 @@ public class Core extends JavaPlugin {
         new CommandFakejoin();
         new CommandFakeleave();
         new CommandFakeop();
+        new CommandForcefly();
         new CommandFoxshot();
+        new CommandFuckoff();
+        new CommandGamestate();
         new CommandGoogle();
         new CommandInvisibility();
         new CommandKillears();
@@ -57,12 +59,16 @@ public class Core extends JavaPlugin {
         new CommandOplist();
         new CommandOwnerchat();
         new CommandPing();
+        new CommandPingspy();
         new CommandPlayerinfo();
         new CommandRespawn();
+        new CommandServer();
         new CommandSignspy();
+        new CommandSpawn();
         new CommandSpin();
         new CommandStaffchat();
         new CommandTest();
+        new CommandThefurpysong();
         new CommandVersionlist();
     }
 

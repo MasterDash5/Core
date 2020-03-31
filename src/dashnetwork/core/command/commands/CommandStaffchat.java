@@ -2,6 +2,7 @@ package dashnetwork.core.command.commands;
 
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
+import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -34,10 +35,27 @@ public class CommandStaffchat extends CoreCommand {
 
                 user.setInStaffChat(inStaffChat);
 
-                if (inStaffChat)
+                if (inStaffChat) {
                     MessageUtils.message(target, "&6&l» &7You are now in StaffChat");
-                else
+
+                    if (!sender.equals(target)) {
+                        MessageBuilder message = new MessageBuilder();
+                        message.append("&6&l» ");
+                        message.append("&6" + target.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + target.getName());
+                        message.append("&7 is now in StaffChat");
+                        MessageUtils.message(sender, message.build());
+                    }
+                } else {
                     MessageUtils.message(target, "&6&l» &7You are no longer in StaffChat");
+
+                    if (!sender.equals(target)) {
+                        MessageBuilder message = new MessageBuilder();
+                        message.append("&6&l» ");
+                        message.append("&6" + target.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + target.getName());
+                        message.append("&7 is no longer in StaffChat");
+                        MessageUtils.message(sender, message.build());
+                    }
+                }
             }
         } else {
             if (hasArgs)

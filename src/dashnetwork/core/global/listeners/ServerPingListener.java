@@ -29,7 +29,7 @@ public class ServerPingListener implements Listener {
 
         if (recentPings.contains(address)) {
             new Thread(() -> {
-                Map<String, List<String>> addresses = DataUtils.offlineList;
+                Map<String, List<String>> addresses = DataUtils.getOfflineList();
 
                 if (addresses.containsKey(address)) {
                     List<String> names = addresses.get(address);

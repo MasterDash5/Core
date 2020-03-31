@@ -34,9 +34,12 @@ commands:
   fakejoin:
   fakeleave:
   fakeop:
+  forcefly:
   foxshot:
     aliases: [foxcannon]
   fuckoff:
+  gamestate:
+    aliases: [state]
   google:
   invisibility:
     aliases: [invis]
