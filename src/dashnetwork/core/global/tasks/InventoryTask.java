@@ -76,10 +76,9 @@ public class InventoryTask extends BukkitRunnable {
 
                         if (meta.hasDisplayName()) {
                             String display = meta.getDisplayName();
-                            String stripped = ChatColor.stripColor(display);
 
-                            if (display.length() > 35 || !display.equals(ChatColor.ITALIC + stripped))
-                                meta.setDisplayName(item.getI18NDisplayName());
+                            if (display.length() > 35 || !display.equals(ChatColor.ITALIC + ChatColor.stripColor(display)))
+                                meta.setDisplayName(null);
                         }
 
                         if (meta.hasLore())

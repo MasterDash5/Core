@@ -13,8 +13,10 @@ public class Global {
 
     public Global() {
         PluginManager manager = Bukkit.getPluginManager();
+        manager.registerEvents(new BlockListener(), plugin);
         manager.registerEvents(new ChatListener(), plugin);
         manager.registerEvents(new CommandListener(), plugin);
+        manager.registerEvents(new InteractListener(), plugin);
         manager.registerEvents(new PortalListener(), plugin);
         manager.registerEvents(new ServerPingListener(), plugin);
         manager.registerEvents(new SignChangeListener(), plugin);
