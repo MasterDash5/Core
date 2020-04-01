@@ -71,7 +71,21 @@ public class DataUtils {
     }
 
     public static void save() {
+        for (Map.Entry<String, List<String>> entry : offlineList.entrySet()) {
+            String address = entry.getKey();
+            List<String> uuids = entry.getValue();
 
+            dataConfig.set("addresses." + address, uuids);
+        }
+
+        dataConfig.set("ownerchat", ownerchatList);
+        dataConfig.set("adminchat", adminchatList);
+        dataConfig.set("staffchat", staffchatList);
+        dataConfig.set("commandspy", commandspyList);
+        dataConfig.set("signspy", signspyList);
+        dataConfig.set("bookspy", bookspyList);
+        dataConfig.set("altspy", altspyList);
+        dataConfig.set("pingspy", pingspyList);
 
         try {
             dataConfig.save(dataFile);

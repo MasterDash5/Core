@@ -2,7 +2,7 @@ name: DashNetworkCore
 version: 6.0.0
 author: MasterDash5
 description: "DashNetwork main plugin."
-softdepend: [ProtocolLib, ProtocolSupport, ViaVersion]
+softdepend: [ProtocolLib, ProtocolSupport, ViaVersion, DiscordSRV]
 main: dashnetwork.core.Core
 api-version: 1.15
 

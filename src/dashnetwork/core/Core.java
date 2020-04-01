@@ -2,15 +2,18 @@ package dashnetwork.core;
 
 import dashnetwork.core.command.commands.*;
 import dashnetwork.core.creative.Creative;
+import dashnetwork.core.discord.listeners.DiscordMessageListener;
 import dashnetwork.core.global.Global;
 import dashnetwork.core.skyblock.Skyblock;
 import dashnetwork.core.survival.Survival;
 import dashnetwork.core.utils.DataUtils;
+import github.scarsz.discordsrv.DiscordSRV;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Core extends JavaPlugin {
 
     private static Core instance;
+    private static DiscordMessageListener discordMessageListener;
 
     public static Core getInstance() {
         return instance;
@@ -70,11 +73,21 @@ public class Core extends JavaPlugin {
         new CommandTest();
         new CommandThefurpysong();
         new CommandVersionlist();
+
+        if (getServer().getPluginManager().isPluginEnabled("DiscordSRV")) {
+            discordMessageListener = new DiscordMessageListener();
+            DiscordSRV.api.subscribe(discordMessageListener);
+        }
     }
 
     @Override
     public void onDisable() {
         DataUtils.save();
+
+        if (getServer().getPluginManager().isPluginEnabled("DiscordSRV")) {
+            DiscordSRV.api.unsubscribe(discordMessageListener);
+            discordMessageListener = null;
+        }
 
         instance = null;
     }
