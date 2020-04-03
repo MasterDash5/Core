@@ -1,12 +1,16 @@
-package dashnetwork.core.global.tasks;
+package dashnetwork.core.task.tasks;
 
+import dashnetwork.core.task.Task;
 import dashnetwork.core.utils.User;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
-public class SpinTask extends BukkitRunnable {
+public class SpinTask extends Task {
+
+    public SpinTask() {
+        super(Type.REPEAT, 0, 1, false);
+    }
 
     @Override
     public void run() {

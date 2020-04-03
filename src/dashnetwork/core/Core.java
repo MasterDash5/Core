@@ -6,6 +6,9 @@ import dashnetwork.core.discord.listeners.DiscordMessageListener;
 import dashnetwork.core.global.Global;
 import dashnetwork.core.skyblock.Skyblock;
 import dashnetwork.core.survival.Survival;
+import dashnetwork.core.task.Task;
+import dashnetwork.core.task.tasks.InventoryTask;
+import dashnetwork.core.task.tasks.SpinTask;
 import dashnetwork.core.utils.DataUtils;
 import github.scarsz.discordsrv.DiscordSRV;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -74,6 +77,10 @@ public class Core extends JavaPlugin {
         new CommandThefurpysong();
         new CommandVersionlist();
 
+        // Register tasks
+        new InventoryTask();
+        new SpinTask();
+
         if (getServer().getPluginManager().isPluginEnabled("DiscordSRV")) {
             discordMessageListener = new DiscordMessageListener();
             DiscordSRV.api.subscribe(discordMessageListener);
@@ -88,6 +95,9 @@ public class Core extends JavaPlugin {
             DiscordSRV.api.unsubscribe(discordMessageListener);
             discordMessageListener = null;
         }
+
+        for (Task task : Task.getTasks())
+            task.cancel();
 
         instance = null;
     }

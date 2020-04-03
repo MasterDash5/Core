@@ -1,29 +1,30 @@
-package dashnetwork.core.global.tasks;
+package dashnetwork.core.task.tasks;
 
+import dashnetwork.core.task.Task;
 import dashnetwork.core.utils.ArrayUtils;
-import dashnetwork.core.utils.LazyUtils;
 import dashnetwork.core.utils.User;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class InventoryTask extends BukkitRunnable {
+public class InventoryTask extends Task {
 
     private Material[] blacklist = { Material.COMMAND_BLOCK, Material.CHAIN_COMMAND_BLOCK, Material.REPEATING_COMMAND_BLOCK, Material.COMMAND_BLOCK_MINECART, Material.STRUCTURE_BLOCK, Material.STRUCTURE_VOID, Material.JIGSAW, Material.BARRIER, Material.DEBUG_STICK };
+
+    public InventoryTask() {
+        super(Type.REPEAT, 0, 1, false);
+    }
 
     @Override
     public void run() {
