@@ -43,7 +43,7 @@ public class CommandStaffchat extends CoreCommand {
                     User user = User.getUser(target);
                     boolean inStaffChat = !user.inStaffChat();
 
-                    user.setInAdminChat(inStaffChat);
+                    user.setInStaffChat(inStaffChat);
 
                     if (inStaffChat)
                         MessageUtils.message(target, "&6&l» &7You are now in StaffChat");

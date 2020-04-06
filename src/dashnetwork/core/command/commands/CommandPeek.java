@@ -52,4 +52,5 @@ public class CommandPeek extends CoreCommand {
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
         return null;
     }
+
 }

@@ -21,13 +21,15 @@ public class CommandSpin extends CoreCommand {
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
         List<Player> targets = new ArrayList<>();
+        Player player = sender instanceof Player ? (Player) sender : null;
 
         if (args.length > 0) {
             List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
 
             if (selector != null)
                 targets.addAll(selector);
-        }
+        } else if (player != null)
+            targets.add(player);
 
         for (Player target : targets)
             if (!SenderUtils.canSee(sender, target))
@@ -50,15 +52,19 @@ public class CommandSpin extends CoreCommand {
                 }
             }
 
-            String displaynames = ListUtils.fromList(ListUtils.toDisplayNames(targets), false, false);
-            String names = ListUtils.fromList(ListUtils.toNames(targets), false, false);
+            if (player == null || ListUtils.containsOtherThan(targets, player)) {
+                targets.remove(player);
 
-            MessageBuilder message = new MessageBuilder();
-            message.append("&6&l» ");
-            message.append("&6" + displaynames).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + names);
-            message.append("&7 toggled Spin");
+                String displaynames = ListUtils.fromList(ListUtils.toDisplayNames(targets), false, false);
+                String names = ListUtils.fromList(ListUtils.toNames(targets), false, false);
 
-            MessageUtils.message(sender, message.build());
+                MessageBuilder message = new MessageBuilder();
+                message.append("&6&l» ");
+                message.append("&6" + displaynames).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + names);
+                message.append("&7 toggled Spin");
+
+                MessageUtils.message(sender, message.build());
+            }
         }
     }
 
