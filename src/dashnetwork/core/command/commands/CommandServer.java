@@ -1,10 +1,8 @@
 package dashnetwork.core.command.commands;
 
 import dashnetwork.core.command.CoreCommand;
-import dashnetwork.core.utils.MessageUtils;
-import dashnetwork.core.utils.PermissionType;
-import dashnetwork.core.utils.SenderUtils;
-import dashnetwork.core.utils.WorldUtils;
+import dashnetwork.core.utils.*;
+import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
@@ -22,21 +20,50 @@ public class CommandServer extends CoreCommand {
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        Player target = null;
+        List<Player> targets = new ArrayList<>();
+        Player player = sender instanceof Player ? (Player) sender : null;
 
-        if (args.length > 1 && SenderUtils.isAdmin(sender))
-            target = Bukkit.getPlayer(args[0]);
-        else if (sender instanceof Player)
-            target = (Player) sender;
+        if (args.length > 0 && SenderUtils.isOwner(sender)) {
+            List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
 
-        if (target == null || !SenderUtils.canSee(sender, target))
-            MessageUtils.usage(sender, label, "<server>");
+            if (selector != null)
+                targets.addAll(selector);
+        } else if (player != null)
+            targets.add(player);
+
+        for (Player target : targets)
+            if (!SenderUtils.canSee(sender, target))
+                targets.remove(target);
+
+        if (targets.isEmpty())
+            MessageUtils.message(sender, "&6&l» &7Servers: &6Creative, Hub, Prison, PvP, Skyblock, Skygrid");
         else {
-            String worldName = args[0].toLowerCase().replace("skyblock", "skyworld").replace("pvp", "KitPvP");
-            World world = Bukkit.getWorld(worldName);
+            String name = args[0];
 
-            if (isWorldAllowed(sender, world))
-                target.teleport(world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+            for (Player target : targets) {
+                if (name.equalsIgnoreCase("skygrid"))
+                    target.performCommand("skygrid");
+                else {
+                    World world = WorldUtils.getByAlias(name);
+
+                    if (isWorldAllowed(sender, world))
+                        target.teleport(world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+                }
+            }
+
+            if (player == null || ListUtils.containsOtherThan(targets, player)) {
+                targets.remove(player);
+
+                String displaynames = ListUtils.fromList(ListUtils.toDisplayNames(targets), false, false);
+                String names = ListUtils.fromList(ListUtils.toNames(targets), false, false);
+
+                MessageBuilder message = new MessageBuilder();
+                message.append("&6&l» ");
+                message.append("&6" + displaynames).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + names);
+                message.append("&7 forced to " + name);
+
+                MessageUtils.message(sender, message.build());
+            }
         }
     }
 
@@ -50,6 +77,8 @@ public class CommandServer extends CoreCommand {
 
                 if (isWorldAllowed(sender, world))
                     completions.add(name.replace("skyworld", "Skyblock").replace("KitPvP", "PvP"));
+
+                completions.add("skygrid");
             }
 
             return completions;
