@@ -32,9 +32,7 @@ public class CommandStaffchat extends CoreCommand {
             } else
                 targets.add(player);
 
-            for (Player target : targets)
-                if (!player.canSee(target))
-                    targets.remove(target);
+            targets.removeIf(target -> !player.canSee(target));
 
             if (targets.isEmpty())
                 MessageUtils.usage(player, label, "&6&l» &7No players found");

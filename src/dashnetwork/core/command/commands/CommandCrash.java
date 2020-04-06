@@ -32,9 +32,7 @@ public class CommandCrash extends CoreCommand {
                 targets.addAll(targets);
         }
 
-        for (Player target : targets)
-            if (!SenderUtils.canSee(sender, target))
-                targets.remove(target);
+        targets.removeIf(target -> !SenderUtils.canSee(sender, target));
 
         if (targets.isEmpty())
             MessageUtils.usage(sender, label, "<player>");

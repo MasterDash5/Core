@@ -31,9 +31,7 @@ public class CommandServer extends CoreCommand {
         } else if (player != null)
             targets.add(player);
 
-        for (Player target : targets)
-            if (!SenderUtils.canSee(sender, target))
-                targets.remove(target);
+        targets.removeIf(target -> !SenderUtils.canSee(sender, target));
 
         if (targets.isEmpty())
             MessageUtils.message(sender, "&6&l» &7Servers: &6Creative, Hub, Prison, PvP, Skyblock, Skygrid");

@@ -28,9 +28,7 @@ public class CommandAutowelcome extends CoreCommand {
         } else if (player != null)
             targets.add(player);
 
-        for (Player target : targets)
-            if (!SenderUtils.canSee(sender, target))
-                targets.remove(target);
+        targets.removeIf(target -> !SenderUtils.canSee(sender, target));
 
         if (targets.isEmpty())
             MessageUtils.usage(sender, label, "&6&l» &7No players found");

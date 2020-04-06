@@ -21,7 +21,7 @@ public class CommandPing extends CoreCommand {
         Player target = null;
 
         if (args.length > 0)
-            target = Bukkit.getPlayer(args[0]);
+            target = SelectorUtils.getPlayer(sender, args[0]);
         else if (sender instanceof Player)
             target = (Player) sender;
 

@@ -22,7 +22,7 @@ public class CommandPlayerinfo extends CoreCommand {
         Player target = null;
 
         if (args.length > 0)
-            target = Bukkit.getPlayer(args[0]);
+            target = SelectorUtils.getPlayer(sender, args[0]);
 
         if (target == null || !SenderUtils.canSee(sender, target))
             MessageUtils.usage(sender, label, "<player>");
