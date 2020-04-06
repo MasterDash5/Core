@@ -40,7 +40,7 @@ public class SignChangeListener implements Listener {
             message.append("&6&l» ");
             message.append("&6" + player.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + player.getName());
             message.append(" ");
-            message.append("&7placed sign: " + world + " " + coords).clickEvent(ClickEvent.Action.SUGGEST_COMMAND, coords).hoverEvent(HoverEvent.Action.SHOW_TEXT, hover);
+            message.append("&7placed sign: " + world + " " + coords).clickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, coords).hoverEvent(HoverEvent.Action.SHOW_TEXT, hover);
 
             for (User user : User.getUsers(false))
                 if (user.inSignSpy())

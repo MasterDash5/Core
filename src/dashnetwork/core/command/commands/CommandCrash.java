@@ -4,32 +4,39 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import dashnetwork.core.command.CoreCommand;
-import dashnetwork.core.utils.ListUtils;
-import dashnetwork.core.utils.MessageUtils;
-import dashnetwork.core.utils.PermissionType;
-import dashnetwork.core.utils.SenderUtils;
+import dashnetwork.core.utils.*;
+import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class CommandCrash extends CoreCommand {
 
     public CommandCrash() {
-        super("crash", PermissionType.OWNER);
+        super("crash", PermissionType.OWNER, true);
     }
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        Player target = null;
+        List<Player> targets = new ArrayList<>();
 
-        if (args.length > 0)
-            target = Bukkit.getPlayer(args[0]);
+        if (args.length > 0) {
+            List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
 
-        if (target == null || !SenderUtils.canSee(sender, target))
+            if (selector != null)
+                targets.addAll(targets);
+        }
+
+        for (Player target : targets)
+            if (!SenderUtils.canSee(sender, target))
+                targets.remove(target);
+
+        if (targets.isEmpty())
             MessageUtils.usage(sender, label, "<player>");
         else {
             PacketContainer packet = new PacketContainer(PacketType.Play.Server.EXPLOSION);
@@ -42,22 +49,31 @@ public class CommandCrash extends CoreCommand {
             packet.getFloat().write(3, Float.MAX_VALUE);
             packet.getPositionCollectionModifier().write(0, Collections.EMPTY_LIST);
 
-            try {
-                ProtocolLibrary.getProtocolManager().sendServerPacket(target, packet);
-            } catch (Exception exception) {
-                MessageUtils.error(sender, exception);
-                exception.printStackTrace();
+            for (Player target : targets) {
+                try {
+                    ProtocolLibrary.getProtocolManager().sendServerPacket(target, packet);
+                } catch (Exception exception) {
+                    MessageUtils.error(sender, exception);
+                    exception.printStackTrace();
+                }
+
+                final Player player = target;
+
+                new BukkitRunnable() {
+                    public void run() {
+                        player.kickPlayer(""); // Kick method needs to be ran synchronously (plus delay helps)
+                    }
+                }.runTaskLater(plugin, 20);
             }
 
-            final Player player = target;
+            String displaynames = ListUtils.fromList(ListUtils.toDisplayNames(targets), false ,false);
+            String names = ListUtils.fromList(ListUtils.toNames(targets), false, false);
 
-            new BukkitRunnable() {
-                public void run() {
-                    player.kickPlayer(""); // Kick method needs to be ran synchronously
-                }
-            }.runTaskLater(plugin, 20);
+            MessageBuilder message = new MessageBuilder();
+            message.append("&6&l» &7Crashed ");
+            message.append("&6" + displaynames).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + names);
 
-            MessageUtils.message(sender, "&6&l» &7Crashed &6" + target.getName());
+            MessageUtils.message(sender, message.build());
         }
     }
 

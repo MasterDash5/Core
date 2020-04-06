@@ -3,6 +3,7 @@ package dashnetwork.core.command.commands;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -14,32 +15,50 @@ import java.util.List;
 public class CommandSpin extends CoreCommand {
 
     public CommandSpin() {
-        super("spin", PermissionType.ADMIN);
+        super("spin", PermissionType.OWNER, true);
     }
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        Player target = null;
+        List<Player> targets = new ArrayList<>();
 
-        if (args.length > 0)
-            target = Bukkit.getPlayer(args[0]);
-        else if (sender instanceof Player)
-            target = (Player) sender;
+        if (args.length > 0) {
+            List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
 
-        if (target == null || !SenderUtils.canSee(sender, target))
+            if (selector != null)
+                targets.addAll(selector);
+        }
+
+        for (Player target : targets)
+            if (!SenderUtils.canSee(sender, target))
+                targets.remove(target);
+
+        if (targets.isEmpty())
             MessageUtils.usage(sender, label, "<player>");
         else {
-            User user = User.getUser(target);
-            boolean spinning = !user.isSpinning();
+            for (Player target : targets) {
+                User user = User.getUser(target);
+                boolean spinning = !user.isSpinning();
 
-            user.setSpinning(spinning);
+                user.setSpinning(spinning);
 
-            if (spinning) {
-                MessageBuilder message = new MessageBuilder();
-                message.append("&6&l» &7Spin me right round baby right round").clickEvent(ClickEvent.Action.OPEN_URL, "https://youtu.be/fpmTe3TDdVU");
+                if (spinning) {
+                    MessageBuilder message = new MessageBuilder();
+                    message.append("&6&l» &7Spin me right round baby right round").clickEvent(ClickEvent.Action.OPEN_URL, "https://youtu.be/fpmTe3TDdVU");
 
-                MessageUtils.message(target, message.build());
+                    MessageUtils.message(target, message.build());
+                }
             }
+
+            String displaynames = ListUtils.fromList(ListUtils.toDisplayNames(targets), false, false);
+            String names = ListUtils.fromList(ListUtils.toNames(targets), false, false);
+
+            MessageBuilder message = new MessageBuilder();
+            message.append("&6&l» ");
+            message.append("&6" + displaynames).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + names);
+            message.append("&7 toggled Spin");
+
+            MessageUtils.message(sender, message.build());
         }
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 public class CommandGoogle extends CoreCommand {
 
     public CommandGoogle() {
-        super("google", PermissionType.NONE);
+        super("google", PermissionType.NONE, true);
     }
 
     @Override

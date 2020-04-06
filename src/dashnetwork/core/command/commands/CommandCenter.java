@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class CommandCenter extends CoreCommand {
 
     public CommandCenter() {
-        super("center", PermissionType.STAFF);
+        super("center", PermissionType.ADMIN, false);
     }
 
     @Override

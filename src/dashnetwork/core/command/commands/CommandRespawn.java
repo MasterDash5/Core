@@ -9,35 +9,48 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandRespawn extends CoreCommand {
 
     public CommandRespawn() {
-        super("respawn", PermissionType.ADMIN);
+        super("respawn", PermissionType.ADMIN, false);
     }
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        Player target = null;
+        List<Player> targets = new ArrayList<>();
 
-        if (args.length > 2)
-            target = Bukkit.getPlayer(args[0]);
+        if (args.length > 0) {
+            List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
 
-        if (target == null || !SenderUtils.canSee(sender, target))
+            if (selector != null)
+                targets.addAll(selector);
+        }
+
+        for (Player target : targets)
+            if (!SenderUtils.canSee(sender, target))
+                targets.remove(target);
+
+        if (targets.isEmpty())
             MessageUtils.usage(sender, label, "<player>");
         else {
-            target.spigot().respawn();
+            for (Player target : targets) {
+                target.spigot().respawn();
 
-            MessageUtils.message(sender, "&6&l» &7You have been forced to respawn");
-
-            if (!sender.equals(target)) {
-                MessageBuilder message = new MessageBuilder();
-                message.append("&6&l» &7Forced ");
-                message.append("&6" + target.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + target.getName());
-                message.append("&7 to respawn");
-                MessageUtils.message(sender, message.build());
+                MessageUtils.message(target, "&6&l» &7You have been forced to respawn");
             }
+
+            String displaynames = ListUtils.fromList(ListUtils.toDisplayNames(targets), false, false);
+            String names = ListUtils.fromList(ListUtils.toNames(targets), false, false);
+
+            MessageBuilder message = new MessageBuilder();
+            message.append("&6&l» ");
+            message.append("&6" + displaynames).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + names);
+            message.append("&7 forced to respawn");
+
+            MessageUtils.message(sender, message.build());
         }
     }
 

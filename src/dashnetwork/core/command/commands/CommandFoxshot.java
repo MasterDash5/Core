@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class CommandFoxshot extends CoreCommand {
 
     public CommandFoxshot() {
-        super("foxshot", PermissionType.ADMIN);
+        super("foxshot", PermissionType.ADMIN, false);
     }
 
     @Override

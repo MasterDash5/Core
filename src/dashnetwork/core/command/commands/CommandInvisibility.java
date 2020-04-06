@@ -13,7 +13,7 @@ import java.util.List;
 public class CommandInvisibility extends CoreCommand {
 
     public CommandInvisibility() {
-        super("invisibility", PermissionType.ADMIN);
+        super("invisibility", PermissionType.ADMIN, false);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class CommandInvisibility extends CoreCommand {
             if (player.hasPotionEffect(PotionEffectType.INVISIBILITY))
                 player.removePotionEffect(PotionEffectType.INVISIBILITY);
             else
-                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, true, false, false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, true, false, true));
         } else
             MessageUtils.playerCommandOnly();
     }

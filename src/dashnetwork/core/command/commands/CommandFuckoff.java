@@ -16,7 +16,7 @@ public class CommandFuckoff extends CoreCommand {
     }
 
     public CommandFuckoff() {
-        super("fuckoff", PermissionType.OWNER);
+        super("fuckoff", PermissionType.OWNER, true);
     }
 
     @Override

@@ -7,7 +7,6 @@ import dashnetwork.core.global.Global;
 import dashnetwork.core.skyblock.Skyblock;
 import dashnetwork.core.survival.Survival;
 import dashnetwork.core.task.Task;
-import dashnetwork.core.task.tasks.InventoryTask;
 import dashnetwork.core.task.tasks.SpinTask;
 import dashnetwork.core.utils.DataUtils;
 import github.scarsz.discordsrv.DiscordSRV;
@@ -49,7 +48,6 @@ public class Core extends JavaPlugin {
         new CommandFakejoin();
         new CommandFakeleave();
         new CommandFakeop();
-        new CommandForcefly();
         new CommandFoxshot();
         new CommandFuckoff();
         new CommandGamestate();
@@ -60,10 +58,12 @@ public class Core extends JavaPlugin {
         new CommandLogin();
         new CommandMattsarmorstands();
         new CommandModlist();
+        new CommandMommy();
         new CommandMoonphase();
         new CommandNightvision();
         new CommandOplist();
         new CommandOwnerchat();
+        new CommandPeek();
         new CommandPing();
         new CommandPingspy();
         new CommandPlayerinfo();
@@ -78,7 +78,6 @@ public class Core extends JavaPlugin {
         new CommandVersionlist();
 
         // Register tasks
-        new InventoryTask();
         new SpinTask();
 
         if (getServer().getPluginManager().isPluginEnabled("DiscordSRV")) {

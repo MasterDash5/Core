@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class CommandClearlag extends CoreCommand {
 
     public CommandClearlag() {
-        super("clearlag", PermissionType.ADMIN);
+        super("clearlag", PermissionType.ADMIN, true);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class CommandClearlag extends CoreCommand {
                         entity.remove();
                     }
 
-                    if (LazyUtils.anyEquals(type, EntityType.ARROW, EntityType.SPECTRAL_ARROW) && entity.isOnGround()) {
+                    if (LazyUtils.anyEquals(type, EntityType.ARROW, EntityType.SPECTRAL_ARROW) && (entity.isOnGround() || entity.getTicksLived() > 1200)) {
                         removedList.add(name);
                         entity.remove();
                     }
@@ -65,9 +65,9 @@ public class CommandClearlag extends CoreCommand {
 
         MessageBuilder message = new MessageBuilder();
         message.append("&6&l» ");
-        message.append(SenderUtils.getDisplayName(sender)).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + sender.getName());
-        message.append("&7 cleared ");
-        message.append("&6" + removedList.size() + " entities").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(removedList, false, true));
+        message.append("&6" + SenderUtils.getDisplayName(sender)).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + sender.getName());
+        message.append(" ");
+        message.append("&7cleared &6" + removedList.size() + " entities").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(removedList, false, true));
 
         MessageUtils.broadcast(true, worlds, PermissionType.NONE, message.build());
     }

@@ -10,7 +10,7 @@ import java.util.List;
 public class CommandMattsarmorstands extends CoreCommand {
 
     public CommandMattsarmorstands() {
-        super("mattsarmorstands", PermissionType.NONE);
+        super("mattsarmorstands", PermissionType.NONE, true);
     }
 
     @Override

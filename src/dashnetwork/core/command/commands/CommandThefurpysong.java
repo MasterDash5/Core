@@ -10,14 +10,14 @@ import java.util.List;
 public class CommandThefurpysong extends CoreCommand {
 
     public CommandThefurpysong() {
-        super("thefurpysong", PermissionType.NONE);
+        super("thefurpysong", PermissionType.NONE, true);
     }
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
         MessageUtils.message(sender, "&7The Furpy Song: by Skullrama's Crazy Friend");
         MessageUtils.message(sender, " ");
-        MessageUtils.message(sender, "&6(Theme from Ikuroshitsuji closing season 1)");
+        MessageUtils.message(sender, "&7(Theme from Ikuroshitsuji closing season 1)");
         MessageUtils.message(sender, " ");
         MessageUtils.message(sender, "&6One day at my lunch, Skull told me 'bout a bunch.");
         MessageUtils.message(sender, "&6Then days after that, my life changed forever.");
@@ -46,7 +46,7 @@ public class CommandThefurpysong extends CoreCommand {
         MessageUtils.message(sender, "&6my true");
         MessageUtils.message(sender, "&6FURPY!!");
         MessageUtils.message(sender, " ");
-        MessageUtils.message(sender, "&6(Applause)");
+        MessageUtils.message(sender, "&7(Applause)");
     }
 
     @Override

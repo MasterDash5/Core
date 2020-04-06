@@ -14,7 +14,7 @@ import java.util.List;
 public class CommandAnvil extends CoreCommand {
 
     public CommandAnvil() {
-        super("anvil", PermissionType.ADMIN);
+        super("anvil", PermissionType.ADMIN, false);
     }
 
     @Override

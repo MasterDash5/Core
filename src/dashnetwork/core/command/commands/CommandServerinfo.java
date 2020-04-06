@@ -9,7 +9,7 @@ import java.util.List;
 public class CommandServerinfo extends CoreCommand {
 
     public CommandServerinfo() {
-        super("serverinfo", PermissionType.ADMIN);
+        super("serverinfo", PermissionType.ADMIN, true);
     }
 
     @Override

@@ -4,12 +4,41 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ListUtils {
+
+    public static <T>boolean containsOtherThan(Collection<T> collection, T contains) {
+        return collection.size() > (collection.contains(contains) ? 1 : 0);
+    }
+
+    public static List<String> toNames(List<Player> players) {
+        List<String> names = new ArrayList<>();
+
+        for (Player player : players)
+            names.add(player.getName());
+
+        return names;
+    }
+
+    public static List<String> toDisplayNames(List<Player> players) {
+        List<String> names = new ArrayList<>();
+
+        for (Player player : players)
+            names.add(player.getDisplayName());
+
+        return names;
+    }
+
+    public static List<String> getOnlinePlayers(CommandSender sender) {
+        List<String> players = new ArrayList<>();
+
+        for (Player online : Bukkit.getOnlinePlayers())
+            if (sender == null || SenderUtils.canSee(sender, online))
+                players.add(online.getName());
+
+        return players;
+    }
 
     public static String fromList(List<String> list, boolean useAnd, boolean formatDuplicates) {
         String string = "";
@@ -48,16 +77,6 @@ public class ListUtils {
             return "None";
 
         return string;
-    }
-
-    public static List<String> getOnlinePlayers(CommandSender sender) {
-        List<String> players = new ArrayList<>();
-
-        for (Player online : Bukkit.getOnlinePlayers())
-            if (sender == null || SenderUtils.canSee(sender, online))
-                players.add(online.getName());
-
-        return players;
     }
 
 }

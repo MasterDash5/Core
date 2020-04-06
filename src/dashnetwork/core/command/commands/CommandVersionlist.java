@@ -12,7 +12,7 @@ import java.util.*;
 public class CommandVersionlist extends CoreCommand {
 
     public CommandVersionlist() {
-        super("versionlist", PermissionType.NONE);
+        super("versionlist", PermissionType.NONE, true);
     }
 
     @Override

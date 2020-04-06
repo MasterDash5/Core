@@ -13,7 +13,7 @@ import java.util.*;
 public class CommandModlist extends CoreCommand {
 
     public CommandModlist() {
-        super("modlist", PermissionType.STAFF);
+        super("modlist", PermissionType.STAFF, true);
     }
 
     @Override

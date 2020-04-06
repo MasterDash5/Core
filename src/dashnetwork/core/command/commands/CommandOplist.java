@@ -15,7 +15,7 @@ import java.util.Map;
 public class CommandOplist extends CoreCommand {
 
     public CommandOplist() {
-        super("oplist", PermissionType.OP);
+        super("oplist", PermissionType.ADMIN, true);
     }
 
     @Override

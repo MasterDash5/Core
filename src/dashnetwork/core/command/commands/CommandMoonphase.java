@@ -13,7 +13,7 @@ import java.util.List;
 public class CommandMoonphase extends CoreCommand {
 
     public CommandMoonphase() {
-        super("moonphase", PermissionType.ADMIN);
+        super("moonphase", PermissionType.ADMIN, false);
     }
 
     @Override

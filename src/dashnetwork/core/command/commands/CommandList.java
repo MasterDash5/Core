@@ -13,7 +13,7 @@ import java.util.*;
 public class CommandList extends CoreCommand {
 
     public CommandList() {
-        super("list", PermissionType.NONE);
+        super("list", PermissionType.NONE, true);
     }
 
     @Override

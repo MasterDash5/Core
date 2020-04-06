@@ -11,7 +11,7 @@ import java.util.List;
 public class CommandFakeleave extends CoreCommand {
 
     public CommandFakeleave() {
-        super("fakeleave", PermissionType.ADMIN);
+        super("fakeleave", PermissionType.ADMIN, true);
     }
 
     @Override

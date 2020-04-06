@@ -28,6 +28,7 @@ public class User implements CommandSender {
     private boolean inBookSpy;
     private boolean inAltSpy;
     private boolean inPingSpy;
+    private boolean inAutoWelcome;
     private boolean spinning;
 
     private User(Player player) {
@@ -42,6 +43,7 @@ public class User implements CommandSender {
         this.inBookSpy = false;
         this.inAltSpy = false;
         this.inPingSpy = false;
+        this.inAutoWelcome = false;
         this.spinning = false;
 
         users.add(this);
@@ -143,6 +145,14 @@ public class User implements CommandSender {
 
     public void setInPingSpy(boolean inPingSpy) {
         this.inPingSpy = inPingSpy;
+    }
+
+    public boolean inAutoWelcome() {
+        return inAutoWelcome;
+    }
+
+    public void setInAutoWelcome(boolean inAutoWelcome) {
+        this.inAutoWelcome = inAutoWelcome;
     }
 
     public boolean isSpinning() {

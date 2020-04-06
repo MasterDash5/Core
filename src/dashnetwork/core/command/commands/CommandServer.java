@@ -17,7 +17,7 @@ import java.util.List;
 public class CommandServer extends CoreCommand {
 
     public CommandServer() {
-        super("server", PermissionType.NONE);
+        super("server", PermissionType.NONE, false);
     }
 
     @Override

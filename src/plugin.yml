@@ -34,7 +34,6 @@ commands:
   fakejoin:
   fakeleave:
   fakeop:
-  forcefly:
   foxshot:
     aliases: [foxcannon]
   fuckoff:
@@ -61,6 +60,7 @@ commands:
     aliases: [ops]
   ownerchat:
     aliases: [oc, dc]
+  peek:
   ping:
   pingspy:
   playerinfo:

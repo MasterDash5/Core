@@ -10,12 +10,12 @@ import java.util.List;
 public class CommandColorlist extends CoreCommand {
 
     public CommandColorlist() {
-        super("colorlist", PermissionType.NONE);
+        super("colorlist", PermissionType.NONE, true);
     }
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        MessageUtils.message(sender, "&6&l» &11 &22 &33 &44 &55 &66 &77 &88 &99 &00\n&6&l»&f &kk&f(k) &ll&f &mm&f &nn&f &oo");
+        MessageUtils.message(sender, "&6&l» &11 &22 &33 &44 &55 &66 &77 &88 &99 &00 &aa &bb &cc &dd &ee &ff\n&6&l»&f &kk&f(k) &ll&f &mm&f &nn&f &oo");
     }
 
     @Override

@@ -4,8 +4,8 @@ import java.util.Collection;
 
 public class LazyUtils {
 
-    public static boolean anyEquals(Object object, Object... equals) {
-        for (Object equalsObject : equals)
+    public static <T>boolean anyEquals(T object, T... equals) {
+        for (T equalsObject : equals)
             if (object.equals(equalsObject))
                 return true;
         return false;
@@ -39,8 +39,8 @@ public class LazyUtils {
         return false;
     }
 
-    public static boolean anyContains(Collection<Object> collection, Object... contains) {
-        for (Object object : contains)
+    public static <T>boolean anyContains(Collection<T> collection, T... contains) {
+        for (T object : contains)
             if (collection.contains(object))
                 return true;
         return false;

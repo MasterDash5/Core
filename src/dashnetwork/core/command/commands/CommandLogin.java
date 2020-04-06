@@ -7,12 +7,13 @@ import dashnetwork.core.utils.PermissionType;
 import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.command.CommandSender;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class CommandLogin extends CoreCommand {
 
     public CommandLogin() {
-        super("login", PermissionType.NONE);
+        super("login", PermissionType.NONE, true);
     }
 
     @Override
@@ -25,7 +26,7 @@ public class CommandLogin extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return null;
+        return Arrays.asList("We're not a cracked server dummy");
     }
 
 }

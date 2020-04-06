@@ -14,7 +14,7 @@ import java.util.List;
 public class CommandPlayerinfo extends CoreCommand {
 
     public CommandPlayerinfo() {
-        super("playerinfo", PermissionType.STAFF);
+        super("playerinfo", PermissionType.STAFF, true);
     }
 
     @Override
@@ -40,15 +40,17 @@ public class CommandPlayerinfo extends CoreCommand {
 
             MessageBuilder message = new MessageBuilder();
             message.append("&6&l» &6" + GrammarUtils.possessive(target.getName()) + "&7 player info");
-            message.append("&7 - Display Name: &6" + displayname).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&7Click to copy &6" + displayname).clickEvent(ClickEvent.Action.SUGGEST_COMMAND, displayname.replace("§", "&"));
-            message.append("&7 - UUID: &6" + uuid).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&7Click to copy &6" + uuid).clickEvent(ClickEvent.Action.SUGGEST_COMMAND, uuid);
+            message.append("\n&7 - Display Name: &6" + displayname).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&7Click to copy &6" + displayname).clickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, displayname.replace("§", "&"));
+            message.append("\n&7 - UUID: &6" + uuid).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&7Click to copy &6" + uuid).clickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, uuid);
 
             if (SenderUtils.isAdmin(sender))
-                message.append("&7 - IP: &6" + ip).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&7Click to copy &6" + ip).clickEvent(ClickEvent.Action.SUGGEST_COMMAND, ip);
+                message.append("\n&7 - IP: &6" + ip).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&7Click to copy &6" + ip).clickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, ip);
 
-            message.append("&7 - Client: &6" + client + " &7Version: &6" + version);
-            message.append("&7 - World: &6" + world + " &7Gamemode: &6" + gamemode);
-            message.append("&7 - Coords: &6" + coords).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&7Click to copy &6" + coords).clickEvent(ClickEvent.Action.SUGGEST_COMMAND, coords);
+            message.append("\n&7 - Client: &6" + client + " &7Version: &6" + version);
+            message.append("\n&7 - World: &6" + world + " &7Gamemode: &6" + gamemode);
+            message.append("\n&7 - Coords: &6" + coords).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&7Click to copy &6" + coords).clickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, coords);
+
+            MessageUtils.message(sender, message.build());
         }
     }
 

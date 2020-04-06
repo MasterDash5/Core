@@ -13,7 +13,7 @@ import java.util.List;
 public class CommandNightvision extends CoreCommand {
 
     public CommandNightvision() {
-        super("nightvision", PermissionType.STAFF);
+        super("nightvision", PermissionType.STAFF, false);
     }
 
     @Override

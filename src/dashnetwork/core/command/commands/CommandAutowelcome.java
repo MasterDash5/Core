@@ -3,17 +3,16 @@ package dashnetwork.core.command.commands;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandSignspy extends CoreCommand {
+public class CommandAutowelcome extends CoreCommand {
 
-    public CommandSignspy() {
-        super("signspy", PermissionType.STAFF, true);
+    public CommandAutowelcome() {
+        super("autowelcome", PermissionType.OWNER, true);
     }
 
     @Override
@@ -21,7 +20,7 @@ public class CommandSignspy extends CoreCommand {
         List<Player> targets = new ArrayList<>();
         Player player = sender instanceof Player ? (Player) sender : null;
 
-        if (args.length > 0 && SenderUtils.isOwner(sender)) {
+        if (args.length > 0) {
             List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
 
             if (selector != null)
@@ -38,14 +37,14 @@ public class CommandSignspy extends CoreCommand {
         else {
             for (Player target : targets) {
                 User user = User.getUser(target);
-                boolean inSignSpy = !user.inSignSpy();
+                boolean inAutoWelcome = !user.inAutoWelcome();
 
-                user.setInSignSpy(inSignSpy);
+                user.setInAutoWelcome(inAutoWelcome);
 
-                if (inSignSpy)
-                    MessageUtils.message(target, "&6&l» &7You are now in SignSpy");
+                if (inAutoWelcome)
+                    MessageUtils.message(target, "&6&l» &7You are now in AutoWelcome");
                 else
-                    MessageUtils.message(target, "&6&l» &7You are no longer in SignSpy");
+                    MessageUtils.message(target, "&6&l» &7You are no longer in AutoWelcome");
             }
 
             if (player == null || ListUtils.containsOtherThan(targets, player)) {
@@ -57,7 +56,7 @@ public class CommandSignspy extends CoreCommand {
                 MessageBuilder message = new MessageBuilder();
                 message.append("&6&l» ");
                 message.append("&6" + displaynames).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + names);
-                message.append("&7 toggled SignSpy");
+                message.append("&7 toggled AutoWelcome");
 
                 MessageUtils.message(sender, message.build());
             }
@@ -66,7 +65,7 @@ public class CommandSignspy extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1 && SenderUtils.isAdmin(sender))
+        if (args.length > 0)
             return ListUtils.getOnlinePlayers(sender);
         return null;
     }

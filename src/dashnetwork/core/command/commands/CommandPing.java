@@ -13,7 +13,7 @@ import java.util.List;
 public class CommandPing extends CoreCommand {
 
     public CommandPing() {
-        super("ping", PermissionType.NONE);
+        super("ping", PermissionType.NONE, true);
     }
 
     @Override

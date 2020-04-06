@@ -12,7 +12,7 @@ import java.util.List;
 public class CommandConsole extends CoreCommand {
 
     public CommandConsole() {
-        super("console", PermissionType.OWNER);
+        super("console", PermissionType.OWNER, false);
     }
 
     @Override

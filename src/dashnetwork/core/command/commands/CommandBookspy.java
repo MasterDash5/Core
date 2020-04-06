@@ -7,58 +7,66 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandBookspy extends CoreCommand {
 
     public CommandBookspy() {
-        super("bookspy", PermissionType.STAFF);
+        super("bookspy", PermissionType.STAFF, true);
     }
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        Player target = null;
+        List<Player> targets = new ArrayList<>();
+        Player player = sender instanceof Player ? (Player) sender : null;
 
-        if (args.length > 0 && SenderUtils.isAdmin(sender))
-            target = Bukkit.getPlayer(args[0]);
-        else if (sender instanceof Player)
-            target = (Player) sender;
+        if (args.length > 0 && SenderUtils.isOwner(sender)) {
+            List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
 
-        if (target == null || !SenderUtils.canSee(sender, target))
-            MessageUtils.usage(sender, label, "<player>");
+            if (selector != null)
+                targets.addAll(selector);
+        } else if (player != null)
+            targets.add(player);
+
+        for (Player target : targets)
+            if (!SenderUtils.canSee(sender, target))
+                targets.remove(target);
+
+        if (targets.isEmpty())
+            MessageUtils.usage(sender, label, "&6&l» &7No players found");
         else {
-            User user = User.getUser(target);
-            boolean inBookSpy = !user.inBookSpy();
+            for (Player target : targets) {
+                User user = User.getUser(target);
+                boolean inBookSpy = !user.inBookSpy();
 
-            user.setInBookSpy(inBookSpy);
+                user.setInBookSpy(inBookSpy);
 
-            if (inBookSpy) {
-                MessageUtils.message(target, "&6&l» &7You are now in BookSpy");
+                if (inBookSpy)
+                    MessageUtils.message(target, "&6&l» &7You are now in BookSpy");
+                else
+                    MessageUtils.message(target, "&6&l» &7You are no longer in BookSpy");
+            }
 
-                if (!sender.equals(target)) {
-                    MessageBuilder message = new MessageBuilder();
-                    message.append("&6&l» ");
-                    message.append("&6" + target.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + target.getName());
-                    message.append("&7 is now in BookSpy");
-                    MessageUtils.message(sender, message.build());
-                }
-            } else {
-                MessageUtils.message(target, "&6&l» &7You are no longer in BookSpy");
+            if (player == null || ListUtils.containsOtherThan(targets, player)) {
+                targets.remove(player);
 
-                if (!sender.equals(target)) {
-                    MessageBuilder message = new MessageBuilder();
-                    message.append("&6&l» ");
-                    message.append("&6" + target.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + target.getName());
-                    message.append("&7 is no longer in BookSpy");
-                    MessageUtils.message(sender, message.build());
-                }
+                String displaynames = ListUtils.fromList(ListUtils.toDisplayNames(targets), false, false);
+                String names = ListUtils.fromList(ListUtils.toNames(targets), false, false);
+
+                MessageBuilder message = new MessageBuilder();
+                message.append("&6&l» ");
+                message.append("&6" + displaynames).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + names);
+                message.append("&7 toggled BookSpy");
+
+                MessageUtils.message(sender, message.build());
             }
         }
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1 && SenderUtils.isAdmin(sender))
+        if (args.length == 1 && SenderUtils.isOwner(sender))
             return ListUtils.getOnlinePlayers(sender);
         return null;
     }

@@ -11,7 +11,7 @@ import java.util.List;
 public class CommandFakejoin extends CoreCommand {
 
     public CommandFakejoin() {
-        super("fakejoin", PermissionType.ADMIN);
+        super("fakejoin", PermissionType.ADMIN, true);
     }
 
     @Override

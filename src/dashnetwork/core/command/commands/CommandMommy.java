@@ -15,7 +15,7 @@ public class CommandMommy extends CoreCommand {
     private String[] mommies = { "Dash", "Matt", "Furp", "Skull", "Golden", "Hannah" };
 
     public CommandMommy() {
-        super("mommy", PermissionType.NONE);
+        super("mommy", PermissionType.NONE, true);
     }
 
     @Override
