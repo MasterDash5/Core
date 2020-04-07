@@ -48,7 +48,7 @@ public class Core extends JavaPlugin {
 
         // Register commands
         new CommandAdminchat();
-        new CommandAltSpy();
+        new CommandAltspy();
         new CommandAnvil();
         new CommandAutowelcome();
         new CommandBookspy();
@@ -86,12 +86,11 @@ public class Core extends JavaPlugin {
         new CommandRespawn();
         new CommandServer();
         new CommandServerinfo();
-        new CommandServerping();
         new CommandSignspy();
+        new CommandSkin();
         new CommandSpawn();
         new CommandSpin();
         new CommandStaffchat();
-        new CommandTest();
         new CommandThefurpysong();
         new CommandVanish();
         new CommandVersionlist();

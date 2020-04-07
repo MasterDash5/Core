@@ -30,7 +30,7 @@ public class CommandOplist extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return null;
+        return new ArrayList<>();
     }
 
 }

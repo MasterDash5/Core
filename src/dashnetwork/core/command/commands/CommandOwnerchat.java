@@ -28,7 +28,7 @@ public class CommandOwnerchat extends CoreCommand {
                 List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
 
                 if (selector != null)
-                    targets.addAll(selector);
+                    targets = selector;
             } else
                 targets.add(player);
 
@@ -76,8 +76,8 @@ public class CommandOwnerchat extends CoreCommand {
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
         if (args.length == 1)
-            return ListUtils.getOnlinePlayers(sender);
-        return null;
+            return null;
+        return new ArrayList<>();
     }
 
 }

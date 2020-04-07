@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandNightvision extends CoreCommand {
@@ -31,7 +32,7 @@ public class CommandNightvision extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return null;
+        return new ArrayList<>();
     }
 
 }

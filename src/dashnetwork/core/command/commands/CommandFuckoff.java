@@ -5,6 +5,7 @@ import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandFuckoff extends CoreCommand {
@@ -31,7 +32,7 @@ public class CommandFuckoff extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return null;
+        return new ArrayList<>();
     }
 
 }

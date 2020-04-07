@@ -6,6 +6,7 @@ import dashnetwork.core.utils.PermissionType;
 import dashnetwork.core.utils.StringUtils;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandGoogle extends CoreCommand {
@@ -24,7 +25,7 @@ public class CommandGoogle extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return null;
+        return new ArrayList<>();
     }
 
 }

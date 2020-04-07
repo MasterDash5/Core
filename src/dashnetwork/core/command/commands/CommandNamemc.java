@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.DateFormat;
@@ -32,7 +33,7 @@ public class CommandNamemc extends CoreCommand {
             String uuid = "";
 
             try {
-                uuid = UUID.fromString(arg).toString();
+                uuid = UUID.fromString(arg).toString().replace("-", "");
             } catch (IllegalArgumentException invalid) {
                 try {
                     URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + arg);
@@ -41,15 +42,16 @@ public class CommandNamemc extends CoreCommand {
                     uuid = json.getAsJsonObject().get("id").getAsString();
 
                     reader.close();
-                } catch (Exception exception) {
+                } catch (IllegalStateException illegal) {
+                    MessageUtils.message(sender, "&6&l» &7No account with the name &6" + arg);
+                } catch (FileNotFoundException file) {}
+                catch (Exception exception) {
                     MessageUtils.error(sender, exception);
-                    exception.printStackTrace();
                 }
             }
 
             try {
-                String uuidString = uuid.replace("-", "");
-                URL url1 = new URL("https://api.mojang.com/user/profiles/" + uuidString + "/names");
+                URL url1 = new URL("https://api.mojang.com/user/profiles/" + uuid + "/names");
                 BufferedReader reader1 = new BufferedReader(new InputStreamReader(url1.openStream()));
                 JsonElement json1 = new JsonParser().parse(reader1);
                 List<String> names = new ArrayList<>();
@@ -86,7 +88,7 @@ public class CommandNamemc extends CoreCommand {
 
                 reader2.close();
 
-                BufferedImage head = ImageIO.read(new URL("https://crafatar.com/avatars/" + uuidString + "?overlay"));
+                BufferedImage head = ImageIO.read(new URL("https://crafatar.com/avatars/" + uuid + "?overlay"));
                 String[] headText = new ImageMessage(head, 8, '⬛').getLines();
 
                 int namesLength = names.size();
@@ -109,16 +111,19 @@ public class CommandNamemc extends CoreCommand {
                     if (i > 1 && namesIndex < namesLength)
                         text += "&7" + names.get(namesIndex) + " &6-&7 " + dates.get(namesIndex);
 
-                    text += "\n";
+                    if (i < length - 1)
+                        text += "\n";
                 }
 
                 MessageBuilder message = new MessageBuilder();
                 message.append(text).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&7Registered Friends: &6" + ListUtils.fromList(friends, false, false)).clickEvent(ClickEvent.Action.OPEN_URL, "https://namemc.com/profile/" + uuid);
 
                 MessageUtils.message(sender, message.build());
-            } catch (Exception exception) {
+            } catch (IllegalStateException illegal) {
+                MessageUtils.message(sender, "&6&l» &7No account with the uuid &6" + arg);
+            } catch (FileNotFoundException file) {}
+            catch (Exception exception) {
                 MessageUtils.error(sender, exception);
-                exception.printStackTrace();
             }
         }
     }
@@ -126,8 +131,8 @@ public class CommandNamemc extends CoreCommand {
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
         if (args.length == 1)
-            return ListUtils.getOnlinePlayers(sender);
-        return null;
+            return null;
+        return new ArrayList<>();
     }
 
 }

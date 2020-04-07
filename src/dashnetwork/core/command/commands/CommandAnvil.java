@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandAnvil extends CoreCommand {
@@ -40,7 +41,7 @@ public class CommandAnvil extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return null;
+        return new ArrayList<>();
     }
 
 }

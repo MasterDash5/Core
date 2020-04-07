@@ -10,9 +10,12 @@ import org.bukkit.command.CommandSender;
 
 import java.lang.management.ManagementFactory;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandServerinfo extends CoreCommand {
+
+    private static OperatingSystemMXBean bean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
 
     public CommandServerinfo() {
         super("serverinfo", PermissionType.ADMIN, true);
@@ -20,7 +23,6 @@ public class CommandServerinfo extends CoreCommand {
 
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
-        OperatingSystemMXBean bean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
         DecimalFormat formatter = new DecimalFormat("#######.##");
         Runtime runtime = Runtime.getRuntime();
 
@@ -74,7 +76,7 @@ public class CommandServerinfo extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return null;
+        return new ArrayList<>();
     }
 
 }

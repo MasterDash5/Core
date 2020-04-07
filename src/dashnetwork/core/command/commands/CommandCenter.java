@@ -49,9 +49,18 @@ public class CommandCenter extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1)
-            Arrays.stream(BlockFace.values()).map(face -> face.name().toLowerCase()).collect(Collectors.toList());
-        return null;
+        List<String> completions = new ArrayList<>();
+
+        if (args.length == 1) {
+            for (BlockFace face : BlockFace.values()) {
+                String name = face.name().toLowerCase();
+
+                if (StringUtils.startsWithIgnoreCase(name, args[0]))
+                    completions.add(name);
+            }
+        }
+
+        return completions;
     }
 
 }

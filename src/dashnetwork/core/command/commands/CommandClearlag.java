@@ -74,9 +74,16 @@ public class CommandClearlag extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length > 0)
-            return Bukkit.getWorlds().stream().map(world -> world.getName()).collect(Collectors.toList());
-        return null;
+        List<String> completions = new ArrayList<>();
+
+        for (World world : Bukkit.getWorlds()) {
+            String name = world.getName();
+
+            if (StringUtils.startsWithIgnoreCase(name, args[0]))
+                completions.add(name);
+        }
+
+        return completions;
     }
 
 }

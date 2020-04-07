@@ -40,8 +40,8 @@ public class CommandPing extends CoreCommand {
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
         if (args.length == 1)
-            return ListUtils.getOnlinePlayers(sender);
-        return null;
+            return null;
+        return new ArrayList<>();
     }
 
 }

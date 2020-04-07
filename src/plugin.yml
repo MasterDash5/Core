@@ -75,14 +75,14 @@ commands:
   server:
     aliases: [servers, world, worlds, warp, warps]
   serverinfo:
-  serverping:
   signspy:
     aliases: [ss]
+  skin:
+    aliases: [setskin]
   spawn:
   spin:
   staffchat:
     aliases: [sc]
-  test:
   thefurpysong:
     aliases: [furpysong]
   vanish:

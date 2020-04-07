@@ -48,7 +48,7 @@ public abstract class CoreCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         if (permission.hasPermission(sender))
             return onTabComplete(sender, label, args);
-        return null;
+        return new ArrayList<>();
     }
 
     public abstract void onCommand(CommandSender sender, String label, String[] args);

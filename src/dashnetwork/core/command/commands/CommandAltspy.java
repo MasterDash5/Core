@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommandAltSpy extends CoreCommand {
+public class CommandAltspy extends CoreCommand {
 
-    public CommandAltSpy() {
+    public CommandAltspy() {
         super("altspy", PermissionType.STAFF, true);
     }
 
@@ -24,7 +24,7 @@ public class CommandAltSpy extends CoreCommand {
             List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
 
             if (selector != null)
-                targets.addAll(selector);
+                targets = selector;
         } else if (player != null)
             targets.add(player);
 
@@ -64,8 +64,8 @@ public class CommandAltSpy extends CoreCommand {
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
         if (args.length == 1 && SenderUtils.isOwner(sender))
-            return ListUtils.getOnlinePlayers(sender);
-        return null;
+            return null;
+        return new ArrayList<>();
     }
 
 }

@@ -21,7 +21,7 @@ public class CommandModlist extends CoreCommand {
         Player target = null;
 
         if (args.length > 0)
-            target = Bukkit.getPlayer(args[0]);
+            target = SelectorUtils.getPlayer(sender, args[0]);
 
         if (target == null || !SenderUtils.canSee(sender, target)) {
             Map<String, List<UUID>> modlist = new HashMap<>();
@@ -64,8 +64,8 @@ public class CommandModlist extends CoreCommand {
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
         if (args.length == 1)
-            return ListUtils.getOnlinePlayers(sender);
-        return null;
+            return null;
+        return new ArrayList<>();
     }
 
 }

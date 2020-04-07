@@ -7,6 +7,7 @@ import dashnetwork.core.utils.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CommandConsole extends CoreCommand {
@@ -25,7 +26,7 @@ public class CommandConsole extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return null;
+        return new ArrayList<>();
     }
 
 }

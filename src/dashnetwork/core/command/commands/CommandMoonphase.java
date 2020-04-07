@@ -47,15 +47,15 @@ public class CommandMoonphase extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1) {
-            List<String> phases = new ArrayList<>();
+        List<String> completions = new ArrayList<>();
 
+        if (args.length == 1)
             for (Phase phase : Phase.values())
-                phases.addAll(Arrays.asList(phase.references));
+                for (String reference : phase.references)
+                    if (StringUtils.startsWithIgnoreCase(reference, args[0]))
+                        completions.add(reference);
 
-            return phases;
-        }
-        return null;
+        return completions;
     }
 
     private enum Phase {

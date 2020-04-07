@@ -27,7 +27,7 @@ public class CommandServer extends CoreCommand {
             List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
 
             if (selector != null)
-                targets.addAll(selector);
+                targets = selector;
         } else if (player != null)
             targets.add(player);
 
@@ -67,21 +67,20 @@ public class CommandServer extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
+        List<String> completions = new ArrayList<>();
+
         if (args.length == 1) {
-            List<String> completions = new ArrayList<>();
-
             for (World world : Bukkit.getWorlds()) {
-                String name = world.getName();
+                if (isWorldAllowed(sender, world)) {
+                    String name = world.getName().replace("skyworld", "Skyblock").replace("KitPvP", "PvP");
 
-                if (isWorldAllowed(sender, world))
-                    completions.add(name.replace("skyworld", "Skyblock").replace("KitPvP", "PvP"));
-
-                completions.add("skygrid");
+                    if (StringUtils.startsWithIgnoreCase(name, args[0]))
+                        completions.add(name);
+                }
             }
-
-            return completions;
         }
-        return null;
+
+        return completions;
     }
 
     private boolean isWorldAllowed(CommandSender sender, World world) {

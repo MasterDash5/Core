@@ -30,16 +30,6 @@ public class ListUtils {
         return names;
     }
 
-    public static List<String> getOnlinePlayers(CommandSender sender) {
-        List<String> players = new ArrayList<>();
-
-        for (Player online : Bukkit.getOnlinePlayers())
-            if (sender == null || SenderUtils.canSee(sender, online))
-                players.add(online.getName());
-
-        return players;
-    }
-
     public static String fromList(List<String> list, boolean useAnd, boolean formatDuplicates) {
         String string = "";
 
