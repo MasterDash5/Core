@@ -30,6 +30,8 @@ public class User implements CommandSender {
     private boolean inPingSpy;
     private boolean inAutoWelcome;
     private boolean spinning;
+    private boolean vanished;
+    private boolean blocking;
 
     private User(Player player) {
         this.player = player;
@@ -45,6 +47,8 @@ public class User implements CommandSender {
         this.inPingSpy = false;
         this.inAutoWelcome = false;
         this.spinning = false;
+        this.vanished = false;
+        this.blocking = false;
 
         users.add(this);
     }
@@ -161,6 +165,22 @@ public class User implements CommandSender {
 
     public void setSpinning(boolean spinning) {
         this.spinning = spinning;
+    }
+
+    public boolean isVanished() {
+        return vanished;
+    }
+
+    public void setVanished(boolean vanished) {
+        this.vanished = vanished;
+    }
+
+    public boolean isBlocking() {
+        return blocking;
+    }
+
+    public void setBlocking(boolean blocking) {
+        this.blocking = blocking;
     }
 
     public boolean isStaff() {

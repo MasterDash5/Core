@@ -1,21 +1,29 @@
 package dashnetwork.core;
 
+import com.comphenix.protocol.PacketType;
 import dashnetwork.core.command.commands.*;
 import dashnetwork.core.creative.Creative;
 import dashnetwork.core.discord.listeners.DiscordMessageListener;
 import dashnetwork.core.global.Global;
+import dashnetwork.core.packet.listeners.PacketListener;
 import dashnetwork.core.skyblock.Skyblock;
 import dashnetwork.core.survival.Survival;
 import dashnetwork.core.task.Task;
 import dashnetwork.core.task.tasks.SpinTask;
 import dashnetwork.core.utils.DataUtils;
+import dashnetwork.core.utils.TpsUtils;
 import github.scarsz.discordsrv.DiscordSRV;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class Core extends JavaPlugin {
 
     private static Core instance;
     private static DiscordMessageListener discordMessageListener;
+    private static PacketListener packetListener;
 
     public static Core getInstance() {
         return instance;
@@ -25,7 +33,11 @@ public class Core extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        packetListener = new PacketListener();
+        packetListener.start();
+
         DataUtils.startup();
+        TpsUtils.startup();
 
         // Register per world
         new Global();
@@ -54,6 +66,7 @@ public class Core extends JavaPlugin {
         new CommandFuckoff();
         new CommandGamestate();
         new CommandGoogle();
+        new CommandImport();
         new CommandInvisibility();
         new CommandKillears();
         new CommandList();
@@ -62,6 +75,7 @@ public class Core extends JavaPlugin {
         new CommandModlist();
         new CommandMommy();
         new CommandMoonphase();
+        new CommandNamemc();
         new CommandNightvision();
         new CommandOplist();
         new CommandOwnerchat();
@@ -72,12 +86,14 @@ public class Core extends JavaPlugin {
         new CommandRespawn();
         new CommandServer();
         new CommandServerinfo();
+        new CommandServerping();
         new CommandSignspy();
         new CommandSpawn();
         new CommandSpin();
         new CommandStaffchat();
         new CommandTest();
         new CommandThefurpysong();
+        new CommandVanish();
         new CommandVersionlist();
 
         // Register tasks
@@ -101,7 +117,14 @@ public class Core extends JavaPlugin {
         for (Task task : Task.getTasks())
             task.cancel();
 
+        packetListener.stop();
+        packetListener = null;
+
         instance = null;
+    }
+
+    public Set<PacketType> getAllPackets() {
+        return StreamSupport.stream(PacketType.values().spliterator(), false).filter(type -> type.isSupported() && type.getProtocol().equals(PacketType.Play.getProtocol())).collect(Collectors.toSet());
     }
 
 }

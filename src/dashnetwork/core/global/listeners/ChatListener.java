@@ -2,7 +2,6 @@ package dashnetwork.core.global.listeners;
 
 import dashnetwork.core.utils.*;
 import github.scarsz.discordsrv.DiscordSRV;
-import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -40,30 +39,15 @@ public class ChatListener implements Listener {
     }
 
     private void ownerChat(Player player, String input) {
-        MessageBuilder message = new MessageBuilder();
-        message.append("&9&lOwner ");
-        message.append("&6" + player.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + player.getName());
-        message.append("&6&l > &c" + input);
-
-        MessageUtils.broadcast(true, null, PermissionType.OWNER, message.build());
+        MessageUtils.broadcast(true, null, PermissionType.OWNER, "&9&lOwner &6" + player.getDisplayName() + " &6&l> &c" + input);
     }
 
     private void adminChat(Player player, String input) {
-        MessageBuilder message = new MessageBuilder();
-        message.append("&9&lAdmin ");
-        message.append("&6" + player.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + player.getName());
-        message.append("&6&l > &3" + message);
-
-        MessageUtils.broadcast(true, null, PermissionType.ADMIN, message.build());
+        MessageUtils.broadcast(true, null, PermissionType.ADMIN, "&9&lAdmin &6" + player.getDisplayName() + " &6&l> &3" + input);
     }
 
     private void staffChat(Player player, String input) {
-        MessageBuilder message = new MessageBuilder();
-        message.append("&9&lStaff ");
-        message.append("&6" + player.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + player.getName());
-        message.append("&6&l > &6" + input);
-
-        MessageUtils.broadcast(true, null, PermissionType.STAFF, message.build());
+        MessageUtils.broadcast(true, null, PermissionType.STAFF, "&9&lStaff &6" + player.getDisplayName() + " &6&l> &6" + input);
 
         if (Bukkit.getPluginManager().isPluginEnabled("DiscordSRV"))
             DiscordSRV.getPlugin().processChatMessage(player, input, "staffchat", false);

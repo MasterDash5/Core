@@ -43,6 +43,7 @@ commands:
   gamestate:
     aliases: [state]
   google:
+  import:
   invisibility:
     aliases: [invis]
   killears:
@@ -57,6 +58,8 @@ commands:
     aliases: [daddy, grandma, grandpa, aunt, uncle]
   moonphase:
     aliases: [moon]
+  namemc:
+    aliases: [usernamehistory, namehistory]
   nightvision:
     aliases: [nv, see]
   oplist:
@@ -72,6 +75,7 @@ commands:
   server:
     aliases: [servers, world, worlds, warp, warps]
   serverinfo:
+  serverping:
   signspy:
     aliases: [ss]
   spawn:
@@ -81,5 +85,7 @@ commands:
   test:
   thefurpysong:
     aliases: [furpysong]
+  vanish:
+    aliases: [v]
   versionlist:
     aliases: [verlist]

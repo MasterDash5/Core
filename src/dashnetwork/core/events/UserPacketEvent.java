@@ -37,6 +37,10 @@ public class UserPacketEvent extends Event implements Cancellable {
         return packet;
     }
 
+    public void setPacket(PacketContainer packet) {
+        this.packet = packet;
+    }
+
     @Override
     public boolean isCancelled() {
         return cancelled;
@@ -49,6 +53,10 @@ public class UserPacketEvent extends Event implements Cancellable {
 
     @Override
     public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
         return handlers;
     }
 

@@ -11,10 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ServerPingListener implements Listener {
 
@@ -23,26 +20,11 @@ public class ServerPingListener implements Listener {
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
         String address = event.getAddress().getHostAddress();
-        String motd = "&6&l» &6DashNetwork &7" + VersionUtils.getOldest() + "-" + VersionUtils.getLatest(); // TODO: Think of something better to put here
+        String motd = "&6DashNetwork &6&l» &7" + VersionUtils.getOldest() + "-" + VersionUtils.getLatest(); // TODO: Think of something better to put here
 
         event.setMotd(ChatColor.translateAlternateColorCodes('&', motd));
 
-        if (recentPings.contains(address)) {
-            new Thread(() -> {
-                Map<String, List<String>> addresses = DataUtils.getOfflineList();
-
-                if (addresses.containsKey(address)) {
-                    List<String> names = addresses.get(address);
-                    MessageBuilder message = new MessageBuilder();
-
-                    message.append("&c&lPS &6" + address + " &7pinged the server").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(names, false, false));
-
-                    for (User user : User.getUsers(false))
-                        if (user.inPingSpy())
-                            MessageUtils.message(user, message.build());
-                }
-            }).start();
-        } else {
+        if (!recentPings.contains(address)) {
             recentPings.add(address);
 
             new BukkitRunnable() {
@@ -50,6 +32,24 @@ public class ServerPingListener implements Listener {
                     recentPings.remove(address);
                 }
             }.runTaskLaterAsynchronously(Core.getInstance(), 6000);
+
+            new Thread(() -> {
+                Map<String, List<String>> addresses = DataUtils.getOfflineList();
+
+                if (addresses.containsKey(address)) {
+                    List<String> names = new ArrayList<>();
+
+                    for (String uuid : addresses.get(address))
+                        names.add(Bukkit.getOfflinePlayer(UUID.fromString(uuid)).getName());
+
+                    MessageBuilder message = new MessageBuilder();
+                    message.append("&c&lPS &6" + address + " &7pinged the server").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(names, false, false));
+
+                    for (User user : User.getUsers(false))
+                        if (user.inPingSpy())
+                            MessageUtils.message(user, message.build());
+                }
+            }).start();
         }
     }
 

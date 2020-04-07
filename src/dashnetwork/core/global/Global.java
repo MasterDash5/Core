@@ -11,16 +11,20 @@ public class Global {
 
     public Global() {
         PluginManager manager = Bukkit.getPluginManager();
+        manager.registerEvents(new BedEnterListener(), plugin);
         manager.registerEvents(new BlockListener(), plugin);
         manager.registerEvents(new ChatListener(), plugin);
         manager.registerEvents(new CommandListener(), plugin);
+        manager.registerEvents(new EntityMetadataListener(), plugin);
         manager.registerEvents(new InteractListener(), plugin);
         manager.registerEvents(new JoinListener(), plugin);
+        manager.registerEvents(new LoginListener(), plugin);
         manager.registerEvents(new PortalListener(), plugin);
         manager.registerEvents(new QuitListener(), plugin);
         manager.registerEvents(new ServerPingListener(), plugin);
         manager.registerEvents(new SignChangeListener(), plugin);
         manager.registerEvents(new WeatherListener(), plugin);
+        manager.registerEvents(new WorldChangedListener(), plugin);
     }
 
 }

@@ -28,6 +28,10 @@ public class LoginListener implements Listener {
 
         if (CommandFuckoff.getFuckoff() && !player.hasPlayedBefore())
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "&cYou are not allowed to join right now");
+
+        if (event.getResult().equals(PlayerLoginEvent.Result.KICK_BANNED)) {
+
+        }
     }
 
 }

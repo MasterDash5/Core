@@ -25,6 +25,7 @@ public class QuitListener implements Listener {
         boolean inBookSpy = user.inBookSpy();
         boolean inAltSpy = user.inAltSpy();
         boolean inPingSpy = user.inPingSpy();
+        boolean inAutoWelcome = user.inAutoWelcome();
         List<String> ownerchatList = DataUtils.getOwnerchatList();
         List<String> adminchatList = DataUtils.getAdminchatList();
         List<String> staffchatList = DataUtils.getStaffchatList();
@@ -33,6 +34,7 @@ public class QuitListener implements Listener {
         List<String> bookspyList = DataUtils.getBookspyList();
         List<String> altspyList = DataUtils.getAltspyList();
         List<String> pingspyList = DataUtils.getPingspyList();
+        List<String> autowelcomeList = DataUtils.getAutowelcomeList();
         boolean inOwnerChatList = ownerchatList.contains(uuid);
         boolean inAdminChatList = adminchatList.contains(uuid);
         boolean inStaffChatList = staffchatList.contains(uuid);
@@ -41,6 +43,7 @@ public class QuitListener implements Listener {
         boolean inBookSpyList = bookspyList.contains(uuid);
         boolean inAltSpyList = altspyList.contains(uuid);
         boolean inPingSpyList = pingspyList.contains(uuid);
+        boolean inAutoWelcomeList = autowelcomeList.contains(uuid);
 
         if (inOwnerChat && !inOwnerChatList)
             ownerchatList.add(uuid);
@@ -81,6 +84,11 @@ public class QuitListener implements Listener {
             pingspyList.add(uuid);
         else if (!inPingSpy && inPingSpyList)
             pingspyList.remove(uuid);
+
+        if (inAutoWelcome && !inAutoWelcomeList)
+            autowelcomeList.add(uuid);
+        else if (!inAutoWelcome && inAutoWelcomeList)
+            autowelcomeList.remove(uuid);
 
         user.remove();
     }

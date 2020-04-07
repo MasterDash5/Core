@@ -44,8 +44,7 @@ public class CommandVersionlist extends CoreCommand {
             if (!message.isEmpty())
                 message.append("\n");
 
-            message.append("&6&l» &7[&6" + entry.getKey() + "&7] " + ListUtils.fromList(displaynames, false, false))
-                    .hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(names, false, false));
+            message.append("&6&l» &7[&6" + entry.getKey() + "&7] " + ListUtils.fromList(displaynames, false, false)).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(names, false, false));
         }
 
         if (message.isEmpty())
