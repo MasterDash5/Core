@@ -51,7 +51,7 @@ public class CommandServer extends CoreCommand {
 
             if (WorldUtils.isPlayerWorld(world) || SenderUtils.isAdmin(sender)) {
                 for (Player target : targets)
-                    target.teleport(world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+                    target.teleport(WorldUtils.getWarp(world), PlayerTeleportEvent.TeleportCause.PLUGIN);
 
                 if (player == null || ListUtils.containsOtherThan(targets, player)) {
                     targets.remove(player);

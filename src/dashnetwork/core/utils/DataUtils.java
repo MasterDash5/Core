@@ -39,19 +39,13 @@ public class DataUtils {
         dataFile = file;
         dataConfig = YamlConfiguration.loadConfiguration(file);
 
-        if (dataConfig.contains("addresses")) {
-            List<String> addresses = dataConfig.getStringList("addresses");
-
-            for (String address : addresses)
+        if (dataConfig.contains("addresses"))
+            for (String address : dataConfig.getConfigurationSection("addresses").getKeys(false))
                 offlineList.put(address.replace("-", "."), dataConfig.getStringList("addresses." + address));
-        }
 
-        if (dataConfig.contains("survivallocation")) {
-            List<String> uuids = dataConfig.getStringList("survivallocation");
-
-            for (String uuid : uuids)
+        if (dataConfig.contains("survivallocation"))
+            for (String uuid : dataConfig.getConfigurationSection("survivallocation").getKeys(false))
                 survivallocationList.put(uuid, dataConfig.getString("survivallocation." + uuid));
-        }
 
         if (dataConfig.contains("ownerchat"))
             ownerchatList.addAll(dataConfig.getStringList("ownerchat"));

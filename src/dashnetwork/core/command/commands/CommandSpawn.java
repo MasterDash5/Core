@@ -39,7 +39,7 @@ public class CommandSpawn extends CoreCommand {
             for (Player target : targets) {
                 World world = target.getLocation().getWorld();
                 String name = world.getName();
-                target.teleport(world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+                target.teleport(WorldUtils.getWarp(world), PlayerTeleportEvent.TeleportCause.PLUGIN);
 
                 MessageUtils.message(target, "&6&l» &7Teleporting to &6" + name);
             }

@@ -55,11 +55,6 @@ public class CommandClearlag extends CoreCommand {
                         removedList.add(name);
                         entity.remove();
                     }
-
-                    if (entity.fromMobSpawner() && !type.equals(EntityType.VILLAGER)) {
-                        removedList.add(name);
-                        entity.remove();
-                    }
                 }
             }
         }

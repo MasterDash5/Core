@@ -2,6 +2,8 @@ package dashnetwork.core.global.listeners;
 
 import dashnetwork.core.Core;
 import dashnetwork.core.utils.*;
+import github.scarsz.discordsrv.DiscordSRV;
+import github.scarsz.discordsrv.dependencies.jda.api.entities.TextChannel;
 import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
@@ -12,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ServerPingListener implements Listener {
@@ -43,12 +46,20 @@ public class ServerPingListener implements Listener {
                     for (String uuid : addresses.get(address))
                         names.add(Bukkit.getOfflinePlayer(UUID.fromString(uuid)).getName());
 
+                    String fromNames = ListUtils.fromList(names, false, true);
+                    String date = new SimpleDateFormat("MM/dd/yyy HH:mm:ss").format(Calendar.getInstance().getTime());
+
                     MessageBuilder message = new MessageBuilder();
-                    message.append("&c&lPS &6" + address + " &7pinged the server").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(names, false, false));
+                    message.append("&c&lPS &6" + address + " &7pinged the server").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + fromNames);
 
                     for (User user : User.getUsers())
                         if (user.inPingSpy())
                             MessageUtils.message(user, message.build());
+
+                    if (Bukkit.getPluginManager().isPluginEnabled("DiscordSRV")) {
+                        TextChannel channel = DiscordSRV.getPlugin().getDestinationTextChannelForGameChannelName("pingspy");
+                        channel.sendMessage(date + "\t" + address + "\t" + fromNames).queue();
+                    }
                 }
             }).start();
         }

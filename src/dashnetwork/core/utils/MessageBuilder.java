@@ -59,6 +59,12 @@ public class MessageBuilder {
             return this;
         }
 
+        public MessageComponent hoverEvent(HoverEvent.Action action, BaseComponent... input) {
+            for (BaseComponent component : components)
+                component.setHoverEvent(new HoverEvent(action, input));
+            return this;
+        }
+
         private List<BaseComponent> getBaseComponents() {
             return components;
         }

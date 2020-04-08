@@ -13,10 +13,11 @@ import org.bukkit.plugin.Plugin;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class User implements CommandSender {
 
-    private static List<User> users = new ArrayList<>();
+    private static List<User> users = new CopyOnWriteArrayList<>();
     private Player player;
     private List<String> mods;
     private String client;

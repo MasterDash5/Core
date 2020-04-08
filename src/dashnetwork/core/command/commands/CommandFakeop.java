@@ -33,7 +33,7 @@ public class CommandFakeop extends CoreCommand {
             MessageUtils.usage(sender, label, "<player>");
         else {
             for (Player target : targets)
-                MessageUtils.message(target, "&7&o[" + sender.getName() + ": Opped " + target.getName());
+                MessageUtils.message(target, "&7&o[" + sender.getName() + ": Opped " + target.getName() + "]");
 
             String displaynames = ListUtils.fromList(ListUtils.toDisplayNames(targets), false ,false);
             String names = ListUtils.fromList(ListUtils.toNames(targets), false, false);

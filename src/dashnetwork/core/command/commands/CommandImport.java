@@ -36,8 +36,10 @@ public class CommandImport extends CoreCommand {
             if (!address.isEmpty()) {
                 List<String> accounts = offlineList.getOrDefault(address, new ArrayList<>());
 
-                accounts.add(uuidString);
-                offlineList.put(address, accounts);
+                if (!accounts.contains(address)) {
+                    accounts.add(uuidString);
+                    offlineList.put(address, accounts);
+                }
             }
         }
 
