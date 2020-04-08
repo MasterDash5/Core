@@ -40,7 +40,7 @@ public class CommandImport extends CoreCommand {
             }
         }
 
-        MessageUtils.message(sender, "&6&l» Import finished!");
+        MessageUtils.message(sender, "&6&l» &7Import finished!");
     }
 
     @Override

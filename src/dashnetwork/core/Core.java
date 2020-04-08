@@ -11,8 +11,10 @@ import dashnetwork.core.task.Task;
 import dashnetwork.core.task.tasks.SpinTask;
 import dashnetwork.core.utils.DataUtils;
 import dashnetwork.core.utils.TpsUtils;
+import dashnetwork.core.utils.User;
 import github.scarsz.discordsrv.DiscordSRV;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -127,6 +129,8 @@ public class Core extends JavaPlugin {
 
         // Register tasks
         new SpinTask();
+
+        User.getUsers(true);
     }
 
     @Override
@@ -140,6 +144,9 @@ public class Core extends JavaPlugin {
             DiscordSRV.api.unsubscribe(discordMessageListener);
             discordMessageListener = null;
         }
+
+        for (User user : User.getUsers(false))
+            user.remove();
 
         packetListener.stop();
         packetListener = null;

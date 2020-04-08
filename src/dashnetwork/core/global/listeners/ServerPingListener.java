@@ -3,6 +3,7 @@ package dashnetwork.core.global.listeners;
 import dashnetwork.core.Core;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
+import org.bukkit.BanList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -20,7 +21,7 @@ public class ServerPingListener implements Listener {
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
         String address = event.getAddress().getHostAddress();
-        String motd = "&6DashNetwork &6&l» &7" + VersionUtils.getOldest() + "-" + VersionUtils.getLatest(); // TODO: Think of something better to put here
+        String motd = "&6DashNetwork &6&l» &8[" + VersionUtils.getOldest() + " - " + VersionUtils.getLatest() + "]"; // TODO: Think of something better to put here
 
         event.setMotd(ChatColor.translateAlternateColorCodes('&', motd));
 
@@ -36,7 +37,7 @@ public class ServerPingListener implements Listener {
             new Thread(() -> {
                 Map<String, List<String>> addresses = DataUtils.getOfflineList();
 
-                if (addresses.containsKey(address)) {
+                if (addresses.containsKey(address) && !Bukkit.getBanList(BanList.Type.IP).isBanned(address)) {
                     List<String> names = new ArrayList<>();
 
                     for (String uuid : addresses.get(address))

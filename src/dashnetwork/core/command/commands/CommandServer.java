@@ -23,7 +23,7 @@ public class CommandServer extends CoreCommand {
         List<Player> targets = new ArrayList<>();
         Player player = sender instanceof Player ? (Player) sender : null;
 
-        if (args.length > 0 && SenderUtils.isAdmin(sender)) {
+        if (args.length > 1 && SenderUtils.isAdmin(sender)) {
             List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
 
             if (selector != null)
@@ -33,7 +33,7 @@ public class CommandServer extends CoreCommand {
 
         targets.removeIf(target -> !SenderUtils.canSee(sender, target));
 
-        if (targets.isEmpty())
+        if (targets.isEmpty() || args.length <= 0)
             MessageUtils.message(sender, "&6&l» &7Servers: &6Creative, Hub, Prison, PvP, Skyblock, Skygrid");
         else {
             String name = args[0];

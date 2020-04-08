@@ -68,6 +68,71 @@ public class User implements CommandSender {
     }
 
     public void remove() {
+        String uuid = player.getUniqueId().toString();
+        List<String> ownerchatList = DataUtils.getOwnerchatList();
+        List<String> adminchatList = DataUtils.getAdminchatList();
+        List<String> staffchatList = DataUtils.getStaffchatList();
+        List<String> commandspyList = DataUtils.getCommandspyList();
+        List<String> signspyList = DataUtils.getSignspyList();
+        List<String> bookspyList = DataUtils.getBookspyList();
+        List<String> altspyList = DataUtils.getAltspyList();
+        List<String> pingspyList = DataUtils.getPingspyList();
+        List<String> autowelcomeList = DataUtils.getAutowelcomeList();
+        boolean inOwnerChatList = ownerchatList.contains(uuid);
+        boolean inAdminChatList = adminchatList.contains(uuid);
+        boolean inStaffChatList = staffchatList.contains(uuid);
+        boolean inCommandSpyList = commandspyList.contains(uuid);
+        boolean inSignSpyList = signspyList.contains(uuid);
+        boolean inBookSpyList = bookspyList.contains(uuid);
+        boolean inAltSpyList = altspyList.contains(uuid);
+        boolean inPingSpyList = pingspyList.contains(uuid);
+        boolean inAutoWelcomeList = autowelcomeList.contains(uuid);
+
+        if (inOwnerChat && !inOwnerChatList)
+            ownerchatList.add(uuid);
+        else if (!inOwnerChat && inOwnerChatList)
+            ownerchatList.remove(uuid);
+
+        if (inAdminChat && !inAdminChatList)
+            adminchatList.add(uuid);
+        else if (!inAdminChat && inAdminChatList)
+            adminchatList.remove(uuid);
+
+        if (inStaffChat && !inStaffChatList)
+            staffchatList.add(uuid);
+        else if (!inStaffChat && inStaffChatList)
+            staffchatList.remove(uuid);
+
+        if (inCommandSpy && !inCommandSpyList)
+            commandspyList.add(uuid);
+        else if (!inCommandSpy && inCommandSpyList)
+            commandspyList.remove(uuid);
+
+        if (inSignSpy && !inSignSpyList)
+            signspyList.add(uuid);
+        else if (!inSignSpy && inSignSpyList)
+            signspyList.remove(uuid);
+
+        if (inBookSpy && !inBookSpyList)
+            bookspyList.add(uuid);
+        else if (!inBookSpy && inBookSpyList)
+            bookspyList.remove(uuid);
+
+        if (inAltSpy && !inAltSpyList)
+            altspyList.add(uuid);
+        else if (!inAltSpy && inAltSpyList)
+            altspyList.remove(uuid);
+
+        if (inPingSpy && !inPingSpyList)
+            pingspyList.add(uuid);
+        else if (!inPingSpy && inPingSpyList)
+            pingspyList.remove(uuid);
+
+        if (inAutoWelcome && !inAutoWelcomeList)
+            autowelcomeList.add(uuid);
+        else if (!inAutoWelcome && inAutoWelcomeList)
+            autowelcomeList.remove(uuid);
+
         users.remove(this);
     }
 

@@ -39,6 +39,8 @@ public class DiscordMessageListener {
             message.append("&6&l > &6" + display);
 
             MessageUtils.broadcast(true, null, PermissionType.STAFF, message.build());
+
+            event.setCancelled(true);
         }
     }
 
