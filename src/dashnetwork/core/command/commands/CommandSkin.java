@@ -37,7 +37,7 @@ import java.util.UUID;
 public class CommandSkin extends CoreCommand {
 
     public CommandSkin() {
-        super("skin", PermissionType.ADMIN, false);
+        super("skin", PermissionType.OWNER, false);
     }
 
     @Override
@@ -118,26 +118,22 @@ public class CommandSkin extends CoreCommand {
                     add.getPlayerInfoAction().write(0, EnumWrappers.PlayerInfoAction.ADD_PLAYER);
                     add.getPlayerInfoDataLists().write(0, Arrays.asList(addData));
 
-                    new BukkitRunnable() {
-                        public void run() {
-                            for (Player online : Bukkit.getOnlinePlayers()) {
-                                if (online.canSee(target)) {
-                                    online.hidePlayer(plugin, target);
-                                    online.showPlayer(plugin, target);
-                                }
-                            }
-
-                            try {
-                                ProtocolManager manager = ProtocolLibrary.getProtocolManager();
-                                manager.sendServerPacket(target, clear);
-                                manager.sendServerPacket(target, add);
-                            } catch (Exception exception) {
-                                exception.printStackTrace();
-                            }
-
-                            entityplayer.server.getPlayerList().moveToWorld(entityplayer, entityplayer.dimension, false, target.getLocation(), true);
+                    for (Player online : Bukkit.getOnlinePlayers()) {
+                        if (online.canSee(target)) {
+                            online.hidePlayer(plugin, target);
+                            online.showPlayer(plugin, target);
                         }
-                    }.runTaskLater(plugin, 1);
+                    }
+
+                    try {
+                        ProtocolManager manager = ProtocolLibrary.getProtocolManager();
+                        manager.sendServerPacket(target, clear);
+                        manager.sendServerPacket(target, add);
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+
+                    entityplayer.server.getPlayerList().moveToWorld(entityplayer, entityplayer.dimension, false, target.getLocation(), true);
                 }
             }
         } else

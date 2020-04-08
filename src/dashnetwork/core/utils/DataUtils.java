@@ -14,6 +14,7 @@ import java.util.Map;
 public class DataUtils {
 
     private static Map<String, List<String>> offlineList = new HashMap<>();
+    private static Map<String, String> survivallocationList = new HashMap<>();
     private static List<String> ownerchatList = new ArrayList<>();
     private static List<String> adminchatList = new ArrayList<>();
     private static List<String> staffchatList = new ArrayList<>();
@@ -43,7 +44,14 @@ public class DataUtils {
             List<String> addresses = dataConfig.getStringList("addresses");
 
             for (String address : addresses)
-                offlineList.put(address.replace("-", "."), dataConfig.getStringList(address));
+                offlineList.put(address.replace("-", "."), dataConfig.getStringList("addresses." + address));
+        }
+
+        if (dataConfig.contains("survivallocation")) {
+            List<String> uuids = dataConfig.getStringList("survivallocation");
+
+            for (String uuid : uuids)
+                survivallocationList.put(uuid, dataConfig.getString("survivallocation." + uuid));
         }
 
         if (dataConfig.contains("ownerchat"))
@@ -82,6 +90,13 @@ public class DataUtils {
             dataConfig.set("addresses." + address.replace(".", "-"), uuids);
         }
 
+        for (Map.Entry<String, String> entry : survivallocationList.entrySet()) {
+            String uuid = entry.getKey();
+            String location = entry.getValue();
+
+            dataConfig.set("survivallocation." + uuid, location);
+        }
+
         dataConfig.set("ownerchat", ownerchatList);
         dataConfig.set("adminchat", adminchatList);
         dataConfig.set("staffchat", staffchatList);
@@ -105,6 +120,10 @@ public class DataUtils {
 
     public static Map<String, List<String>> getOfflineList() {
         return offlineList;
+    }
+
+    public static Map<String, String> getSurvivallocationList() {
+        return survivallocationList;
     }
 
     public static List<String> getOwnerchatList() {

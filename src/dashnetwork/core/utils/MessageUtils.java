@@ -9,9 +9,7 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 public class MessageUtils {
 
@@ -94,6 +92,146 @@ public class MessageUtils {
 
     public static void playerCommandOnly() {
         message(Bukkit.getConsoleSender(), "&6&l» &7Only players can use this command");
+    }
+
+    @Deprecated
+    public static void notOnline(CommandSender sender, String name) {
+        message(sender, "&6&l» &7Could not find player: &c" + name);
+    }
+
+    @Deprecated
+    public static void broadcast(String message, boolean showConsole) {
+        for (Player online : Bukkit.getOnlinePlayers())
+            message(online, message);
+
+        if (showConsole)
+            message(Bukkit.getConsoleSender(), message);
+    }
+
+    @Deprecated
+    public static void broadcast(String message, boolean showConsole, Player... exempt) {
+        List list = exempt == null ? new ArrayList() : Arrays.asList(exempt);
+
+        for (Player online : Bukkit.getOnlinePlayers())
+            if (exempt == null || !list.contains(online))
+                message(online, message);
+
+        if (showConsole)
+            message(Bukkit.getConsoleSender(), message);
+    }
+
+    @Deprecated
+    public static void broadcast(String message, boolean showConsole, UUID... exempt) {
+        List list = exempt == null ? new ArrayList() : Arrays.asList(exempt);
+
+        for (Player online : Bukkit.getOnlinePlayers())
+            if (exempt == null || !list.contains(online.getUniqueId()))
+                message(online, message);
+
+        if (showConsole)
+            message(Bukkit.getConsoleSender(), message);
+    }
+
+    @Deprecated
+    public static void broadcast(String message, World world) {
+        for (Player online : world.getPlayers())
+            message(online, message);
+    }
+
+    @Deprecated
+    public static void broadcast(String message, World world, Player... exempt) {
+        List list = exempt == null ? new ArrayList() : Arrays.asList(exempt);
+
+        for (Player online : world.getPlayers())
+            if (exempt == null || !list.contains(online))
+                message(online, message);
+    }
+
+    @Deprecated
+    public static void broadcast(String message, World world, UUID... exempt) {
+        List list = exempt == null ? new ArrayList() : Arrays.asList(exempt);
+
+        for (Player online : world.getPlayers())
+            if (exempt == null || !list.contains(online.getUniqueId()))
+                message(online, message);
+    }
+
+    @Deprecated
+    public static void broadcast(String message, World world, Collection<UUID> exempt) {
+        for (Player online : world.getPlayers())
+            if (exempt == null || !exempt.contains(online.getUniqueId()))
+                message(online, message);
+    }
+
+    @Deprecated
+    public static void broadcast(String message, String worldName) {
+        for (Player online : Bukkit.getWorld(worldName).getPlayers())
+            message(online, message);
+    }
+
+    @Deprecated
+    public static void broadcast(String message, String worldName, Player... exempt) {
+        List list = exempt == null ? new ArrayList() : Arrays.asList(exempt);
+
+        for (Player online : Bukkit.getWorld(worldName).getPlayers())
+            if (exempt == null || !list.contains(online))
+                message(online, message);
+    }
+
+    @Deprecated
+    public static void broadcast(String message, String worldName, UUID... exempt) {
+        List list = exempt == null ? new ArrayList() : Arrays.asList(exempt);
+
+        for (Player online : Bukkit.getWorld(worldName).getPlayers())
+            if (exempt == null || !list.contains(online.getUniqueId()))
+                message(online, message);
+    }
+
+    @Deprecated
+    public static void broadcast(String message, String worldName, Collection<UUID> exempt) {
+        for (Player online : Bukkit.getWorld(worldName).getPlayers())
+            if (exempt == null || !exempt.contains(online.getUniqueId()))
+                message(online, message);
+    }
+
+    @Deprecated
+    public static void tellStaff(String message, boolean showConsole, boolean adminOnly) {
+        for (Player online : Bukkit.getOnlinePlayers())
+            if (adminOnly ? PlayerUtils.isAdmin(online) : PlayerUtils.isStaff(online))
+                message(online, message);
+
+        if (showConsole)
+            message(Bukkit.getConsoleSender(), message);
+    }
+
+    @Deprecated
+    public static void tellStaff(String message, Collection<UUID> exclude, boolean showConsole, boolean adminOnly) {
+        for (Player online : Bukkit.getOnlinePlayers())
+            if (!exclude.contains(online.getUniqueId()) && (adminOnly ? PlayerUtils.isAdmin(online) : PlayerUtils.isStaff(online)))
+                message(online, message);
+
+        if (showConsole)
+            message(Bukkit.getConsoleSender(), message);
+    }
+
+    @Deprecated
+    public static void message(UUID uuid, String message) {
+        Player player = Bukkit.getPlayer(uuid);
+
+        if (player != null)
+            message(player, message);
+    }
+
+    @Deprecated
+    public static void message(Collection<UUID> uuids, String message) {
+        for (UUID uuid : uuids)
+            message(uuid, message);
+    }
+
+    @Deprecated
+    public static void message(UUID[] uuids, String message) {
+        for (UUID uuid : uuids)
+            message(uuid, message);
     }
 
 }

@@ -4,15 +4,16 @@ import com.comphenix.protocol.PacketType;
 import dashnetwork.core.command.commands.*;
 import dashnetwork.core.creative.Creative;
 import dashnetwork.core.discord.listeners.DiscordMessageListener;
-import dashnetwork.core.global.Global;
+import dashnetwork.core.global.listeners.*;
 import dashnetwork.core.packet.listeners.PacketListener;
-import dashnetwork.core.skyblock.Skyblock;
 import dashnetwork.core.survival.Survival;
 import dashnetwork.core.task.Task;
 import dashnetwork.core.task.tasks.SpinTask;
 import dashnetwork.core.utils.DataUtils;
 import dashnetwork.core.utils.TpsUtils;
 import github.scarsz.discordsrv.DiscordSRV;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Set;
@@ -40,11 +41,40 @@ public class Core extends JavaPlugin {
         TpsUtils.startup();
 
         // Register per world
-        new Global();
-
         new Creative();
-        new Skyblock();
         new Survival();
+
+        // Register global listeners
+        PluginManager manager = Bukkit.getPluginManager();
+        manager.registerEvents(new BedEnterListener(), this);
+        manager.registerEvents(new BlockListener(), this);
+        manager.registerEvents(new ChatListener(), this);
+        manager.registerEvents(new CommandListener(), this);
+        manager.registerEvents(new DeathListener(), this);
+        manager.registerEvents(new DropItemListener(), this);
+        manager.registerEvents(new EditBookListener(), this);
+        manager.registerEvents(new EntityMetadataListener(), this);
+        manager.registerEvents(new InteractListener(), this);
+        manager.registerEvents(new JoinListener(), this);
+        manager.registerEvents(new KickListener(), this);
+        manager.registerEvents(new LoginListener(), this);
+        manager.registerEvents(new ParticleListener(), this);
+        manager.registerEvents(new PickupItemListener(), this);
+        manager.registerEvents(new PortalListener(), this);
+        manager.registerEvents(new QuitListener(), this);
+        manager.registerEvents(new RespawnListener(), this);
+        manager.registerEvents(new ServerCommandListener(), this);
+        manager.registerEvents(new ServerPingListener(), this);
+        manager.registerEvents(new SignChangeListener(), this);
+        manager.registerEvents(new TeleportListener(), this);
+        manager.registerEvents(new WeatherListener(), this);
+        manager.registerEvents(new WorldChangedListener(), this);
+
+        // Register Discord listeners
+        if (getServer().getPluginManager().isPluginEnabled("DiscordSRV")) {
+            discordMessageListener = new DiscordMessageListener();
+            DiscordSRV.api.subscribe(discordMessageListener);
+        }
 
         // Register commands
         new CommandAdminchat();
@@ -97,24 +127,19 @@ public class Core extends JavaPlugin {
 
         // Register tasks
         new SpinTask();
-
-        if (getServer().getPluginManager().isPluginEnabled("DiscordSRV")) {
-            discordMessageListener = new DiscordMessageListener();
-            DiscordSRV.api.subscribe(discordMessageListener);
-        }
     }
 
     @Override
     public void onDisable() {
         DataUtils.save();
 
+        for (Task task : Task.getTasks())
+            task.cancel();
+
         if (getServer().getPluginManager().isPluginEnabled("DiscordSRV")) {
             DiscordSRV.api.unsubscribe(discordMessageListener);
             discordMessageListener = null;
         }
-
-        for (Task task : Task.getTasks())
-            task.cancel();
 
         packetListener.stop();
         packetListener = null;

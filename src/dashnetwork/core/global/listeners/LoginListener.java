@@ -2,6 +2,7 @@ package dashnetwork.core.global.listeners;
 
 import dashnetwork.core.command.commands.CommandFuckoff;
 import dashnetwork.core.utils.DataUtils;
+import dashnetwork.core.utils.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,6 +17,7 @@ public class LoginListener implements Listener {
     @EventHandler
     public void onPlayerLogin(PlayerLoginEvent event) {
         Player player = event.getPlayer();
+        User user = User.getUser(player);
         String uuid = player.getUniqueId().toString();
         String address = event.getAddress().getHostAddress();
         Map<String, List<String>> offlineList = DataUtils.getOfflineList();
@@ -29,9 +31,11 @@ public class LoginListener implements Listener {
         if (CommandFuckoff.getFuckoff() && !player.hasPlayedBefore())
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "&cYou are not allowed to join right now");
 
-        if (event.getResult().equals(PlayerLoginEvent.Result.KICK_BANNED)) {
+        if (event.getResult().equals(PlayerLoginEvent.Result.KICK_FULL) && user.isStaff())
+            event.allow();
 
-        }
+        if (user.isOwner())
+            event.allow();
     }
 
 }

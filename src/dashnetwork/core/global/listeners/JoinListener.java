@@ -4,6 +4,7 @@ import dashnetwork.core.Core;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -24,19 +25,26 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        String displayname = player.getDisplayName();
+        String name = player.getName();
         World world = player.getLocation().getWorld();
         String uuid = player.getUniqueId().toString();
         String address = player.getAddress().getAddress().getHostAddress();
         User user = User.getUser(player);
 
         for (User online : User.getUsers(false)) {
+            Player onlinePlayer = online.getPlayer();
+
             if (online.inAutoWelcome()) {
                 new BukkitRunnable() {
                     public void run() {
-                        online.getPlayer().chat(player.hasPlayedBefore() ? "wb" : "welcome");
+                        onlinePlayer.chat(player.hasPlayedBefore() ? "wb" : "welcome");
                     }
                 }.runTaskLater(Core.getInstance(), ThreadLocalRandom.current().nextInt(20, 60));
             }
+
+            if (online.isVanished())
+                player.hidePlayer(Core.getInstance(), onlinePlayer);
         }
 
         new Thread(() -> { // Bukkit.getOfflinePlayer can be laggy
@@ -53,13 +61,26 @@ public class JoinListener implements Listener {
 
             if (!alts.isEmpty()) {
                 MessageBuilder message = new MessageBuilder();
-                message.append("&c&lAlt &6" + player.getDisplayName() + " &c&l>&7 hover for list of &6" + alts.size() + " alts").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(alts, false, true));
+                message.append("&c&lAlt &6" + displayname + " &c&l>&7 hover for list of &6" + alts.size() + " alts").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(alts, false, true));
 
                 for (User online : User.getUsers(false))
                     if (online.inAltSpy())
                         MessageUtils.message(online, message.build());
             }
         }).start();
+
+        if (!player.hasPlayedBefore()) {
+            MessageBuilder message = new MessageBuilder();
+            message.append("&6&l» &6Welcome, ");
+            message.append("&6" + displayname).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + name);
+            message.append("&6 to DashNetwork");
+
+            MessageUtils.broadcast(true, null, PermissionType.NONE, message.build());
+        }
+
+        String header = ChatColor.translateAlternateColorCodes('&', "&7&l» &6&lDashNetwork &7&l«\n ");
+        String footer = ChatColor.translateAlternateColorCodes('&', "\n&6dashnetwork.mc-srv.com");
+        player.setPlayerListHeaderFooter(header, footer);
 
         if (LazyUtils.anyEquals(world.getName(), "Hub", "KitPvP"))
             player.teleport(world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);

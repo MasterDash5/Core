@@ -1,11 +1,15 @@
 package dashnetwork.core.command.commands;
 
 import dashnetwork.core.command.CoreCommand;
+import dashnetwork.core.global.listeners.EditBookListener;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +25,30 @@ public class CommandBookspy extends CoreCommand {
         List<Player> targets = new ArrayList<>();
         Player player = sender instanceof Player ? (Player) sender : null;
 
-        if (args.length > 0 && SenderUtils.isOwner(sender)) {
-            List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
+        if (args.length > 0) {
+            String arg = args[0];
 
-            if (selector != null)
-                targets = selector;
+            if (SenderUtils.isOwner(sender)) {
+                List<Player> selector = SelectorUtils.getPlayers(sender, arg);
+
+                if (selector != null)
+                    targets = selector;
+            }
+
+            try {
+                Integer id = Integer.valueOf(arg);
+                BookMeta book = EditBookListener.getBooks().get(id);
+
+                if (book != null) {
+                    ItemStack item = new ItemStack(Material.WRITABLE_BOOK);
+                    item.setItemMeta(book);
+
+                    player.getInventory().addItem(item);
+                } else
+                    MessageUtils.message(sender, "&6&l» &7That book has been cleared");
+
+                return;
+            } catch (Exception exception) {}
         } else if (player != null)
             targets.add(player);
 

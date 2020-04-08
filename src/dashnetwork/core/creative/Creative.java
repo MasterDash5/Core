@@ -1,8 +1,12 @@
 package dashnetwork.core.creative;
 
 import dashnetwork.core.Core;
+import dashnetwork.core.creative.listeners.CreatureSpawnListener;
+import dashnetwork.core.creative.listeners.EntitySpawnListener;
+import dashnetwork.core.creative.listeners.ProjectileListener;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.plugin.PluginManager;
 
 public class Creative {
 
@@ -13,6 +17,11 @@ public class Creative {
         return world;
     }
 
-    public Creative() {}
+    public Creative() {
+        PluginManager manager = Bukkit.getPluginManager();
+        manager.registerEvents(new CreatureSpawnListener(), plugin);
+        manager.registerEvents(new EntitySpawnListener(), plugin);
+        manager.registerEvents(new ProjectileListener(), plugin);
+    }
 
 }

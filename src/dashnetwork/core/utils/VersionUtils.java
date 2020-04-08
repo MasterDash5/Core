@@ -103,4 +103,9 @@ public class VersionUtils {
         return true;
     }
 
+    @Deprecated
+    public static boolean isLegacy(Player player) {
+        return isBefore(player, "1.9", false);
+    }
+
 }

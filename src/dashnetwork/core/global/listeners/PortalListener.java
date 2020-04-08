@@ -1,5 +1,6 @@
 package dashnetwork.core.global.listeners;
 
+import dashnetwork.core.survival.Survival;
 import dashnetwork.core.utils.LazyUtils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,7 +13,7 @@ public class PortalListener implements Listener {
     public void onPlayerPortal(PlayerPortalEvent event) {
         String from = event.getFrom().getWorld().getName();
         String to = event.getTo().getWorld().getName();
-        Object[] worlds = { "Survival", "Survival_nether", "Survival_the_end", "skyworld", "skyworld_nether" };
+        String[] worlds = { Survival.getWorld().getName(), Survival.getNether().getName(), Survival.getEnd().getName(), "skyworld", "skyworld_nether", "skygrid-world", "skygrid-world_nether", "skygrid-world_the_end" };
 
         if (!LazyUtils.anyEquals(from, worlds) || !LazyUtils.anyEquals(to, worlds))
             event.setCancelled(true);

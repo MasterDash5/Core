@@ -1,7 +1,7 @@
 package dashnetwork.core.global.listeners;
 
-import dashnetwork.core.utils.DataUtils;
-import dashnetwork.core.utils.User;
+import dashnetwork.core.utils.*;
+import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -44,6 +44,17 @@ public class QuitListener implements Listener {
         boolean inAltSpyList = altspyList.contains(uuid);
         boolean inPingSpyList = pingspyList.contains(uuid);
         boolean inAutoWelcomeList = autowelcomeList.contains(uuid);
+
+        if (user.isVanished()) {
+            event.setQuitMessage(null);
+
+            MessageBuilder message = new MessageBuilder();
+            message.append("&6&l» ");
+            message.append("&6" + player.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + player.getName());
+            message.append("&7 has quit vanished");
+
+            MessageUtils.broadcast(true, null, PermissionType.STAFF, message.build());
+        }
 
         if (inOwnerChat && !inOwnerChatList)
             ownerchatList.add(uuid);

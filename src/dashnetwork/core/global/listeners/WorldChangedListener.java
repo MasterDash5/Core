@@ -1,7 +1,6 @@
 package dashnetwork.core.global.listeners;
 
 import dashnetwork.core.creative.Creative;
-import dashnetwork.core.skyblock.Skyblock;
 import dashnetwork.core.survival.Survival;
 import dashnetwork.core.utils.LazyUtils;
 import dashnetwork.core.utils.User;
@@ -22,9 +21,8 @@ public class WorldChangedListener implements Listener {
         String survivalName = Survival.getWorld().getName();
         String netherName = Survival.getNether().getName();
         String endName = Survival.getEnd().getName();
-        String skyblockName = Skyblock.getWorld().getName();
 
-        if (LazyUtils.anyEquals(to, survivalName, netherName, endName, skyblockName, "KitPvP", "Prison", "skygrid-world", "skygrid-world_nether", "skygrid-world_the_end"))
+        if (LazyUtils.anyEquals(to, survivalName, netherName, endName, "skyworld", "skyworld_nether", "KitPvP", "Prison", "skygrid-world", "skygrid-world_nether", "skygrid-world_the_end"))
             player.setGameMode(GameMode.SURVIVAL);
         else if (to.equals(creativeName) || user.isAdmin()) {
             player.setGameMode(GameMode.CREATIVE);

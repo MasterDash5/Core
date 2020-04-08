@@ -23,7 +23,7 @@ public class CommandServer extends CoreCommand {
         List<Player> targets = new ArrayList<>();
         Player player = sender instanceof Player ? (Player) sender : null;
 
-        if (args.length > 0 && SenderUtils.isOwner(sender)) {
+        if (args.length > 0 && SenderUtils.isAdmin(sender)) {
             List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
 
             if (selector != null)
@@ -38,29 +38,34 @@ public class CommandServer extends CoreCommand {
         else {
             String name = args[0];
 
-            for (Player target : targets) {
-                if (name.equalsIgnoreCase("skygrid"))
-                    target.performCommand("skygrid");
-                else {
-                    World world = WorldUtils.getByAlias(name);
+            if (name.equalsIgnoreCase("PvP"))
+                name = "KitPvP";
 
-                    if (isWorldAllowed(sender, world))
-                        target.teleport(world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+            if (name.equalsIgnoreCase("Skyblock"))
+                name = "skyworld";
+
+            if (name.equalsIgnoreCase("Skygrid"))
+                name = "skygrid-world";
+
+            World world = Bukkit.getWorld(name);
+
+            if (WorldUtils.isPlayerWorld(world) || SenderUtils.isAdmin(sender)) {
+                for (Player target : targets)
+                    target.teleport(world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+
+                if (player == null || ListUtils.containsOtherThan(targets, player)) {
+                    targets.remove(player);
+
+                    String displaynames = ListUtils.fromList(ListUtils.toDisplayNames(targets), false, false);
+                    String names = ListUtils.fromList(ListUtils.toNames(targets), false, false);
+
+                    MessageBuilder message = new MessageBuilder();
+                    message.append("&6&l» ");
+                    message.append("&6" + displaynames).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + names);
+                    message.append("&7 forced to " + world.getName());
+
+                    MessageUtils.message(sender, message.build());
                 }
-            }
-
-            if (player == null || ListUtils.containsOtherThan(targets, player)) {
-                targets.remove(player);
-
-                String displaynames = ListUtils.fromList(ListUtils.toDisplayNames(targets), false, false);
-                String names = ListUtils.fromList(ListUtils.toNames(targets), false, false);
-
-                MessageBuilder message = new MessageBuilder();
-                message.append("&6&l» ");
-                message.append("&6" + displaynames).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + names);
-                message.append("&7 forced to " + name);
-
-                MessageUtils.message(sender, message.build());
             }
         }
     }
@@ -71,26 +76,28 @@ public class CommandServer extends CoreCommand {
 
         if (args.length == 1) {
             for (World world : Bukkit.getWorlds()) {
-                if (isWorldAllowed(sender, world)) {
-                    String name = world.getName().replace("skyworld", "Skyblock").replace("KitPvP", "PvP");
+                if (WorldUtils.isPlayerWorld(world) || SenderUtils.isAdmin(sender)) {
+                    String name = world.getName();
 
-                    if (StringUtils.startsWithIgnoreCase(name, args[0]))
+                    if (name.equalsIgnoreCase("KitPvP"))
+                        name = "PvP";
+
+                    if (LazyUtils.anyEqualsIgnoreCase(name, "skyworld", "skyworld_nether"))
+                        name = "Skyblock";
+
+                    if (LazyUtils.anyEqualsIgnoreCase(name, "Survival_nether", "Survival_the_end"))
+                        name = "Survival";
+
+                    if (LazyUtils.anyEqualsIgnoreCase(name, "skygrid-world", "skygrid-world_nether", "skygrid-world_the_end"))
+                        name = "Skygrid";
+
+                    if (StringUtils.startsWithIgnoreCase(name, args[0]) && !completions.contains(name))
                         completions.add(name);
                 }
             }
         }
 
         return completions;
-    }
-
-    private boolean isWorldAllowed(CommandSender sender, World world) {
-        if (SenderUtils.isStaff(sender) && WorldUtils.isStaffWorld(world))
-            return true;
-
-        if (SenderUtils.isAdmin(sender))
-            return true;
-
-        return WorldUtils.isPlayerTeleportable(world);
     }
 
 }
