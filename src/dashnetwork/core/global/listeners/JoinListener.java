@@ -30,9 +30,8 @@ public class JoinListener implements Listener {
         World world = player.getLocation().getWorld();
         String uuid = player.getUniqueId().toString();
         String address = player.getAddress().getAddress().getHostAddress();
-        User user = User.getUser(player);
 
-        for (User online : User.getUsers(false)) {
+        for (User online : User.getUsers()) {
             Player onlinePlayer = online.getPlayer();
 
             if (online.inAutoWelcome()) {
@@ -40,7 +39,7 @@ public class JoinListener implements Listener {
                     public void run() {
                         onlinePlayer.chat(player.hasPlayedBefore() ? "wb" : "welcome");
                     }
-                }.runTaskLater(Core.getInstance(), ThreadLocalRandom.current().nextInt(20, 60));
+                }.runTaskLater(Core.getInstance(), ThreadLocalRandom.current().nextInt(40, 100));
             }
 
             if (online.isVanished())
@@ -63,7 +62,7 @@ public class JoinListener implements Listener {
                 MessageBuilder message = new MessageBuilder();
                 message.append("&c&lAlt &6" + displayname + " &c&l>&7 hover for list of &6" + alts.size() + " alts").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(alts, false, true));
 
-                for (User online : User.getUsers(false))
+                for (User online : User.getUsers())
                     if (online.inAltSpy())
                         MessageUtils.message(online, message.build());
             }
@@ -84,33 +83,6 @@ public class JoinListener implements Listener {
 
         if (LazyUtils.anyEquals(world.getName(), "Hub", "KitPvP"))
             player.teleport(world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
-
-        if (DataUtils.getOwnerchatList().contains(uuid))
-            user.setInOwnerChat(true);
-
-        if (DataUtils.getAdminchatList().contains(uuid))
-            user.setInAdminChat(true);
-
-        if (DataUtils.getStaffchatList().contains(uuid))
-            user.setInStaffChat(true);
-
-        if (DataUtils.getCommandspyList().contains(uuid))
-            user.setInCommandSpy(true);
-
-        if (DataUtils.getSignspyList().contains(uuid))
-            user.setInSignSpy(true);
-
-        if (DataUtils.getBookspyList().contains(uuid))
-            user.setInBookSpy(true);
-
-        if (DataUtils.getAltspyList().contains(uuid))
-            user.setInAltSpy(true);
-
-        if (DataUtils.getPingspyList().contains(uuid))
-            user.setInPingSpy(true);
-
-        if (DataUtils.getAutowelcomeList().contains(uuid))
-            user.setInAutoWelcome(true);
     }
 
 }

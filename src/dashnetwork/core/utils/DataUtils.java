@@ -23,13 +23,12 @@ public class DataUtils {
     private static List<String> bookspyList = new ArrayList<>();
     private static List<String> altspyList = new ArrayList<>();
     private static List<String> pingspyList = new ArrayList<>();
-    private static List<String> autowelcomeList = new ArrayList<>();
     private static Core plugin = Core.getInstance();
     private static File dataFile;
     private static FileConfiguration dataConfig;
 
     public static void startup() {
-        String fileLocation = "plugins/DashNetworkCore/data.yml";
+        String fileLocation = "plugins/Core/data.yml";
         File file = new File(fileLocation);
 
         if (!file.exists() && plugin.getResource(fileLocation) != null) {
@@ -77,9 +76,6 @@ public class DataUtils {
 
         if (dataConfig.contains("pingspy"))
             pingspyList.addAll(dataConfig.getStringList("pingspy"));
-
-        if (dataConfig.contains("autowelcome"))
-            autowelcomeList.addAll(dataConfig.getStringList("autowelcome"));
     }
 
     public static void save() {
@@ -105,7 +101,6 @@ public class DataUtils {
         dataConfig.set("bookspy", bookspyList);
         dataConfig.set("altspy", altspyList);
         dataConfig.set("pingspy", pingspyList);
-        dataConfig.set("autowelcome", autowelcomeList);
 
         try {
             dataConfig.save(dataFile);
@@ -156,10 +151,6 @@ public class DataUtils {
 
     public static List<String> getPingspyList() {
         return pingspyList;
-    }
-
-    public static List<String> getAutowelcomeList() {
-        return autowelcomeList;
     }
 
 }

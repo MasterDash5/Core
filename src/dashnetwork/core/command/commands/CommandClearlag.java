@@ -9,6 +9,7 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +56,7 @@ public class CommandClearlag extends CoreCommand {
                         entity.remove();
                     }
 
-                    if (entity.fromMobSpawner()) {
+                    if (entity.fromMobSpawner() && !type.equals(EntityType.VILLAGER)) {
                         removedList.add(name);
                         entity.remove();
                     }

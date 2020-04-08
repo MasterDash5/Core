@@ -20,7 +20,7 @@ public class UserPacketEvent extends Event implements Cancellable {
 
         Player player = event.getPlayer();
 
-        if (event.isPlayerTemporary() || player == null)
+        if (!event.isPlayerTemporary() && player != null)
             this.user = User.getUser(player);
         else
             this.user = null;

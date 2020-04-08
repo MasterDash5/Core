@@ -25,7 +25,7 @@ public class TpsUtils {
             int target = (count - 101) % ticks.length;
             long elapsed = System.currentTimeMillis() - ticks[target];
 
-            return 100 / (elapsed / 1000);
+            return 100D / (elapsed / 1000D);
         } catch (Exception exception) {
             return -1;
         }

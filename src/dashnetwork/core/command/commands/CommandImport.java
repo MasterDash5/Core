@@ -24,23 +24,24 @@ public class CommandImport extends CoreCommand {
     public void onCommand(CommandSender sender, String label, String[] args) {
         MessageUtils.message(sender, "&6&l» &7Importing users from Essentials...");
 
+        Map<String, List<String>> offlineList = DataUtils.getOfflineList();
         Essentials essentials = Essentials.getPlugin(Essentials.class);
         UserMap map = essentials.getUserMap();
 
         for (UUID uuid : map.getAllUniqueUsers()) {
-            String uuidString = uuid.toString();
             User user = map.getUser(uuid);
             String address = user.getLastLoginAddress();
-            Map<String, List<String>> offlineList = DataUtils.getOfflineList();
-            List<String> accounts = offlineList.getOrDefault(address, new ArrayList<>());
+            String uuidString = uuid.toString();
 
-            if (!accounts.contains(uuidString)) {
+            if (!address.isEmpty()) {
+                List<String> accounts = offlineList.getOrDefault(address, new ArrayList<>());
+
                 accounts.add(uuidString);
                 offlineList.put(address, accounts);
             }
         }
 
-        MessageUtils.message(sender, "&6&l» &7Import finished!");
+        MessageUtils.message(sender, "&6&l» &7Import complete");
     }
 
     @Override

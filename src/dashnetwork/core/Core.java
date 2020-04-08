@@ -55,7 +55,7 @@ public class Core extends JavaPlugin {
         manager.registerEvents(new DeathListener(), this);
         manager.registerEvents(new DropItemListener(), this);
         manager.registerEvents(new EditBookListener(), this);
-        manager.registerEvents(new EntityMetadataListener(), this);
+        // manager.registerEvents(new EntityMetadataListener(), this);
         manager.registerEvents(new InteractListener(), this);
         manager.registerEvents(new JoinListener(), this);
         manager.registerEvents(new KickListener(), this);
@@ -130,23 +130,23 @@ public class Core extends JavaPlugin {
         // Register tasks
         new SpinTask();
 
-        User.getUsers(true);
+        User.getUsers();
     }
 
     @Override
     public void onDisable() {
-        DataUtils.save();
-
         for (Task task : Task.getTasks())
             task.cancel();
+
+        for (User user : User.getUsers())
+            user.remove();
+
+        DataUtils.save();
 
         if (getServer().getPluginManager().isPluginEnabled("DiscordSRV")) {
             DiscordSRV.api.unsubscribe(discordMessageListener);
             discordMessageListener = null;
         }
-
-        for (User user : User.getUsers(false))
-            user.remove();
 
         packetListener.stop();
         packetListener = null;

@@ -17,7 +17,7 @@ public class CommandListener implements Listener {
         Player player = event.getPlayer();
         World world = player.getWorld();
 
-        for (User user : User.getUsers(false)) {
+        for (User user : User.getUsers()) {
             if (user.inCommandSpy())
                 MessageUtils.message(user, "&c&lCS &6" + player.getDisplayName() + " &e&l> &b" + event.getMessage());
         }

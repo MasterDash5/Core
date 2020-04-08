@@ -50,13 +50,14 @@ public class User implements CommandSender {
         this.vanished = false;
         this.blocking = false;
 
+        check();
+
         users.add(this);
     }
 
-    public static List<User> getUsers(boolean createNew) {
-        if (createNew)
-            for (Player online : Bukkit.getOnlinePlayers())
-                getUser(online);
+    public static List<User> getUsers() {
+        for (Player online : Bukkit.getOnlinePlayers())
+            getUser(online);
         return users;
     }
 
@@ -77,7 +78,6 @@ public class User implements CommandSender {
         List<String> bookspyList = DataUtils.getBookspyList();
         List<String> altspyList = DataUtils.getAltspyList();
         List<String> pingspyList = DataUtils.getPingspyList();
-        List<String> autowelcomeList = DataUtils.getAutowelcomeList();
         boolean inOwnerChatList = ownerchatList.contains(uuid);
         boolean inAdminChatList = adminchatList.contains(uuid);
         boolean inStaffChatList = staffchatList.contains(uuid);
@@ -86,7 +86,6 @@ public class User implements CommandSender {
         boolean inBookSpyList = bookspyList.contains(uuid);
         boolean inAltSpyList = altspyList.contains(uuid);
         boolean inPingSpyList = pingspyList.contains(uuid);
-        boolean inAutoWelcomeList = autowelcomeList.contains(uuid);
 
         if (inOwnerChat && !inOwnerChatList)
             ownerchatList.add(uuid);
@@ -127,11 +126,6 @@ public class User implements CommandSender {
             pingspyList.add(uuid);
         else if (!inPingSpy && inPingSpyList)
             pingspyList.remove(uuid);
-
-        if (inAutoWelcome && !inAutoWelcomeList)
-            autowelcomeList.add(uuid);
-        else if (!inAutoWelcome && inAutoWelcomeList)
-            autowelcomeList.remove(uuid);
 
         users.remove(this);
     }
@@ -258,6 +252,34 @@ public class User implements CommandSender {
 
     public boolean isOwner() {
         return player.hasPermission("dashnetwork.owner");
+    }
+
+    private void check() {
+        String uuid = player.getUniqueId().toString();
+
+        if (DataUtils.getOwnerchatList().contains(uuid))
+            inOwnerChat = true;
+
+        if (DataUtils.getAdminchatList().contains(uuid))
+            inAdminChat = true;
+
+        if (DataUtils.getStaffchatList().contains(uuid))
+            inStaffChat = true;
+
+        if (DataUtils.getCommandspyList().contains(uuid))
+            inCommandSpy = true;
+
+        if (DataUtils.getSignspyList().contains(uuid))
+            inSignSpy = true;
+
+        if (DataUtils.getBookspyList().contains(uuid))
+            inBookSpy = true;
+
+        if (DataUtils.getAltspyList().contains(uuid))
+            inAltSpy = true;
+
+        if (DataUtils.getPingspyList().contains(uuid))
+            inPingSpy = true;
     }
 
     @Override

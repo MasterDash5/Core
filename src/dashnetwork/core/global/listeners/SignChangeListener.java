@@ -42,7 +42,7 @@ public class SignChangeListener implements Listener {
             message.append(" ");
             message.append("&7placed sign: " + world + " " + coords).clickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, coords).hoverEvent(HoverEvent.Action.SHOW_TEXT, hover);
 
-            for (User user : User.getUsers(false))
+            for (User user : User.getUsers())
                 if (user.inSignSpy())
                     MessageUtils.message(user, message.build());
         }

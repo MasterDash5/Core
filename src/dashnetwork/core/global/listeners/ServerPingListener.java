@@ -21,7 +21,7 @@ public class ServerPingListener implements Listener {
     @EventHandler
     public void onServerListPing(ServerListPingEvent event) {
         String address = event.getAddress().getHostAddress();
-        String motd = "&6DashNetwork &6&l» &8[" + VersionUtils.getOldest() + " - " + VersionUtils.getLatest() + "]"; // TODO: Think of something better to put here
+        String motd = "&6DashNetwork &6&l» &7[" + VersionUtils.getOldest() + " - " + VersionUtils.getLatest() + "]"; // TODO: Think of something better to put here
 
         event.setMotd(ChatColor.translateAlternateColorCodes('&', motd));
 
@@ -46,7 +46,7 @@ public class ServerPingListener implements Listener {
                     MessageBuilder message = new MessageBuilder();
                     message.append("&c&lPS &6" + address + " &7pinged the server").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(names, false, false));
 
-                    for (User user : User.getUsers(false))
+                    for (User user : User.getUsers())
                         if (user.inPingSpy())
                             MessageUtils.message(user, message.build());
                 }

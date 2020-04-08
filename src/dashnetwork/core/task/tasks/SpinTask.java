@@ -14,7 +14,7 @@ public class SpinTask extends Task {
 
     @Override
     public void run() {
-        for (User user : User.getUsers(false)) {
+        for (User user : User.getUsers()) {
             if (user.isSpinning()) {
                 Player player = user.getPlayer();
                 Location location = player.getLocation().clone();

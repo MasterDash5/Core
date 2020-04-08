@@ -49,7 +49,7 @@ public class EditBookListener implements Listener {
         message.append("&6" + player.getDisplayName()).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + player.getName()).clickEvent(ClickEvent.Action.RUN_COMMAND, command);
         message.append(" &7edited book. Click to receive copy.").clickEvent(ClickEvent.Action.RUN_COMMAND, command);
 
-        for (User user : User.getUsers(false))
+        for (User user : User.getUsers())
             if (user.inBookSpy())
                 MessageUtils.message(user, message.build());
     }

@@ -12,6 +12,7 @@ import org.bukkit.plugin.Plugin;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class WorldGuardUtils {
 
     private static Core plugin = Core.getInstance();

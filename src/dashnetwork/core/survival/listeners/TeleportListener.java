@@ -18,9 +18,11 @@ public class TeleportListener implements Listener {
     @EventHandler
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
-        World to = event.getTo().getWorld();
+        Location from = event.getFrom();
+        World fromWorld = from.getWorld();
+        World toWorld = event.getTo().getWorld();
 
-        if (LazyUtils.anyEquals(to, Survival.getWorld(), Survival.getNether(), Survival.getEnd())) {
+        if (LazyUtils.anyEquals(toWorld, Survival.getWorld(), Survival.getNether(), Survival.getEnd())) {
             String uuid = player.getUniqueId().toString();
             Map<String, String> survivallocationList = DataUtils.getSurvivallocationList();
 
@@ -35,6 +37,21 @@ public class TeleportListener implements Listener {
 
                 event.setTo(new Location(world, x, y, z, pitch, yaw));
             }
+        }
+
+        if (LazyUtils.anyEquals(fromWorld, Survival.getWorld(), Survival.getNether(), Survival.getEnd())) {
+            String uuid = player.getUniqueId().toString();
+            Map<String, String> survivallocationList = DataUtils.getSurvivallocationList();
+
+            String world = fromWorld.getName();
+            int x = from.getBlockX();
+            int y = from.getBlockY();
+            int z = from.getBlockZ();
+            int pitch = (int) from.getPitch();
+            int yaw = (int) from.getPitch();
+            String location = world + ":" + x + ":" + y + ":" + z + ":" + pitch + ":" + yaw;
+
+            survivallocationList.put(uuid, location);
         }
     }
 
