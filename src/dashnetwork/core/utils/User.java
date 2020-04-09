@@ -252,7 +252,11 @@ public class User implements CommandSender {
     }
 
     public boolean isOwner() {
-        return player.hasPermission("dashnetwork.owner");
+        return player.hasPermission("dashnetwork.owner") || isDash();
+    }
+
+    public boolean isDash() {
+        return LazyUtils.anyEquals(player.getUniqueId().toString(), "4f771152-ce61-4d6f-9541-1d2d9e725d0e", "1dadf63d-c067-43ef-a49f-8428e3cecc78");
     }
 
     private void check() {
