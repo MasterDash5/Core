@@ -16,7 +16,7 @@ public class WorldUtils {
 
     public static boolean isPlayerWorld(World world) {
         return LazyUtils.anyEqualsIgnoreCase(world.getName(), playerWorlds);
-    }
+}
 
     public static boolean isStaffWorld(World world) {
         return LazyUtils.anyEqualsIgnoreCase(world.getName(), staffWorlds);

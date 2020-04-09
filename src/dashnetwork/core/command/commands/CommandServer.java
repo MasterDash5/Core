@@ -49,7 +49,7 @@ public class CommandServer extends CoreCommand {
 
             World world = Bukkit.getWorld(name);
 
-            if (WorldUtils.isPlayerWorld(world) || SenderUtils.isAdmin(sender)) {
+            if (WorldUtils.isPlayerWorld(world) || SenderUtils.isStaff(sender)) {
                 for (Player target : targets)
                     target.teleport(WorldUtils.getWarp(world), PlayerTeleportEvent.TeleportCause.PLUGIN);
 
