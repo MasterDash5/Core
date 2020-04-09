@@ -1,5 +1,6 @@
 package dashnetwork.core.creative.listeners;
 
+import dashnetwork.core.creative.Creative;
 import dashnetwork.core.utils.User;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -13,17 +14,20 @@ public class ProjectileListener implements Listener {
     @EventHandler
     public void onProjectileLaunch(ProjectileLaunchEvent event) {
         Projectile projectile = event.getEntity();
-        ProjectileSource source = projectile.getShooter();
 
-        if (source instanceof Player) {
-            Player player = (Player) source;
-            User user = User.getUser(player);
+        if (Creative.getWorld().equals(projectile.getWorld())) {
+            ProjectileSource source = projectile.getShooter();
 
-            if (user.isAdmin())
-                return;
+            if (source instanceof Player) {
+                Player player = (Player) source;
+                User user = User.getUser(player);
+
+                if (user.isAdmin())
+                    return;
+            }
+
+            event.setCancelled(true);
         }
-
-        event.setCancelled(true);
     }
 
 }
