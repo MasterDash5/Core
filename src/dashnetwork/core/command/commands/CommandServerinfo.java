@@ -31,11 +31,11 @@ public class CommandServerinfo extends CoreCommand {
             Player player = (Player) sender;
 
             if (args.length > 1 && SenderUtils.isOwner(sender)) {
-                List<Player> selector = SelectorUtils.getPlayers(sender, args[0]);
+                List<Player> selector = SelectorUtils.getPlayers(sender, args[1]);
 
                 if (selector != null)
                     targets = selector;
-            }
+            } else
                 targets.add(player);
 
             targets.removeIf(target -> !SenderUtils.canSee(sender, target));
@@ -64,7 +64,7 @@ public class CommandServerinfo extends CoreCommand {
                     MessageBuilder message = new MessageBuilder();
                     message.append("&6&l» ");
                     message.append("&6" + displaynames).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + names);
-                    message.append("&7 toggled CommandSpy");
+                    message.append("&7 toggled ServerInfo");
 
                     MessageUtils.message(sender, message.build());
                 }
