@@ -30,6 +30,7 @@ public class User implements CommandSender {
     private boolean inAltSpy;
     private boolean inPingSpy;
     private boolean inAutoWelcome;
+    private boolean inServerInfo;
     private boolean spinning;
     private boolean vanished;
     private boolean blocking;
@@ -47,6 +48,7 @@ public class User implements CommandSender {
         this.inAltSpy = false;
         this.inPingSpy = false;
         this.inAutoWelcome = false;
+        this.inServerInfo = false;
         this.spinning = false;
         this.vanished = false;
         this.blocking = false;
@@ -217,6 +219,14 @@ public class User implements CommandSender {
 
     public void setInAutoWelcome(boolean inAutoWelcome) {
         this.inAutoWelcome = inAutoWelcome;
+    }
+
+    public boolean inServerInfo() {
+        return inServerInfo;
+    }
+
+    public void setInServerInfo(boolean inServerInfo) {
+        this.inServerInfo = inServerInfo;
     }
 
     public boolean isSpinning() {

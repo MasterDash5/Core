@@ -8,6 +8,7 @@ import dashnetwork.core.global.listeners.*;
 import dashnetwork.core.packet.listeners.PacketListener;
 import dashnetwork.core.survival.Survival;
 import dashnetwork.core.task.Task;
+import dashnetwork.core.task.tasks.ServerinfoTask;
 import dashnetwork.core.task.tasks.SpinTask;
 import dashnetwork.core.utils.DataUtils;
 import dashnetwork.core.utils.TpsUtils;
@@ -128,6 +129,7 @@ public class Core extends JavaPlugin {
         new CommandVersionlist();
 
         // Register tasks
+        new ServerinfoTask();
         new SpinTask();
 
         User.getUsers();
