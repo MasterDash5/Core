@@ -1,5 +1,7 @@
 package dashnetwork.core.global.listeners;
 
+import dashnetwork.core.utils.LazyUtils;
+import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +19,7 @@ public class BedEnterListener implements Listener {
         for (Player online : world.getPlayers()) {
             if (online.isSleeping())
                 sleeping++;
-            else
+            else if (!LazyUtils.anyEquals(online.getGameMode(), GameMode.CREATIVE, GameMode.SPECTATOR))
                 sleeping--;
         }
 
