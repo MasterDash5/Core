@@ -17,7 +17,7 @@ public class InteractListener implements Listener {
         World world = player.getWorld();
         User user = User.getUser(player);
 
-        if (!user.isStaff() && !WorldUtils.isPlayerWorld(world))
+        if (!WorldUtils.canBuild(user, world))
             event.setCancelled(true);
     }
 
@@ -27,7 +27,7 @@ public class InteractListener implements Listener {
         World world = player.getWorld();
         User user = User.getUser(player);
 
-        if (!user.isStaff() && !WorldUtils.isPlayerWorld(world))
+        if (!WorldUtils.canBuild(user, world))
             event.setCancelled(true);
     }
 

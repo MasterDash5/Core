@@ -21,7 +21,7 @@ public class BlockListener implements Listener {
         User user = User.getUser(player);
         Block block = event.getBlock();
 
-        if (!user.isStaff() && !WorldUtils.isPlayerWorld(block.getWorld()))
+        if (!WorldUtils.canBuild(user, block.getWorld()))
             event.setCancelled(true);
 
         if (!user.isOwner() && LazyUtils.anyEquals(block.getType(), blacklist))
@@ -34,7 +34,7 @@ public class BlockListener implements Listener {
         User user = User.getUser(player);
         Block block = event.getBlock();
 
-        if (!user.isStaff() && !WorldUtils.isPlayerWorld(block.getWorld()))
+        if (!WorldUtils.canBuild(user, block.getWorld()))
             event.setCancelled(true);
 
         if (!user.isOwner() && LazyUtils.anyEquals(block.getType(), blacklist))

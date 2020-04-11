@@ -18,7 +18,7 @@ public class EntityDamageListener implements Listener {
             Player player = (Player) damager;
             User user = User.getUser(player);
 
-            if (!user.isStaff() && !WorldUtils.isPlayerWorld(player.getWorld()))
+            if (!WorldUtils.canBuild(user, player.getWorld()))
                 event.setCancelled(true);
         }
     }

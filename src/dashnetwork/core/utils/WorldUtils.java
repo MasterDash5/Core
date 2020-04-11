@@ -37,4 +37,11 @@ public class WorldUtils {
         return world.getSpawnLocation();
     }
 
+    public static boolean canBuild(User user, World world) {
+        if (user.isStaff() && isStaffWorld(world))
+            return true;
+
+        return user.isAdmin() || isPlayerWorld(world);
+    }
+
 }
