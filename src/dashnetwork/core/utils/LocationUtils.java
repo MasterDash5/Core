@@ -15,6 +15,7 @@ import java.util.List;
 
 //Created by MM5
 
+@Deprecated
 public class LocationUtils {
 	
 	public static double getDistance(Location loc1, Location loc2, boolean threeDimensional) {
