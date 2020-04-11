@@ -82,7 +82,7 @@ public class JoinListener implements Listener {
         player.setPlayerListHeaderFooter(header, footer);
 
         if (LazyUtils.anyEquals(world.getName(), "Hub", "KitPvP"))
-            player.teleport(world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+            player.teleport(WorldUtils.getWarp(world), PlayerTeleportEvent.TeleportCause.PLUGIN);
     }
 
 }
