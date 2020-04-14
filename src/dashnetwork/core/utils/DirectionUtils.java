@@ -7,7 +7,7 @@ public class DirectionUtils {
 
     public static float[] blockFaceToAngle(BlockFace face) {
         float[] angles = new float[2];
-        angles[0] = 0;
+        angles[0] = 180;
         angles[1] = 0;
 
         if (face.equals(BlockFace.UP))

@@ -22,36 +22,38 @@ public class TeleportListener implements Listener {
         World fromWorld = from.getWorld();
         World toWorld = event.getTo().getWorld();
 
-        if (LazyUtils.anyEquals(toWorld, Survival.getWorld(), Survival.getNether(), Survival.getEnd())) {
-            String uuid = player.getUniqueId().toString();
-            Map<String, String> survivallocationList = DataUtils.getSurvivallocationList();
+        if (!toWorld.equals(fromWorld)) {
+            if (LazyUtils.anyEquals(toWorld, Survival.getWorld(), Survival.getNether(), Survival.getEnd())) {
+                String uuid = player.getUniqueId().toString();
+                Map<String, String> survivallocationList = DataUtils.getSurvivallocationList();
 
-            if (survivallocationList.containsKey(uuid)) {
-                String[] location = survivallocationList.get(uuid).split(":");
-                World world = Bukkit.getWorld(location[0]);
-                int x = Integer.valueOf(location[1]);
-                int y = Integer.valueOf(location[2]);
-                int z = Integer.valueOf(location[3]);
-                int pitch = Integer.valueOf(location[4]);
-                int yaw = Integer.valueOf(location[5]);
+                if (survivallocationList.containsKey(uuid)) {
+                    String[] location = survivallocationList.get(uuid).split(":");
+                    World world = Bukkit.getWorld(location[0]);
+                    int x = Integer.valueOf(location[1]);
+                    int y = Integer.valueOf(location[2]);
+                    int z = Integer.valueOf(location[3]);
+                    int pitch = Integer.valueOf(location[4]);
+                    int yaw = Integer.valueOf(location[5]);
 
-                event.setTo(new Location(world, x, y, z, pitch, yaw));
+                    event.setTo(new Location(world, x, y, z, pitch, yaw));
+                }
             }
-        }
 
-        if (LazyUtils.anyEquals(fromWorld, Survival.getWorld(), Survival.getNether(), Survival.getEnd())) {
-            String uuid = player.getUniqueId().toString();
-            Map<String, String> survivallocationList = DataUtils.getSurvivallocationList();
+            if (LazyUtils.anyEquals(fromWorld, Survival.getWorld(), Survival.getNether(), Survival.getEnd())) {
+                String uuid = player.getUniqueId().toString();
+                Map<String, String> survivallocationList = DataUtils.getSurvivallocationList();
 
-            String world = fromWorld.getName();
-            int x = from.getBlockX();
-            int y = from.getBlockY();
-            int z = from.getBlockZ();
-            int pitch = (int) from.getPitch();
-            int yaw = (int) from.getPitch();
-            String location = world + ":" + x + ":" + y + ":" + z + ":" + pitch + ":" + yaw;
+                String world = fromWorld.getName();
+                int x = from.getBlockX();
+                int y = from.getBlockY();
+                int z = from.getBlockZ();
+                int pitch = (int) from.getPitch();
+                int yaw = (int) from.getPitch();
+                String location = world + ":" + x + ":" + y + ":" + z + ":" + pitch + ":" + yaw;
 
-            survivallocationList.put(uuid, location);
+                survivallocationList.put(uuid, location);
+            }
         }
     }
 
