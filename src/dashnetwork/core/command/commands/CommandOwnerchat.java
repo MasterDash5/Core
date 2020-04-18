@@ -37,7 +37,7 @@ public class CommandOwnerchat extends CoreCommand {
                     targets.remove(target);
 
             if (targets.isEmpty())
-                MessageUtils.usage(player, label, "&6&l» &7No players found");
+                MessageUtils.usage(player, label, "<player>");
             else {
                 for (Player target : targets) {
                     User user = User.getUser(target);

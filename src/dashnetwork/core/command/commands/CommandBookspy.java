@@ -55,7 +55,7 @@ public class CommandBookspy extends CoreCommand {
         targets.removeIf(target -> !SenderUtils.canSee(sender, target));
 
         if (targets.isEmpty())
-            MessageUtils.usage(sender, label, "&6&l» &7No players found");
+            MessageUtils.usage(sender, label, "<player>");
         else {
             for (Player target : targets) {
                 User user = User.getUser(target);
