@@ -25,6 +25,7 @@ public class JoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        User user = User.getUser(player);
         String displayname = player.getDisplayName();
         String name = player.getName();
         World world = player.getLocation().getWorld();
@@ -83,6 +84,15 @@ public class JoinListener implements Listener {
 
         if (LazyUtils.anyEquals(world.getName(), "Hub", "KitPvP"))
             player.teleport(WorldUtils.getWarp(world), PlayerTeleportEvent.TeleportCause.PLUGIN);
+
+        if (user.isDash() || user.isGolden()) {
+            user.setLocked(true);
+
+            if (!player.isOnGround()) {
+                player.setAllowFlight(true);
+                player.setFlying(true);
+            }
+        }
     }
 
 }

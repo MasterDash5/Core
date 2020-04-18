@@ -19,6 +19,9 @@ public class InteractListener implements Listener {
 
         if (!WorldUtils.canBuild(user, world))
             event.setCancelled(true);
+
+        if (user.isLocked())
+            event.setCancelled(true);
     }
 
     @EventHandler
@@ -28,6 +31,9 @@ public class InteractListener implements Listener {
         User user = User.getUser(player);
 
         if (!WorldUtils.canBuild(user, world))
+            event.setCancelled(true);
+
+        if (user.isLocked())
             event.setCancelled(true);
     }
 

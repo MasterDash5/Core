@@ -28,14 +28,24 @@ public class Core extends JavaPlugin {
     private static Core instance;
     private static DiscordMessageListener discordMessageListener;
     private static PacketListener packetListener;
+    private static String lockPassword;
 
     public static Core getInstance() {
         return instance;
     }
 
+    public String getLockPassword() {
+        return lockPassword;
+    }
+
     @Override
     public void onEnable() {
         instance = this;
+
+        getConfig().options().copyDefaults(true);
+        saveConfig();
+
+        lockPassword = getConfig().getString("lock-password");
 
         packetListener = new PacketListener();
         packetListener.start();
@@ -62,6 +72,7 @@ public class Core extends JavaPlugin {
         manager.registerEvents(new JoinListener(), this);
         manager.registerEvents(new KickListener(), this);
         manager.registerEvents(new LoginListener(), this);
+        manager.registerEvents(new MoveListener(), this);
         manager.registerEvents(new ParticleListener(), this);
         manager.registerEvents(new PickupItemListener(), this);
         manager.registerEvents(new PortalListener(), this);

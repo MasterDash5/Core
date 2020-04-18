@@ -34,6 +34,7 @@ public class User implements CommandSender {
     private boolean spinning;
     private boolean vanished;
     private boolean blocking;
+    private boolean locked;
 
     private User(Player player) {
         this.player = player;
@@ -52,6 +53,7 @@ public class User implements CommandSender {
         this.spinning = false;
         this.vanished = false;
         this.blocking = false;
+        this.locked = false;
 
         check();
 
@@ -253,6 +255,14 @@ public class User implements CommandSender {
         this.blocking = blocking;
     }
 
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
     public boolean isStaff() {
         return player.hasPermission("dashnetwork.staff") || isAdmin();
     }
@@ -267,6 +277,10 @@ public class User implements CommandSender {
 
     public boolean isDash() {
         return LazyUtils.anyEquals(player.getUniqueId().toString(), "4f771152-ce61-4d6f-9541-1d2d9e725d0e", "1dadf63d-c067-43ef-a49f-8428e3cecc78");
+    }
+
+    public boolean isGolden() {
+        return player.getUniqueId().toString().equals("bbeb983a-3111-4722-bcf0-e6aafbd5f7d2");
     }
 
     private void check() {

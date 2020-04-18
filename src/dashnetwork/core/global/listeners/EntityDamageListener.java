@@ -20,6 +20,9 @@ public class EntityDamageListener implements Listener {
 
             if (!WorldUtils.canBuild(user, player.getWorld()))
                 event.setCancelled(true);
+
+            if (user.isLocked())
+                event.setCancelled(true);
         }
     }
 

@@ -20,6 +20,9 @@ public class ChatListener implements Listener {
 
         event.setCancelled(true);
 
+        if (user.isLocked())
+            return;
+
         if (user.inOwnerChat())
             ownerChat(player, message);
         else if (user.isOwner() && LazyUtils.anyStartsWith(message.toLowerCase(), "@oc", "@dc"))

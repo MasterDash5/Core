@@ -1,5 +1,6 @@
 package dashnetwork.core.global.listeners;
 
+import dashnetwork.core.Core;
 import dashnetwork.core.creative.Creative;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.User;
@@ -15,12 +16,23 @@ public class CommandListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
-        World world = player.getWorld();
+        User user = User.getUser(player);
+        String message = event.getMessage();
 
-        for (User user : User.getUsers()) {
-            if (user.inCommandSpy())
-                MessageUtils.message(user, "&c&lCS &6" + player.getDisplayName() + " &e&l> &b" + event.getMessage());
+        if (user.isLocked()) {
+            if (message.equalsIgnoreCase("/login " + Core.getInstance().getLockPassword())) {
+                user.setLocked(false);
+                MessageUtils.message(user, "&6&l» &7Login successful");
+            }
+
+            event.setCancelled(true);
+
+            return;
         }
+
+        for (User online : User.getUsers())
+            if (online.inCommandSpy())
+                MessageUtils.message(online, "&c&lCS &6" + player.getDisplayName() + " &e&l> &b" + message);
     }
 
 }

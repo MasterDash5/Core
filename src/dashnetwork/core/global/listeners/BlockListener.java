@@ -26,6 +26,9 @@ public class BlockListener implements Listener {
 
         if (!user.isOwner() && LazyUtils.anyEquals(block.getType(), blacklist))
             event.setCancelled(true);
+
+        if (user.isLocked())
+            event.setCancelled(true);
     }
 
     @EventHandler
@@ -38,6 +41,9 @@ public class BlockListener implements Listener {
             event.setCancelled(true);
 
         if (!user.isOwner() && LazyUtils.anyEquals(block.getType(), blacklist))
+            event.setCancelled(true);
+
+        if (user.isLocked())
             event.setCancelled(true);
     }
 
