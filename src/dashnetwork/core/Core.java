@@ -99,6 +99,7 @@ public class Core extends JavaPlugin {
         new CommandFoxshot();
         new CommandFuckoff();
         new CommandGamestate();
+        new CommandGetoffme();
         new CommandGoogle();
         new CommandImport();
         new CommandInvisibility();
@@ -118,6 +119,7 @@ public class Core extends JavaPlugin {
         new CommandPingspy();
         new CommandPlayerinfo();
         new CommandRespawn();
+        new CommandRide();
         new CommandServer();
         new CommandServerinfo();
         new CommandSignspy();
