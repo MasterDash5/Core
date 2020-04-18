@@ -14,8 +14,6 @@ import dashnetwork.core.utils.DataUtils;
 import dashnetwork.core.utils.TpsUtils;
 import dashnetwork.core.utils.User;
 import github.scarsz.discordsrv.DiscordSRV;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -57,8 +55,8 @@ public class Core extends JavaPlugin {
         new Creative();
         new Survival();
 
-        // Register global listeners
-        PluginManager manager = Bukkit.getPluginManager();
+        // Register global event listeners
+        PluginManager manager = getServer().getPluginManager();
         manager.registerEvents(new BedEnterListener(), this);
         manager.registerEvents(new BlockListener(), this);
         manager.registerEvents(new ChatListener(), this);

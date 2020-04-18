@@ -10,7 +10,6 @@ import java.util.List;
 
 public abstract class CoreCommand implements CommandExecutor, TabCompleter {
 
-    private static List<CoreCommand> commands = new ArrayList<>();
     protected static Core plugin = Core.getInstance();
     private PermissionType permission;
     private boolean async;
@@ -23,12 +22,6 @@ public abstract class CoreCommand implements CommandExecutor, TabCompleter {
 
         this.permission = permission;
         this.async = async;
-
-        commands.add(this);
-    }
-
-    public static List<CoreCommand> getCommands() {
-        return commands;
     }
 
     @Override
