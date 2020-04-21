@@ -10,17 +10,6 @@ import java.util.UUID;
 
 public class SenderUtils {
 
-    public static String getDisplayName(CommandSender sender) {
-        if (sender instanceof Player)
-            return ((Player) sender).getDisplayName();
-        else if (sender instanceof Entity)
-            return ((Entity) sender).getCustomName();
-        else if (sender.equals(Bukkit.getConsoleSender()))
-            return "Console";
-
-        return sender.getName();
-    }
-
     public static boolean canSee(CommandSender sender, Player player) {
         if (sender instanceof Player)
             return ((Player) sender).canSee(player);

@@ -62,36 +62,41 @@ public class CommandSkin extends CoreCommand {
                 String texture = "";
                 String signature = "";
 
-                try {
-                    uuid = UUID.fromString(arg).toString().replace("-", "");
-                } catch (IllegalArgumentException invalid) {
+                if (arg.equalsIgnoreCase("-dashtesting")) {
+                    texture = "eyJ0aW1lc3RhbXAiOjE0NDA0NjM2NDI0NjksInByb2ZpbGVJZCI6IjRmNzcxMTUyY2U2MTRkNmY5NTQxMWQyZDllNzI1ZDBlIiwicHJvZmlsZU5hbWUiOiJNYXN0ZXJEYXNoNCIsInRleHR1cmVzIjp7IlNLSU4iOnsidXJsIjoiaHR0cDovL3RleHR1cmVzLm1pbmVjcmFmdC5uZXQvdGV4dHVyZS8zZDYxZTkwMTgzZjhjYTg4NDZkNzQ1Yjc1MzJhZmZlN2JlOGUwNTRiOTRkNjI5MDM3ZGExODg4MDVmYWUifX19";
+                    signature = "rmB8SkSgm8pA4bXdh8dj8NWRN63J0A4fR5Y/Gj6yk+V/ZLOdcmsH6LuMZ4eldkTLgUn6rs7q2+jCTASqokj0OsjWOit+xFSd2rOdP4+JBHeP6LZ4lFYQgkRLzykGBVZGh7KmYlg9R4R9njOsUQb6bTXUXmK2c+CM1q4NYlKXw88iGazGKQ/mqyA0xn3XCRJVQmxnhw2mbN6Qh2LrHeXwfwCqhCC6A16ylOJbkFBwOIxXzffTBidqlO3GqYD3Q5FlAsSYkGyEZvZz98jD4K8n8pTVhCXwDXy5U0fnfs/FM3HOTNxKfwLarde1QiDFjg27Kqee4w+brLs0+0YBAAqmyMtWyvd4nFaQQwaiw6Hp9a2vgCnpVasGsxOkhJBrnj1n+wL9WFw+rOuvBYJy06cxNs2HVC/O/RTXqyWHEnClW5nCbnJaBUBScmS2Wt/xRfiywYg0fHgVAlaJFpwE7SjfO6p45jAVSOCMq5wwW3vvfXFj+SPX1ZqQdpf9lt4wCmK9Xm7ZvBOfZYhHTQ/xKVdURLxbp5Ebg8+lTYaCEu8U7n/f21fh97+mZOa/3CQJDtFrVplL/gm+sBdpICWNL3MES1R5RWbx4+XLFmrY5UJweEffInxAOhZ8znln4UllShj+ZJ+aQw4qXvdj34ewBRy5NjPj1QRXkTkt+3G9mJcqgqo=";
+                } else {
                     try {
-                        URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + arg);
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-                        JsonElement json = new JsonParser().parse(reader);
-                        uuid = json.getAsJsonObject().get("id").getAsString();
+                        uuid = UUID.fromString(arg).toString().replace("-", "");
+                    } catch (IllegalArgumentException invalid) {
+                        try {
+                            URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + arg);
+                            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+                            JsonElement json = new JsonParser().parse(reader);
+                            uuid = json.getAsJsonObject().get("id").getAsString();
+
+                            reader.close();
+                        } catch (IllegalStateException illegal) {
+                            MessageUtils.message(sender, "&6&l» &7No account with the name &6" + arg);
+                        } catch (FileNotFoundException file) {}
+                        catch (Exception exception) {
+                            MessageUtils.error(sender, exception);
+                            exception.printStackTrace();
+                        }
+                    }
+
+                    try {
+                        URL url = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid + "?unsigned=false");
+                        InputStreamReader reader = new InputStreamReader(url.openStream());
+                        JsonObject textureProperty = new JsonParser().parse(reader).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
+
+                        texture = textureProperty.get("value").getAsString();
+                        signature = textureProperty.get("signature").getAsString();
 
                         reader.close();
-                    } catch (IllegalStateException illegal) {
-                        MessageUtils.message(sender, "&6&l» &7No account with the name &6" + arg);
-                    } catch (FileNotFoundException file) {}
-                    catch (Exception exception) {
-                        MessageUtils.error(sender, exception);
-                        exception.printStackTrace();
+                    } catch (Exception exception) {
+                        MessageUtils.message(sender, "&6&l» &7Failed to read mojang's session servers");
                     }
-                }
-
-                try {
-                    URL url = new URL("https://sessionserver.mojang.com/session/minecraft/profile/" + uuid + "?unsigned=false");
-                    InputStreamReader reader = new InputStreamReader(url.openStream());
-                    JsonObject textureProperty = new JsonParser().parse(reader).getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject();
-
-                    texture = textureProperty.get("value").getAsString();
-                    signature = textureProperty.get("signature").getAsString();
-
-                    reader.close();
-                } catch (Exception exception) {
-                    MessageUtils.message(sender, "&6&l» &7Failed to read mojang's session servers");
                 }
 
                 for (Player target : targets) {

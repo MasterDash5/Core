@@ -41,8 +41,8 @@ public class CommandKillears extends CoreCommand {
                         target.playSound(target.getLocation(), sound, 10.0F, 1.0F);
             }
 
-            String displaynames = ListUtils.fromList(ListUtils.toDisplayNames(targets), false ,false);
-            String names = ListUtils.fromList(ListUtils.toNames(targets), false, false);
+            String displaynames = ListUtils.fromList(NameUtils.toDisplayNames(targets), false ,false);
+            String names = ListUtils.fromList(NameUtils.toNames(targets), false, false);
 
             MessageBuilder message = new MessageBuilder();
             message.append("&6&l» &7Killearsed ");

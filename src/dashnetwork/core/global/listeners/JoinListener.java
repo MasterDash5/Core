@@ -87,14 +87,14 @@ public class JoinListener implements Listener {
         if (LazyUtils.anyEquals(world.getName(), "Hub", "KitPvP"))
             player.teleport(WorldUtils.getWarp(world), PlayerTeleportEvent.TeleportCause.PLUGIN);
 
-        if (user.isDash() || user.isGolden()) {
+        if (user.isGolden()) {
             user.setLocked(true);
 
             if (!player.isOnGround()) {
                 player.setAllowFlight(true);
                 player.setFlying(true);
             }
-        }
+         }
     }
 
 }

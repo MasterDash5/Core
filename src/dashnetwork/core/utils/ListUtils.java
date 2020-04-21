@@ -1,33 +1,28 @@
 package dashnetwork.core.utils;
 
-import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.*;
 
 public class ListUtils {
 
+    public static <T>boolean isEqual(List<T> one, List<T> two) {
+        if (one == null && two == null)
+            return true;
+        else if ((one == null && two != null) || (one != null && two == null) || (one.size() != two.size()))
+            return false;
+
+        one = new ArrayList<>(one);
+        two = new ArrayList<>(two);
+
+        one.sort(null);
+        two.sort(null);
+
+        return one.equals(two);
+    }
+
     public static <T>boolean containsOtherThan(Collection<T> collection, T contains) {
         return collection.size() > (collection.contains(contains) ? 1 : 0);
-    }
-
-    public static List<String> toNames(List<Player> players) {
-        List<String> names = new ArrayList<>();
-
-        for (Player player : players)
-            names.add(player.getName());
-
-        return names;
-    }
-
-    public static List<String> toDisplayNames(List<Player> players) {
-        List<String> names = new ArrayList<>();
-
-        for (Player player : players)
-            names.add(player.getDisplayName());
-
-        return names;
     }
 
     public static String fromList(List<String> list, boolean useAnd, boolean formatDuplicates) {

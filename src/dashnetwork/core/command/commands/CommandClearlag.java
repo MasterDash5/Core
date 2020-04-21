@@ -61,7 +61,7 @@ public class CommandClearlag extends CoreCommand {
 
         MessageBuilder message = new MessageBuilder();
         message.append("&6&l» ");
-        message.append("&6" + SenderUtils.getDisplayName(sender)).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + sender.getName());
+        message.append("&6" + NameUtils.getDisplayName(sender)).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + sender.getName());
         message.append(" ");
         message.append("&7cleared &6" + removedList.size() + " entities").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(removedList, false, true));
 

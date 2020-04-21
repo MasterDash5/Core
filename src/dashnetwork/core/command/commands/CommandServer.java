@@ -56,8 +56,8 @@ public class CommandServer extends CoreCommand {
                 if (player == null || ListUtils.containsOtherThan(targets, player)) {
                     targets.remove(player);
 
-                    String displaynames = ListUtils.fromList(ListUtils.toDisplayNames(targets), false, false);
-                    String names = ListUtils.fromList(ListUtils.toNames(targets), false, false);
+                    String displaynames = ListUtils.fromList(NameUtils.toDisplayNames(targets), false, false);
+                    String names = ListUtils.fromList(NameUtils.toNames(targets), false, false);
 
                     MessageBuilder message = new MessageBuilder();
                     message.append("&6&l» ");
