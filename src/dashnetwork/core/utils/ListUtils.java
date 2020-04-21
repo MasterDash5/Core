@@ -1,5 +1,7 @@
 package dashnetwork.core.utils;
 
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -62,6 +64,20 @@ public class ListUtils {
             return "None";
 
         return string;
+    }
+
+    @Deprecated
+    public static String fromListByUuid(List<UUID> uuids, boolean useAnd, boolean blankIfEmpty) {
+        List<String> playerNames = new ArrayList<>();
+
+        for (UUID uuid : uuids) {
+            OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
+
+            if (player != null)
+                playerNames.add(player.getName());
+        }
+
+        return fromList(playerNames, useAnd, false);
     }
 
 }
