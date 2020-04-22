@@ -55,6 +55,9 @@ public class Core extends JavaPlugin {
         new Creative();
         new Survival();
 
+        // Register plugin channels
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "wdl:control");
+
         // Register global event listeners
         PluginManager manager = getServer().getPluginManager();
         manager.registerEvents(new BedEnterListener(), this);
@@ -65,7 +68,7 @@ public class Core extends JavaPlugin {
         manager.registerEvents(new DropItemListener(), this);
         manager.registerEvents(new EditBookListener(), this);
         manager.registerEvents(new EntityDamageListener(), this);
-        // manager.registerEvents(new EntityMetadataListener(), this);
+        // manager.registerEvents(new EntityMetadataListener(), this); TODO: Get to fixing
         manager.registerEvents(new InteractListener(), this);
         manager.registerEvents(new JoinListener(), this);
         manager.registerEvents(new KickListener(), this);
@@ -75,6 +78,7 @@ public class Core extends JavaPlugin {
         manager.registerEvents(new PickupItemListener(), this);
         manager.registerEvents(new PortalListener(), this);
         manager.registerEvents(new QuitListener(), this);
+        manager.registerEvents(new RegisterChannelListener(), this);
         manager.registerEvents(new RespawnListener(), this);
         manager.registerEvents(new ServerCommandListener(), this);
         manager.registerEvents(new ServerPingListener(), this);
