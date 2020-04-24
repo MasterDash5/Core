@@ -119,6 +119,7 @@ public class Core extends JavaPlugin {
         new CommandKillears();
         new CommandList();
         new CommandLogin();
+        new CommandLore();
         new CommandMattsarmorstands();
         new CommandModlist();
         new CommandMommy();
@@ -131,6 +132,7 @@ public class Core extends JavaPlugin {
         new CommandPing();
         new CommandPingspy();
         new CommandPlayerinfo();
+        new CommandRename();
         new CommandRespawn();
         new CommandRide();
         new CommandServer();
