@@ -53,6 +53,8 @@ commands:
     aliases: [online, glist]
   login:
     aliases: [register]
+  lore:
+    aliases: [setlore]
   mattsarmorstands:
   modlist:
     aliases: [modslist]
@@ -72,6 +74,8 @@ commands:
   ping:
   pingspy:
   playerinfo:
+  rename:
+    aliases: [setname]
   respawn:
     aliases: [forcerespawn]
   ride:
