@@ -27,11 +27,13 @@ public class WorldUtils {
 
         switch (name) {
             case "Hub":
-                return new Location(world, 601.5, 8.0, -347.5, -90, 0);
+                return new Location(world, 601.5, 8, -347.5, -90, 0);
             case "skyworld":
                 return new Location(world, 0.5, 150, 0.5, 180, 0);
             case "KitPvP":
                 return new Location(world, 203.5, 240.5, 235.5, -90, 0);
+            case "Creative":
+                return new Location(world, 245.5, 66, 245.5, 0, 0);
         }
 
         return world.getSpawnLocation();
