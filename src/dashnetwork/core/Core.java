@@ -85,6 +85,7 @@ public class Core extends JavaPlugin {
         manager.registerEvents(new ServerCommandListener(), this);
         manager.registerEvents(new ServerPingListener(), this);
         manager.registerEvents(new SignChangeListener(), this);
+        manager.registerEvents(new SpectatingListener(), this);
         manager.registerEvents(new TeleportListener(), this);
         manager.registerEvents(new WeatherListener(), this);
         manager.registerEvents(new WorldChangedListener(), this);
