@@ -1,5 +1,6 @@
 package dashnetwork.core.utils;
 
+import com.earth2me.essentials.UserData;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
@@ -19,6 +20,7 @@ public class User implements CommandSender {
 
     private static List<User> users = new CopyOnWriteArrayList<>();
     private Player player;
+    private List<UserAddon> addons;
     private List<String> mods;
     private String client;
     private boolean inOwnerChat;
@@ -38,6 +40,7 @@ public class User implements CommandSender {
 
     private User(Player player) {
         this.player = player;
+        this.addons = new CopyOnWriteArrayList<>();
         this.mods = new ArrayList<>();
         this.client = "Vanilla";
         this.inOwnerChat = false;
@@ -55,14 +58,15 @@ public class User implements CommandSender {
         this.blocking = false;
         this.locked = false;
 
-        check();
+        loadSaves();
 
         users.add(this);
     }
 
     public static List<User> getUsers() {
         for (Player online : Bukkit.getOnlinePlayers())
-            getUser(online);
+            if (!online.hasMetadata("NPC"))
+                getUser(online);
         return users;
     }
 
@@ -71,6 +75,13 @@ public class User implements CommandSender {
             if (user.getPlayer().equals(player))
                 return user;
         return new User(player);
+    }
+
+    public <T>UserAddon getAddon(T addonClass) {
+        for (UserAddon addon : addons)
+            if (addon.getClass() == addonClass)
+                return addon;
+        return null;
     }
 
     public void remove() {
@@ -137,6 +148,16 @@ public class User implements CommandSender {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public void addAddon(UserAddon addon) {
+        this.addons.add(addon);
+    }
+
+    public <T>void removeAddon(T clazz) {
+        for (UserAddon addon : addons)
+            if (addon.getClass().equals(clazz))
+                addons.remove(addon);
     }
 
     public List<String> getMods() {
@@ -283,7 +304,7 @@ public class User implements CommandSender {
         return player.getUniqueId().toString().equals("bbeb983a-3111-4722-bcf0-e6aafbd5f7d2");
     }
 
-    private void check() {
+    private void loadSaves() {
         String uuid = player.getUniqueId().toString();
 
         if (DataUtils.getOwnerchatList().contains(uuid))
