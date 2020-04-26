@@ -17,6 +17,7 @@ import github.scarsz.discordsrv.DiscordSRV;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -95,6 +96,7 @@ public class Core extends JavaPlugin {
 
         // Register commands
         new CommandAdminchat();
+        new CommandAltlist();
         new CommandAltspy();
         new CommandAnvil();
         new CommandAutowelcome();
@@ -132,6 +134,7 @@ public class Core extends JavaPlugin {
         new CommandPing();
         new CommandPingspy();
         new CommandPlayerinfo();
+        new CommandRegen();
         new CommandRename();
         new CommandRespawn();
         new CommandRide();

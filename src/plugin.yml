@@ -17,6 +17,8 @@ permissions:
 commands:
   adminchat:
     aliases: [ac]
+  altlist:
+    aliases: [alts]
   altspy:
   anvil:
   autowelcome:
@@ -74,6 +76,7 @@ commands:
   ping:
   pingspy:
   playerinfo:
+  regen:
   rename:
     aliases: [setname]
   respawn:

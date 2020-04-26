@@ -3,7 +3,6 @@ package dashnetwork.core.global.listeners;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import dashnetwork.core.Core;
-import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,8 +25,11 @@ public class RegisterChannelListener implements Listener {
             player.sendPluginMessage(Core.getInstance(), "wdl:control", output.toByteArray());
         }
 
-        if (user.isDash())
-            MessageUtils.message(user, channel);
+        if (channel.equals("l:permissionsrepl"))
+            user.setClient("LiteLoader");
+
+        if (channel.equals("fml:handshake"))
+            user.setClient("Forge");
     }
 
 }

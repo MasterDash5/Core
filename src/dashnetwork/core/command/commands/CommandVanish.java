@@ -40,7 +40,7 @@ public class CommandVanish extends CoreCommand {
                 User user = User.getUser(target);
                 boolean vanished = !user.isVanished();
 
-                user.setVanished(true);
+                user.setVanished(vanished);
 
                 if (vanished) {
                     for (Player online : Bukkit.getOnlinePlayers())
