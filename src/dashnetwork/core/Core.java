@@ -17,7 +17,6 @@ import github.scarsz.discordsrv.DiscordSRV;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -51,6 +50,8 @@ public class Core extends JavaPlugin {
 
         DataUtils.startup();
         TpsUtils.startup();
+
+        User.getUsers();
 
         // Register per world
         new Creative();
@@ -152,8 +153,6 @@ public class Core extends JavaPlugin {
         // Register tasks
         new ServerinfoTask();
         new SpinTask();
-
-        User.getUsers();
     }
 
     @Override
@@ -166,19 +165,10 @@ public class Core extends JavaPlugin {
 
         DataUtils.save();
 
-        if (getServer().getPluginManager().isPluginEnabled("DiscordSRV")) {
+        if (getServer().getPluginManager().isPluginEnabled("DiscordSRV"))
             DiscordSRV.api.unsubscribe(discordMessageListener);
-            discordMessageListener = null;
-        }
 
         packetListener.stop();
-        packetListener = null;
-
-        instance = null;
-    }
-
-    public Set<PacketType> getAllPackets() {
-        return StreamSupport.stream(PacketType.values().spliterator(), false).filter(type -> type.isSupported() && type.getProtocol().equals(PacketType.Play.getProtocol())).collect(Collectors.toSet());
     }
 
 }
