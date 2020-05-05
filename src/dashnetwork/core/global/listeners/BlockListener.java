@@ -4,6 +4,7 @@ import dashnetwork.core.utils.LazyUtils;
 import dashnetwork.core.utils.User;
 import dashnetwork.core.utils.WorldUtils;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,8 +21,9 @@ public class BlockListener implements Listener {
         Player player = event.getPlayer();
         User user = User.getUser(player);
         Block block = event.getBlock();
+        World world = block.getWorld();
 
-        if (!WorldUtils.canBuild(user, block.getWorld()))
+        if (!WorldUtils.canBuild(user, world))
             event.setCancelled(true);
 
         if (!user.isOwner() && LazyUtils.anyEquals(block.getType(), blacklist))
@@ -36,6 +38,7 @@ public class BlockListener implements Listener {
         Player player = event.getPlayer();
         User user = User.getUser(player);
         Block block = event.getBlock();
+        World world = block.getWorld();
 
         if (!WorldUtils.canBuild(user, block.getWorld()))
             event.setCancelled(true);

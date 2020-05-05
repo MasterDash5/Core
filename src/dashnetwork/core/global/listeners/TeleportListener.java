@@ -2,6 +2,7 @@ package dashnetwork.core.global.listeners;
 
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.User;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,11 +16,12 @@ public class TeleportListener implements Listener {
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         Player player = event.getPlayer();
         User user = User.getUser(player);
+        String world = event.getTo().getWorld().getName();
 
         player.releaseLeftShoulderEntity();
         player.releaseRightShoulderEntity();
 
-        if (!user.isAdmin() && event.getTo().getWorld().getName().equalsIgnoreCase("Prison")) {
+        if (!user.isAdmin() && world.equals("Prison")) {
             event.setCancelled(true);
 
             MessageUtils.message(player, "&6&l» &6Prison is currently under maintenance");
