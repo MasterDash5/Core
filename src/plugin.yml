@@ -50,6 +50,7 @@ commands:
   import:
   invisibility:
     aliases: [invis]
+  itemgenerator:
   killears:
   list:
     aliases: [online, glist]

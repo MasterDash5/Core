@@ -120,6 +120,7 @@ public class Core extends JavaPlugin {
         new CommandGoogle();
         new CommandImport();
         new CommandInvisibility();
+        new CommandItemgenerator();
         new CommandKillears();
         new CommandList();
         new CommandLogin();
