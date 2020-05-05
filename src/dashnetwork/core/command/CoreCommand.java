@@ -45,6 +45,9 @@ public abstract class CoreCommand implements CommandExecutor, TabCompleter {
     }
 
     public abstract void onCommand(CommandSender sender, String label, String[] args);
-    public abstract List<String> onTabComplete(CommandSender sender, String label, String[] args);
+
+    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
+        return null;
+    }
 
 }
