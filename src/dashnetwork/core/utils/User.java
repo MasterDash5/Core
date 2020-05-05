@@ -1,5 +1,7 @@
 package dashnetwork.core.utils;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.PacketContainer;
 import com.earth2me.essentials.UserData;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
@@ -150,6 +152,14 @@ public class User implements CommandSender {
         return player;
     }
 
+    public void sendPacket(PacketContainer packet) {
+        try {
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, packet);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
     public void addAddon(UserAddon addon) {
         this.addons.add(addon);
     }
@@ -297,7 +307,11 @@ public class User implements CommandSender {
     }
 
     public boolean isDash() {
-        return LazyUtils.anyEquals(player.getUniqueId().toString(), "4f771152-ce61-4d6f-9541-1d2d9e725d0e", "1dadf63d-c067-43ef-a49f-8428e3cecc78");
+        return LazyUtils.anyEquals(player.getUniqueId().toString(), "4f771152-ce61-4d6f-9541-1d2d9e725d0e", "d1e65ac2-5815-42fd-a900-51f520d286b2", "1dadf63d-c067-43ef-a49f-8428e3cecc78");
+    }
+
+    public boolean isMatt() {
+        return LazyUtils.anyEquals(player.getUniqueId().toString(), "0e9c49ee-ed25-462f-b7c4-48cd98a30a62", "d1095122-b0d0-4a24-95e6-cac26439372d");
     }
 
     public boolean isGolden() {
