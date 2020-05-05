@@ -135,9 +135,4 @@ public class CommandServerping extends CoreCommand {
             MessageUtils.usage(sender, label, "<address[:port]>");
     }
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
-    }
-
 }

@@ -4,7 +4,6 @@ import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -62,13 +61,6 @@ public class CommandModlist extends CoreCommand {
                 MessageUtils.message(sender, message.build());
         } else
             MessageUtils.message(sender, "&6&l» &7Detected mods: &6" + ListUtils.fromList(User.getUser(target).getMods(), false, false));
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1)
-            return null;
-        return new ArrayList<>();
     }
 
 }

@@ -12,9 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CommandCenter extends CoreCommand {
 
@@ -49,18 +47,20 @@ public class CommandCenter extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        List<String> completions = new ArrayList<>();
-
         if (args.length == 1) {
+            List<String> completions = new ArrayList<>();
+
             for (BlockFace face : BlockFace.values()) {
                 String name = face.name().toLowerCase();
 
                 if (StringUtils.startsWithIgnoreCase(name, args[0]))
                     completions.add(name);
             }
+
+            return completions;
         }
 
-        return completions;
+        return null;
     }
 
 }

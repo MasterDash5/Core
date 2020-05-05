@@ -8,9 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CommandInvisibility extends CoreCommand {
 
     public CommandInvisibility() {
@@ -28,11 +25,6 @@ public class CommandInvisibility extends CoreCommand {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 0, true, false, true));
         } else
             MessageUtils.playerCommandOnly();
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
     }
 
 }

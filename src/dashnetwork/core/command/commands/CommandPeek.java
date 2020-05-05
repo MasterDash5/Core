@@ -12,9 +12,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CommandPeek extends CoreCommand {
 
     public CommandPeek() {
@@ -47,11 +44,6 @@ public class CommandPeek extends CoreCommand {
             MessageUtils.message(sender, "&6&l» &7You must be holding a chest");
         } else
             MessageUtils.playerCommandOnly();
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
     }
 
 }

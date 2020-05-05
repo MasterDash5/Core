@@ -5,9 +5,6 @@ import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
 import org.bukkit.command.CommandSender;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CommandFuckoff extends CoreCommand {
 
     private static boolean fuckoff = false;
@@ -28,11 +25,6 @@ public class CommandFuckoff extends CoreCommand {
             MessageUtils.message(sender, "&6&l» &7New joins now disabled");
         else
             MessageUtils.message(sender, "&6&l» &7New joins now allowed again");
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
     }
 
 }

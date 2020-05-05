@@ -53,9 +53,4 @@ public class CommandVersionlist extends CoreCommand {
             MessageUtils.message(sender, message.build());
     }
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
-    }
-
 }

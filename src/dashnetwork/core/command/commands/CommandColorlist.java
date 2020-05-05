@@ -5,9 +5,6 @@ import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
 import org.bukkit.command.CommandSender;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CommandColorlist extends CoreCommand {
 
     public CommandColorlist() {
@@ -17,11 +14,6 @@ public class CommandColorlist extends CoreCommand {
     @Override
     public void onCommand(CommandSender sender, String label, String[] args) {
         MessageUtils.message(sender, "&6&l» &11 &22 &33 &44 &55 &66 &77 &88 &99 &00 &aa &bb &cc &dd &ee &ff\n&6&l»&f &kk&f(k) &ll&f &mm&f &nn&f &oo");
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
     }
 
 }

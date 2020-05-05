@@ -6,15 +6,11 @@ import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
 import dashnetwork.core.utils.StringUtils;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CommandRename extends CoreCommand {
 
@@ -44,11 +40,6 @@ public class CommandRename extends CoreCommand {
                 MessageUtils.usage(sender, label, "<name>");
         } else
             MessageUtils.playerCommandOnly();
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
     }
 
 }

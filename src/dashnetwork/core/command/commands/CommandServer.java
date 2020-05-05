@@ -72,9 +72,9 @@ public class CommandServer extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        List<String> completions = new ArrayList<>();
-
         if (args.length == 1) {
+            List<String> completions = new ArrayList<>();
+
             for (World world : Bukkit.getWorlds()) {
                 if (WorldUtils.isPlayerWorld(world) || SenderUtils.isAdmin(sender)) {
                     String name = world.getName();
@@ -95,9 +95,11 @@ public class CommandServer extends CoreCommand {
                         completions.add(name);
                 }
             }
+
+            return completions;
         }
 
-        return completions;
+        return null;
     }
 
 }

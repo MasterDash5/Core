@@ -10,8 +10,6 @@ import org.bukkit.entity.Fox;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class CommandFoxshot extends CoreCommand {
@@ -41,11 +39,6 @@ public class CommandFoxshot extends CoreCommand {
             }.runTaskLater(plugin, 20);
         } else
             MessageUtils.playerCommandOnly();
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
     }
 
 }

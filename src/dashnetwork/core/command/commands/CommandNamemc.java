@@ -128,11 +128,4 @@ public class CommandNamemc extends CoreCommand {
         }
     }
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1)
-            return null;
-        return new ArrayList<>();
-    }
-
 }

@@ -5,9 +5,6 @@ import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
 import org.bukkit.command.CommandSender;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CommandThefurpysong extends CoreCommand {
 
     public CommandThefurpysong() {
@@ -48,11 +45,6 @@ public class CommandThefurpysong extends CoreCommand {
         MessageUtils.message(sender, "&6FURPY!!");
         MessageUtils.message(sender, " ");
         MessageUtils.message(sender, "&7(Applause)");
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
     }
 
 }

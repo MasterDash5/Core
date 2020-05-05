@@ -6,7 +6,6 @@ import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
 import dashnetwork.core.utils.StringUtils;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -69,11 +68,6 @@ public class CommandLore extends CoreCommand {
                 MessageUtils.usage(sender, label, "<line> <lore>");
         } else
             MessageUtils.playerCommandOnly();
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
     }
 
 }

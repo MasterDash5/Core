@@ -54,11 +54,4 @@ public class CommandRide extends CoreCommand {
         }
     }
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length <= 2)
-            return null;
-        return new ArrayList<>();
-    }
-
 }

@@ -6,9 +6,6 @@ import dashnetwork.core.utils.PermissionType;
 import dashnetwork.core.utils.StringUtils;
 import org.bukkit.command.CommandSender;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CommandGoogle extends CoreCommand {
 
     public CommandGoogle() {
@@ -21,11 +18,6 @@ public class CommandGoogle extends CoreCommand {
             MessageUtils.message(sender, "&6&l» &7Here you go lazy pants: &6https://www.google.com/#q=" + StringUtils.unsplit(args, "+"));
         else
             MessageUtils.usage(sender, label, "<question>");
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
     }
 
 }

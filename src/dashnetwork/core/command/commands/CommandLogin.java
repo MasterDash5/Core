@@ -7,10 +7,6 @@ import dashnetwork.core.utils.PermissionType;
 import net.md_5.bungee.api.chat.HoverEvent;
 import org.bukkit.command.CommandSender;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class CommandLogin extends CoreCommand {
 
     public CommandLogin() {
@@ -23,11 +19,6 @@ public class CommandLogin extends CoreCommand {
         message.append("&6&l» &7Incorrect password! Please try again!").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6We're not a cracked server dummy");
 
         MessageUtils.message(sender, message.build());
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
     }
 
 }

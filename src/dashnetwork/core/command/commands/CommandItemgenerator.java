@@ -11,9 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CommandItemgenerator extends CoreCommand {
 
     public CommandItemgenerator() {
@@ -38,11 +35,6 @@ public class CommandItemgenerator extends CoreCommand {
             player.getInventory().addItem(generated);
         } else
             MessageUtils.playerCommandOnly();
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
     }
 
 }

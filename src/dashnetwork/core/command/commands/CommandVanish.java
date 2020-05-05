@@ -86,11 +86,4 @@ public class CommandVanish extends CoreCommand {
         }
     }
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1 && SenderUtils.isOwner(sender))
-            return null;
-        return new ArrayList<>();
-    }
-
 }

@@ -7,8 +7,6 @@ import dashnetwork.core.utils.PermissionType;
 import org.bukkit.command.CommandSender;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class CommandMommy extends CoreCommand {
@@ -31,11 +29,6 @@ public class CommandMommy extends CoreCommand {
                 MessageUtils.message(sender, "&6&l» &7Face identified. Your " + member + " is &6" + random);
             }
         }.runTaskLaterAsynchronously(plugin, 20);
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
     }
 
 }

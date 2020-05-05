@@ -123,14 +123,10 @@ public class CommandServerinfo extends CoreCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        int length = args.length;
-
-        if (length == 1)
+        if (args.length == 1)
             return Arrays.asList("actionbar");
-        else if (length == 2)
-            return null;
 
-        return new ArrayList<>();
+        return null;
     }
 
 }

@@ -46,9 +46,4 @@ public class CommandImport extends CoreCommand {
         MessageUtils.message(sender, "&6&l» &7Import complete");
     }
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
-    }
-
 }

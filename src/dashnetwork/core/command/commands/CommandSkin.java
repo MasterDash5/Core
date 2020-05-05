@@ -17,13 +17,10 @@ import com.mojang.authlib.properties.PropertyMap;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.minecraft.server.v1_15_R1.EntityPlayer;
-import net.minecraft.server.v1_15_R1.MinecraftServer;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -143,13 +140,6 @@ public class CommandSkin extends CoreCommand {
             }
         } else
             MessageUtils.usage(sender, label, "<player> <skin>");
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length <= 2)
-            return null;
-        return new ArrayList<>();
     }
 
 }

@@ -4,7 +4,6 @@ import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.global.listeners.EditBookListener;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -83,13 +82,6 @@ public class CommandBookspy extends CoreCommand {
                 MessageUtils.message(sender, message.build());
             }
         }
-    }
-
-    @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1 && SenderUtils.isOwner(sender))
-            return null;
-        return new ArrayList<>();
     }
 
 }
