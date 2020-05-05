@@ -21,8 +21,9 @@ public class TeleportListener implements Listener {
         Location from = event.getFrom();
         World fromWorld = from.getWorld();
         World toWorld = event.getTo().getWorld();
+        World[] survivalWorlds = { Survival.getWorld(), Survival.getNether(), Survival.getEnd() };
 
-        if (!toWorld.equals(fromWorld)) {
+        if (LazyUtils.anyEquals(toWorld, survivalWorlds) && !LazyUtils.anyEquals(fromWorld, survivalWorlds)) {
             if (LazyUtils.anyEquals(toWorld, Survival.getWorld(), Survival.getNether(), Survival.getEnd())) {
                 String uuid = player.getUniqueId().toString();
                 Map<String, String> survivallocationList = DataUtils.getSurvivallocationList();
