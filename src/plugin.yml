@@ -26,6 +26,8 @@ commands:
   bookspy:
     aliases: [bs]
   center:
+  chatsudo:
+    aliases: [csudo]
   clearchat:
     aliases: [cc]
   clearlag:

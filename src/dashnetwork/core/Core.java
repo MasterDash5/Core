@@ -104,6 +104,7 @@ public class Core extends JavaPlugin {
         new CommandAutowelcome();
         new CommandBookspy();
         new CommandCenter();
+        new CommandChatsudo();
         new CommandClearchat();
         new CommandClearlag();
         new CommandColorlist();
