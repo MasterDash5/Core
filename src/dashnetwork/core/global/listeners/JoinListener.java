@@ -33,6 +33,7 @@ public class JoinListener implements Listener {
         World world = player.getLocation().getWorld();
         String uuid = player.getUniqueId().toString();
         String address = player.getAddress().getAddress().getHostAddress();
+        List<String> deprecatedIpsList = DataUtils.getDeprecatedIpList();
 
         for (User online : User.getUsers()) {
             Player onlinePlayer = online.getPlayer();
@@ -78,6 +79,12 @@ public class JoinListener implements Listener {
             message.append("&6 to DashNetwork");
 
             MessageUtils.broadcast(true, null, PermissionType.NONE, message.build());
+        }
+
+        if (deprecatedIpsList.contains(address)) {
+            MessageUtils.message(player, "&6&l» &7We noticed you're using an outdated server IP! The IP you're using could be changed in the future. Please change your IP to &6dashnetwork.mc-srv.com");
+
+            deprecatedIpsList.remove(address);
         }
 
         String header = ChatColor.translateAlternateColorCodes('&', "&7&l» &6&lDashNetwork &7&l«\n ");

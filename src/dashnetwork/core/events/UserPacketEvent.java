@@ -12,6 +12,7 @@ public class UserPacketEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
     private User user;
+    private Player player;
     private PacketContainer packet;
     private boolean cancelled;
 
@@ -25,12 +26,17 @@ public class UserPacketEvent extends Event implements Cancellable {
         else
             this.user = null;
 
+        this.player = player;
         this.packet = event.getPacket();
         this.cancelled = event.isCancelled();
     }
 
     public User getUser() {
         return user;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public PacketContainer getPacket() {

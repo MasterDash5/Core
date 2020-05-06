@@ -23,6 +23,7 @@ public class DataUtils {
     private static List<String> bookspyList = new ArrayList<>();
     private static List<String> altspyList = new ArrayList<>();
     private static List<String> pingspyList = new ArrayList<>();
+    private static List<String> deprecatedIpList = new ArrayList<>();
     private static Core plugin = Core.getInstance();
     private static File dataFile;
     private static FileConfiguration dataConfig;
@@ -145,6 +146,10 @@ public class DataUtils {
 
     public static List<String> getPingspyList() {
         return pingspyList;
+    }
+
+    public static List<String> getDeprecatedIpList() {
+        return deprecatedIpList;
     }
 
 }
