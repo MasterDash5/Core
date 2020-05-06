@@ -1,6 +1,5 @@
 package dashnetwork.core;
 
-import com.comphenix.protocol.PacketType;
 import dashnetwork.core.command.commands.*;
 import dashnetwork.core.creative.Creative;
 import dashnetwork.core.discord.listeners.DiscordMessageListener;
@@ -16,10 +15,6 @@ import dashnetwork.core.utils.User;
 import github.scarsz.discordsrv.DiscordSRV;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class Core extends JavaPlugin {
 
