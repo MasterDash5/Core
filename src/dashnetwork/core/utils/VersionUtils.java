@@ -34,7 +34,7 @@ public class VersionUtils {
         if (hasViaVersion) {
             String via = ProtocolVersion.getProtocol(Via.getAPI().getPlayerVersion(player)).getName();
 
-            if (isBefore(via, version, false))
+            if (isAfter(getServerVersion(), via, false))
                 version = via;
         }
 
@@ -69,14 +69,14 @@ public class VersionUtils {
             return trueOnEqual;
 
         String[] futureSplit = futureVersion.split("\\.");
-        String[] playerSplit = currentVersion.split("\\.");
+        String[] currentSplit = currentVersion.split("\\.");
         int futureLength = futureSplit.length;
-        int playerLength = playerSplit.length;
-        int length = MathUtils.getLargestInt(futureLength, playerLength);
+        int currentLength = currentSplit.length;
+        int length = MathUtils.getLargestInt(futureLength, currentLength);
 
-        for (int i = 0; i < length && (futureLength & playerLength) >= i - 1; i++) {
+        for (int i = 0; i < length && futureLength > i && currentLength > i; i++) {
             int future = Integer.valueOf(futureSplit[i]);
-            int current = Integer.valueOf(playerSplit[i]);
+            int current = Integer.valueOf(currentSplit[i]);
 
             if (current > future)
                 return false;
@@ -86,7 +86,7 @@ public class VersionUtils {
     }
 
     public static boolean isBefore(String currentVersion, String legacyVersion, boolean trueOnEqual) {
-        return !isAfter(currentVersion, legacyVersion, trueOnEqual);
+        return isAfter(legacyVersion, currentVersion, trueOnEqual);
     }
 
     @Deprecated
