@@ -24,7 +24,7 @@ public class EntityMetadataListener implements Listener {
         if (user != null) {
             Player player = user.getPlayer();
 
-            if (VersionUtils.isBefore(player, "1.9", false)) {
+            if (VersionUtils.isBefore(VersionUtils.getPlayerVersion(player), "1.9", false)) {
                 boolean isSword = MaterialUtils.isSword(player.getInventory().getItemInMainHand().getType());
                 int id = player.getEntityId();
 
@@ -50,7 +50,7 @@ public class EntityMetadataListener implements Listener {
                     entitydata.getWatchableCollectionModifier().write(0, watcher.getWatchableObjects());
 
                     for (Player online : Bukkit.getOnlinePlayers()) {
-                        if (VersionUtils.isBefore(online, "1.9", false)) {
+                        if (VersionUtils.isBefore(VersionUtils.getPlayerVersion(online), "1.9", false)) {
                             try {
                                 ProtocolLibrary.getProtocolManager().sendServerPacket(online, entitydata, false);
                             } catch (Exception exception) {
@@ -77,7 +77,7 @@ public class EntityMetadataListener implements Listener {
                     entitydata.getWatchableCollectionModifier().write(0, watcher.getWatchableObjects());
 
                     for (Player online : Bukkit.getOnlinePlayers()) {
-                        if (VersionUtils.isBefore(online, "1.9", false)) {
+                        if (VersionUtils.isBefore(VersionUtils.getPlayerVersion(online), "1.9", false)) {
                             try {
                                 ProtocolLibrary.getProtocolManager().sendServerPacket(online, entitydata, false);
                             } catch (Exception exception) {

@@ -26,13 +26,19 @@ public class VersionUtils {
     }
 
     public static String getPlayerVersion(Player player) {
+        String version = getServerVersion();
+
         if (hasProtocolSupport)
-            return ProtocolSupportAPI.getConnection(player).getVersion().getName();
+            version = ProtocolSupportAPI.getConnection(player).getVersion().getName();
 
-        if (hasViaVersion)
-            return ProtocolVersion.getProtocol(Via.getAPI().getPlayerVersion(player)).getName(); // ViaVersion's api sucks
+        if (hasViaVersion) {
+            String via = ProtocolVersion.getProtocol(Via.getAPI().getPlayerVersion(player)).getName();
 
-        return getServerVersion();
+            if (isBefore(via, version, false))
+                version = via;
+        }
+
+        return version;
     }
 
     public static String getOldest() {
@@ -43,51 +49,27 @@ public class VersionUtils {
 
     public static String getLatest() {
         if (hasViaVersion) {
+            int highest = 0;
+
             for (ProtocolVersion version : ProtocolVersion.getProtocols()) {
-                int highest = 0;
                 int id = version.getId();
 
-                if (ProtocolVersion.isRegistered(version.getId()) && id > highest)
+                if (ProtocolVersion.isRegistered(id) && id > highest)
                     highest = id;
-
-                return ProtocolVersion.getProtocol(highest).getName();
             }
+
+            return ProtocolVersion.getProtocol(highest).getName();
         }
 
         return getServerVersion();
     }
 
-    public static boolean isBefore(Player player, String legacyVersion, boolean trueOnEqual) {
-        String playerVersion = getPlayerVersion(player);
-
-        if (legacyVersion.equals(playerVersion))
-            return trueOnEqual;
-
-        String[] legacySplit = legacyVersion.split("\\.");
-        String[] playerSplit = playerVersion.split("\\.");
-        int legacyLength = legacySplit.length;
-        int playerLength = playerSplit.length;
-        int length = MathUtils.getLargestInt(legacyLength, playerLength);
-
-        for (int i = 0; i < length && (legacyLength & playerLength) >= i - 1; i++) {
-            int legacy = Integer.valueOf(legacySplit[i]);
-            int current = Integer.valueOf(playerSplit[i]);
-
-            if (current < legacy)
-                return false;
-        }
-
-        return true;
-    }
-
-    public static boolean isAfter(Player player, String futureVersion, boolean trueOnEqual) {
-        String playerVersion = getPlayerVersion(player);
-
-        if (futureVersion.equals(playerVersion))
+    public static boolean isAfter(String currentVersion, String futureVersion, boolean trueOnEqual) {
+        if (futureVersion.equals(currentVersion))
             return trueOnEqual;
 
         String[] futureSplit = futureVersion.split("\\.");
-        String[] playerSplit = playerVersion.split("\\.");
+        String[] playerSplit = currentVersion.split("\\.");
         int futureLength = futureSplit.length;
         int playerLength = playerSplit.length;
         int length = MathUtils.getLargestInt(futureLength, playerLength);
@@ -103,9 +85,13 @@ public class VersionUtils {
         return true;
     }
 
+    public static boolean isBefore(String currentVersion, String legacyVersion, boolean trueOnEqual) {
+        return !isAfter(currentVersion, legacyVersion, trueOnEqual);
+    }
+
     @Deprecated
     public static boolean isLegacy(Player player) {
-        return isBefore(player, "1.9", false);
+        return isBefore(getPlayerVersion(player), "1.9", false);
     }
 
 }
