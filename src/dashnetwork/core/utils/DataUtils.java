@@ -14,7 +14,7 @@ import java.util.Map;
 public class DataUtils {
 
     private static Map<String, List<String>> offlineList = new HashMap<>();
-    private static Map<String, String> survivallocationList = new HashMap<>();
+    private static Map<String, String> survivalLocationList = new HashMap<>();
     private static List<String> ownerchatList = new ArrayList<>();
     private static List<String> adminchatList = new ArrayList<>();
     private static List<String> staffchatList = new ArrayList<>();
@@ -46,7 +46,7 @@ public class DataUtils {
 
         if (dataConfig.contains("survivallocation"))
             for (String uuid : dataConfig.getConfigurationSection("survivallocation").getKeys(false))
-                survivallocationList.put(uuid, dataConfig.getString("survivallocation." + uuid));
+                survivalLocationList.put(uuid, dataConfig.getString("survivallocation." + uuid));
 
         if (dataConfig.contains("ownerchat"))
             ownerchatList.addAll(dataConfig.getStringList("ownerchat"));
@@ -81,7 +81,7 @@ public class DataUtils {
             dataConfig.set("addresses." + address.replace(".", "-"), uuids);
         }
 
-        for (Map.Entry<String, String> entry : survivallocationList.entrySet()) {
+        for (Map.Entry<String, String> entry : survivalLocationList.entrySet()) {
             String uuid = entry.getKey();
             String location = entry.getValue();
 
@@ -112,8 +112,8 @@ public class DataUtils {
         return offlineList;
     }
 
-    public static Map<String, String> getSurvivallocationList() {
-        return survivallocationList;
+    public static Map<String, String> getSurvivalLocationList() {
+        return survivalLocationList;
     }
 
     public static List<String> getOwnerchatList() {
