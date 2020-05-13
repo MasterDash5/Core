@@ -38,6 +38,8 @@ commands:
     aliases: [cmdspy, cs]
   console:
   crash:
+  debugstick:
+    aliases: [ds]
   fakejoin:
   fakeleave:
   fakeop:

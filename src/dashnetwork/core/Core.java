@@ -105,6 +105,7 @@ public class Core extends JavaPlugin {
         new CommandCommandspy();
         new CommandConsole();
         new CommandCrash();
+        new CommandDebugstick();
         new CommandFakejoin();
         new CommandFakeleave();
         new CommandFakeop();
