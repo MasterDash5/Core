@@ -5,9 +5,11 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.earth2me.essentials.UserData;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.permissions.PermissionAttachmentInfo;
@@ -316,6 +318,22 @@ public class User implements CommandSender {
 
     public boolean isGolden() {
         return player.getUniqueId().toString().equals("bbeb983a-3111-4722-bcf0-e6aafbd5f7d2");
+    }
+
+    public boolean isHolding(Material material) {
+        PlayerInventory inventory = player.getInventory();
+
+        return LazyUtils.anyEquals(material, inventory.getItemInMainHand().getType(), inventory.getItemInOffHand().getType());
+    }
+
+    public boolean isHolding(String name) {
+        name = name.toUpperCase();
+
+        for (Material material : Material.values())
+            if (material.name().contains(name) && isHolding(material))
+                return true;
+
+        return false;
     }
 
     private void loadSaves() {

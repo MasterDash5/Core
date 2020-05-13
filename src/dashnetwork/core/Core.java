@@ -9,9 +9,7 @@ import dashnetwork.core.survival.Survival;
 import dashnetwork.core.task.Task;
 import dashnetwork.core.task.tasks.ServerinfoTask;
 import dashnetwork.core.task.tasks.SpinTask;
-import dashnetwork.core.utils.DataUtils;
-import dashnetwork.core.utils.TpsUtils;
-import dashnetwork.core.utils.User;
+import dashnetwork.core.utils.*;
 import github.scarsz.discordsrv.DiscordSRV;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -65,7 +63,7 @@ public class Core extends JavaPlugin {
         manager.registerEvents(new DropItemListener(), this);
         manager.registerEvents(new EditBookListener(), this);
         manager.registerEvents(new EntityDamageListener(), this);
-        // manager.registerEvents(new EntityMetadataListener(), this); TODO: Get to fixing
+        // manager.registerEvents(new EntityMetadataListener(), this);
         manager.registerEvents(new HandshakeListener(), this);
         manager.registerEvents(new InteractListener(), this);
         manager.registerEvents(new JoinListener(), this);
