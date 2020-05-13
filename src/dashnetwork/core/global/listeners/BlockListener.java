@@ -1,11 +1,12 @@
 package dashnetwork.core.global.listeners;
 
-import dashnetwork.core.utils.LazyUtils;
-import dashnetwork.core.utils.User;
-import dashnetwork.core.utils.WorldUtils;
+import com.destroystokyo.paper.profile.PlayerProfile;
+import dashnetwork.core.utils.*;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Skull;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -39,8 +40,17 @@ public class BlockListener implements Listener {
         User user = User.getUser(player);
         Block block = event.getBlock();
         World world = block.getWorld();
+        BlockState state = block.getState();
 
-        if (!WorldUtils.canBuild(user, block.getWorld()))
+        if (state instanceof Skull) {
+            Skull skull = (Skull) state;
+            PlayerProfile profile = skull.getPlayerProfile();
+
+            if (profile != null && !profile.hasTextures())
+                event.setCancelled(true);
+        }
+
+        if (!WorldUtils.canBuild(user, world))
             event.setCancelled(true);
 
         if (!user.isOwner() && LazyUtils.anyEquals(block.getType(), blacklist))
