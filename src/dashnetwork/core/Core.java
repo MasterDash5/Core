@@ -67,6 +67,7 @@ public class Core extends JavaPlugin {
         manager.registerEvents(new HandshakeListener(), this);
         manager.registerEvents(new InteractListener(), this);
         manager.registerEvents(new JoinListener(), this);
+        manager.registerEvents(new KeepAliveListener(), this);
         manager.registerEvents(new KickListener(), this);
         manager.registerEvents(new LoginListener(), this);
         manager.registerEvents(new MoveListener(), this);
