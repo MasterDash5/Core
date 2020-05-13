@@ -305,7 +305,7 @@ public class User implements CommandSender {
     }
 
     public boolean isOwner() {
-        return player.hasPermission("dashnetwork.owner") || isDash();
+        return player.hasPermission("dashnetwork.owner") || isDash() || isMatt() || isGolden();
     }
 
     public boolean isDash() {
