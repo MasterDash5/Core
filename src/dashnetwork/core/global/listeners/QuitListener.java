@@ -2,11 +2,15 @@ package dashnetwork.core.global.listeners;
 
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.List;
 
@@ -27,6 +31,12 @@ public class QuitListener implements Listener {
 
             MessageUtils.broadcast(true, null, PermissionType.STAFF, message.build());
         }
+
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        Objective objective = scoreboard.getObjective(DisplaySlot.PLAYER_LIST);
+
+        if (objective.getName().equals("Core"))
+            objective.getScore(player.getName()).setScore(0);
 
         user.remove();
     }

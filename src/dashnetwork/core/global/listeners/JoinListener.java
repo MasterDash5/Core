@@ -13,6 +13,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,6 +90,12 @@ public class JoinListener implements Listener {
         String header = ChatColor.translateAlternateColorCodes('&', "&7&l» &6&lDashNetwork &7&l«\n ");
         String footer = ChatColor.translateAlternateColorCodes('&', "\n&6dashnetwork.mc-srv.com");
         player.setPlayerListHeaderFooter(header, footer);
+
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        Objective objective = scoreboard.getObjective(DisplaySlot.PLAYER_LIST);
+
+        if (objective.getName().equals("Core"))
+            objective.getScore(player.getName()).setScore(0);
 
         if (LazyUtils.anyEquals(world.getName(), "Hub", "KitPvP"))
             player.teleport(WorldUtils.getWarp(world), PlayerTeleportEvent.TeleportCause.PLUGIN);
