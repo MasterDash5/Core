@@ -1,5 +1,6 @@
 package dashnetwork.core.utils;
 
+import dashnetwork.core.Core;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -87,7 +88,7 @@ public class MessageUtils {
     }
 
     public static void unknownCommand(CommandSender sender) {
-        message(sender, "Unknown command. Type \"/help\" for help.");
+        message(sender, "&6&l» &7Unknown command. Type &6/help&7 for help.");
     }
 
     public static void playerCommandOnly() {
