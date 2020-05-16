@@ -26,7 +26,10 @@ public class CommandList extends CoreCommand {
                 if (!SenderUtils.canSee(sender, online))
                     continue;
 
-                String worldName = world.getName().replace("skyworld", "Skyblock");
+                String worldName = world.getName();
+                worldName = worldName.replace("skyworld", "Skyblock");
+                worldName = worldName.replace("skygrid-world", "Skygrid").replace("skygrid-world_nether", "Skygrid").replace("skygrid-world_the_end", "Skygrid");
+
                 List<UUID> players = onlinelist.getOrDefault(worldName, new ArrayList<>());
 
                 players.add(online.getUniqueId());
