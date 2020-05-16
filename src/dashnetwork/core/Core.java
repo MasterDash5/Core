@@ -115,6 +115,7 @@ public class Core extends JavaPlugin {
         new CommandGamestate();
         new CommandGetoffme();
         new CommandGoogle();
+        new CommandHelp();
         new CommandImport();
         new CommandInvisibility();
         new CommandItemgenerator();

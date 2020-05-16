@@ -51,6 +51,7 @@ commands:
   getoffme:
     aliases: [getoffofme]
   google:
+  help:
   import:
   invisibility:
     aliases: [invis]
