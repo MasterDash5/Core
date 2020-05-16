@@ -1,5 +1,6 @@
 package dashnetwork.core.creative.listeners;
 
+import dashnetwork.core.creative.Creative;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.User;
 import org.bukkit.entity.Player;
@@ -15,7 +16,7 @@ public class InteractListener implements Listener {
         Player player = event.getPlayer();
         User user = User.getUser(player);
 
-        if (!user.isOwner() && user.isHolding("spawn_egg")) {
+        if (player.getWorld().equals(Creative.getWorld()) && !user.isOwner() && user.isHolding("spawn_egg")) {
             event.setCancelled(true);
             event.setUseItemInHand(Event.Result.DENY);
 
