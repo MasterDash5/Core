@@ -59,6 +59,7 @@ public class Core extends JavaPlugin {
         manager.registerEvents(new BlockListener(), this);
         manager.registerEvents(new ChatListener(), this);
         manager.registerEvents(new CommandListener(), this);
+        manager.registerEvents(new CustomPayloadListener(), this);
         manager.registerEvents(new DeathListener(), this);
         manager.registerEvents(new DropItemListener(), this);
         manager.registerEvents(new EditBookListener(), this);
@@ -75,7 +76,6 @@ public class Core extends JavaPlugin {
         manager.registerEvents(new PickupItemListener(), this);
         manager.registerEvents(new PortalListener(), this);
         manager.registerEvents(new QuitListener(), this);
-        manager.registerEvents(new RegisterChannelListener(), this);
         manager.registerEvents(new RespawnListener(), this);
         manager.registerEvents(new ServerCommandListener(), this);
         manager.registerEvents(new ServerPingListener(), this);
