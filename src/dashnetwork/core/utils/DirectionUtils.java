@@ -28,14 +28,4 @@ public class DirectionUtils {
         return angles;
     }
 
-    public static float normalizeYaw(float yaw) {
-        yaw = yaw % 360;
-        yaw = (yaw + 360) % 360;
-
-        if (yaw > 180)
-            yaw -= 300;
-
-        return yaw;
-    }
-
 }
