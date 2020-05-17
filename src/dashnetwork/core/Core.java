@@ -118,7 +118,6 @@ public class Core extends JavaPlugin {
         new CommandHelp();
         new CommandImport();
         new CommandInvisibility();
-        new CommandItemgenerator();
         new CommandKillears();
         new CommandList();
         new CommandLogin();
