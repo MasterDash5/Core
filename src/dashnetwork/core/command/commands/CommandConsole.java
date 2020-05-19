@@ -1,6 +1,9 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
+import dashnetwork.core.utils.Arguments;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
 import dashnetwork.core.utils.StringUtils;
@@ -19,6 +22,11 @@ public class CommandConsole extends CoreCommand {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), StringUtils.unsplit(args, " "));
         else
             MessageUtils.message(sender, "&6&l» &6Usage: &7/console <command>");
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.then(Arguments.stringTypeGreedy("command")).build();
     }
 
 }

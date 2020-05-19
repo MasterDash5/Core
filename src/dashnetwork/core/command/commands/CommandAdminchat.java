@@ -1,5 +1,7 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -68,6 +70,11 @@ public class CommandAdminchat extends CoreCommand {
             else
                 MessageUtils.usage(sender, label, "<message>");
         }
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.then(Arguments.playersType("targets")).build();
     }
 
 }

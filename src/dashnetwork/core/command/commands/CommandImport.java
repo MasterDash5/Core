@@ -3,6 +3,8 @@ package dashnetwork.core.command.commands;
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
 import com.earth2me.essentials.UserMap;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.DataUtils;
 import dashnetwork.core.utils.MessageUtils;
@@ -44,6 +46,11 @@ public class CommandImport extends CoreCommand {
         }
 
         MessageUtils.message(sender, "&6&l» &7Import complete");
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.build();
     }
 
 }

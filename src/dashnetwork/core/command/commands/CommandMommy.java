@@ -1,5 +1,7 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.GrammarUtils;
 import dashnetwork.core.utils.MessageUtils;
@@ -29,6 +31,11 @@ public class CommandMommy extends CoreCommand {
                 MessageUtils.message(sender, "&6&l» &7Face identified. Your " + member + " is &6" + random);
             }
         }.runTaskLaterAsynchronously(plugin, 20);
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.build();
     }
 
 }

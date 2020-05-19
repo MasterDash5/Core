@@ -1,6 +1,9 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
+import dashnetwork.core.utils.Arguments;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
 import org.bukkit.Location;
@@ -39,6 +42,11 @@ public class CommandFoxshot extends CoreCommand {
             }.runTaskLater(plugin, 20);
         } else
             MessageUtils.playerCommandOnly();
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.build();
     }
 
 }

@@ -1,5 +1,7 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import org.bukkit.Bukkit;
@@ -23,6 +25,11 @@ public class CommandOplist extends CoreCommand {
             operators.add(operator.getName());
 
         MessageUtils.message(sender, "&6&l» &7Operators: &6" + ListUtils.fromList(operators, false, false));
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.build();
     }
 
 }

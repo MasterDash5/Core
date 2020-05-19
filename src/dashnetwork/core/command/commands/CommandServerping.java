@@ -3,7 +3,10 @@ package dashnetwork.core.command.commands;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
+import dashnetwork.core.utils.Arguments;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
 import org.bukkit.command.CommandSender;
@@ -133,6 +136,11 @@ public class CommandServerping extends CoreCommand {
             }
         } else
             MessageUtils.usage(sender, label, "<address[:port]>");
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.then(Arguments.stringTypeWord("address")).build();
     }
 
 }

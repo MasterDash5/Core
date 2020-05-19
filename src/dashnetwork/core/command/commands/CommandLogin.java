@@ -1,6 +1,9 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
+import dashnetwork.core.utils.Arguments;
 import dashnetwork.core.utils.MessageBuilder;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
@@ -19,6 +22,11 @@ public class CommandLogin extends CoreCommand {
         message.append("&6&l» &7Incorrect password! Please try again!").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6We're not a cracked server dummy");
 
         MessageUtils.message(sender, message.build());
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.then(Arguments.stringTypeWord("password")).build();
     }
 
 }

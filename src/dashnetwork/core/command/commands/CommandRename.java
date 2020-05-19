@@ -1,10 +1,9 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
-import dashnetwork.core.utils.MaterialUtils;
-import dashnetwork.core.utils.MessageUtils;
-import dashnetwork.core.utils.PermissionType;
-import dashnetwork.core.utils.StringUtils;
+import dashnetwork.core.utils.*;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -40,6 +39,11 @@ public class CommandRename extends CoreCommand {
                 MessageUtils.usage(sender, label, "<name>");
         } else
             MessageUtils.playerCommandOnly();
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.then(Arguments.stringTypeGreedy("name")).build();
     }
 
 }

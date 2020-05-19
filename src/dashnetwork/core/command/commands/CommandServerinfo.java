@@ -1,5 +1,7 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import com.sun.management.OperatingSystemMXBean;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
@@ -122,11 +124,8 @@ public class CommandServerinfo extends CoreCommand {
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1)
-            return Arrays.asList("actionbar");
-
-        return null;
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.then(Arguments.literal("actionbar")).build();
     }
 
 }

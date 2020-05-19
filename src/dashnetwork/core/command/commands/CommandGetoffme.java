@@ -1,5 +1,7 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
@@ -22,6 +24,11 @@ public class CommandGetoffme extends CoreCommand {
                 player.removePassenger(passenger);
         } else
             MessageUtils.playerCommandOnly();
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.build();
     }
 
 }

@@ -1,6 +1,9 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
+import dashnetwork.core.utils.Arguments;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
 import org.bukkit.command.CommandSender;
@@ -45,6 +48,11 @@ public class CommandThefurpysong extends CoreCommand {
         MessageUtils.message(sender, "&6FURPY!!");
         MessageUtils.message(sender, " ");
         MessageUtils.message(sender, "&7(Applause)");
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.build();
     }
 
 }

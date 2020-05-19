@@ -1,5 +1,7 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -65,17 +67,11 @@ public class CommandClearlag extends CoreCommand {
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        List<String> completions = new ArrayList<>();
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        for (World world : Bukkit.getWorlds())
+            builder.then(Arguments.literal(world.getName()));
 
-        for (World world : Bukkit.getWorlds()) {
-            String name = world.getName();
-
-            if (StringUtils.startsWithIgnoreCase(name, args[0]))
-                completions.add(name);
-        }
-
-        return completions;
+        return builder.build();
     }
 
 }

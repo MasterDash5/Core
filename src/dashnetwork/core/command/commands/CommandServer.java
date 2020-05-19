@@ -1,5 +1,7 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -10,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CommandServer extends CoreCommand {
@@ -71,35 +74,13 @@ public class CommandServer extends CoreCommand {
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1) {
-            List<String> completions = new ArrayList<>();
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        List<String> servers = Arrays.asList("Creative", "Hub", "Prison", "Skyblock", "Skygrid", "PvP");
 
-            for (World world : Bukkit.getWorlds()) {
-                if (WorldUtils.isPlayerWorld(world) || SenderUtils.isAdmin(sender)) {
-                    String name = world.getName();
+        for (String server : servers)
+            builder.then(Arguments.literal(server));
 
-                    if (name.equalsIgnoreCase("KitPvP"))
-                        name = "PvP";
-
-                    if (LazyUtils.anyEqualsIgnoreCase(name, "skyworld", "skyworld_nether"))
-                        name = "Skyblock";
-
-                    if (LazyUtils.anyEqualsIgnoreCase(name, "Survival_nether", "Survival_the_end"))
-                        name = "Survival";
-
-                    if (LazyUtils.anyEqualsIgnoreCase(name, "skygrid-world", "skygrid-world_nether", "skygrid-world_the_end"))
-                        name = "Skygrid";
-
-                    if (StringUtils.startsWithIgnoreCase(name, args[0]) && !completions.contains(name))
-                        completions.add(name);
-                }
-            }
-
-            return completions;
-        }
-
-        return null;
+        return builder.build();
     }
 
 }

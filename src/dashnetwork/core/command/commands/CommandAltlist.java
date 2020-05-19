@@ -1,5 +1,7 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import org.bukkit.Bukkit;
@@ -48,6 +50,11 @@ public class CommandAltlist extends CoreCommand {
             } else
                 MessageUtils.message(sender, "&6&l» &7No alts detected");
         }
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.then(Arguments.playersType("targets")).build();
     }
 
 }

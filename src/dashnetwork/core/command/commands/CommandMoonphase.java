@@ -1,5 +1,7 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import org.bukkit.World;
@@ -46,19 +48,12 @@ public class CommandMoonphase extends CoreCommand {
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1) {
-            List<String> completions = new ArrayList<>();
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        for (Phase phase : Phase.values())
+            for (String reference : phase.references)
+                builder.then(Arguments.literal(reference));
 
-            for (Phase phase : Phase.values())
-                for (String reference : phase.references)
-                    if (StringUtils.startsWithIgnoreCase(reference, args[0]))
-                        completions.add(reference);
-
-            return completions;
-        }
-
-        return null;
+        return builder.build();
     }
 
     private enum Phase {

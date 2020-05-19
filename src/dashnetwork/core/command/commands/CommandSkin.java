@@ -14,6 +14,8 @@ import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.minecraft.server.v1_15_R1.EntityPlayer;
@@ -140,6 +142,12 @@ public class CommandSkin extends CoreCommand {
             }
         } else
             MessageUtils.usage(sender, label, "<player> <skin>");
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.then(Arguments.playersType("targets")
+                .then(Arguments.stringTypeWord("skin"))).build();
     }
 
 }

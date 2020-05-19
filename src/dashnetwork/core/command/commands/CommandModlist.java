@@ -1,5 +1,7 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -61,6 +63,11 @@ public class CommandModlist extends CoreCommand {
                 MessageUtils.message(sender, message.build());
         } else
             MessageUtils.message(sender, "&6&l» &7Detected mods: &6" + ListUtils.fromList(User.getUser(target).getMods(), false, false));
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.then(Arguments.playerType("target")).build();
     }
 
 }

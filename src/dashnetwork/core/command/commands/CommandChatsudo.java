@@ -1,5 +1,7 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import org.bukkit.command.CommandSender;
@@ -35,6 +37,12 @@ public class CommandChatsudo extends CoreCommand {
             for (Player target : targets)
                 target.chat(message);
         }
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.then(Arguments.playersType("targets")
+                .then(Arguments.stringTypeGreedy("message"))).build();
     }
 
 }

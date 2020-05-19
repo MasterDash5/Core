@@ -1,14 +1,16 @@
 package dashnetwork.core.command;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
+import com.mojang.brigadier.tree.LiteralCommandNode;
 import dashnetwork.core.Core;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.PermissionType;
+import me.lucko.commodore.Commodore;
+import me.lucko.commodore.CommodoreProvider;
 import org.bukkit.command.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public abstract class CoreCommand implements CommandExecutor, TabCompleter {
+public abstract class CoreCommand implements CommandExecutor {
 
     protected static Core plugin = Core.getInstance();
     private PermissionType permission;
@@ -17,8 +19,13 @@ public abstract class CoreCommand implements CommandExecutor, TabCompleter {
     public CoreCommand(String label, PermissionType permission, boolean async) {
         PluginCommand command = plugin.getCommand(label);
         command.setExecutor(this);
-        command.setTabCompleter(this);
         command.setPermission(permission.getPermission());
+
+        Commodore commodore = CommodoreProvider.getCommodore(plugin);
+        commodore.register(command, (LiteralCommandNode<?>) onTabComplete(LiteralArgumentBuilder.literal(label)), permission::hasPermission);
+
+        for (String alias : command.getAliases())
+            commodore.register(command, (LiteralCommandNode<?>) onTabComplete(LiteralArgumentBuilder.literal(alias)), permission::hasPermission);
 
         this.permission = permission;
         this.async = async;
@@ -37,15 +44,8 @@ public abstract class CoreCommand implements CommandExecutor, TabCompleter {
         return true;
     }
 
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
-        return onTabComplete(sender, label, args);
-    }
-
     public abstract void onCommand(CommandSender sender, String label, String[] args);
 
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        return null;
-    }
+    public abstract CommandNode onTabComplete(LiteralArgumentBuilder builder);
 
 }

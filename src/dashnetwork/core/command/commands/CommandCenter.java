@@ -1,18 +1,14 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
-import dashnetwork.core.utils.DirectionUtils;
-import dashnetwork.core.utils.MessageUtils;
-import dashnetwork.core.utils.PermissionType;
-import dashnetwork.core.utils.StringUtils;
+import dashnetwork.core.utils.*;
 import org.bukkit.Location;
 import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CommandCenter extends CoreCommand {
 
@@ -46,21 +42,11 @@ public class CommandCenter extends CoreCommand {
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, String label, String[] args) {
-        if (args.length == 1) {
-            List<String> completions = new ArrayList<>();
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        for (BlockFace face : BlockFace.values())
+            builder.then(Arguments.literal(face.name().toLowerCase()));
 
-            for (BlockFace face : BlockFace.values()) {
-                String name = face.name().toLowerCase();
-
-                if (StringUtils.startsWithIgnoreCase(name, args[0]))
-                    completions.add(name);
-            }
-
-            return completions;
-        }
-
-        return null;
+        return builder.build();
     }
 
 }

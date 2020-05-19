@@ -1,5 +1,7 @@
 package dashnetwork.core.command.commands;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.creative.Creative;
 import dashnetwork.core.survival.Survival;
@@ -77,6 +79,11 @@ public class CommandHelp extends CoreCommand {
             MessageUtils.message(player, message.build());
         } else
             MessageUtils.playerCommandOnly();
+    }
+
+    @Override
+    public CommandNode onTabComplete(LiteralArgumentBuilder builder) {
+        return builder.build();
     }
 
 }
