@@ -9,6 +9,7 @@ import dashnetwork.core.utils.PermissionType;
 import me.lucko.commodore.Commodore;
 import me.lucko.commodore.CommodoreProvider;
 import org.bukkit.command.*;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public abstract class CoreCommand implements CommandExecutor {
 
@@ -34,9 +35,13 @@ public abstract class CoreCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (permission.hasPermission(sender)) {
-            if (async)
-                new Thread(() -> { onCommand(sender, label, args); }).start();
-            else
+            if (async) {
+                new BukkitRunnable() {
+                    public void run() {
+                        onCommand(sender, label, args);
+                    }
+                }.runTaskAsynchronously(plugin);
+            } else
                 onCommand(sender, label, args);
         } else
             MessageUtils.noPermissions(sender);
