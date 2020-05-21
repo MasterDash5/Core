@@ -65,7 +65,7 @@ public class Core extends JavaPlugin {
         manager.registerEvents(new EditBookListener(), this);
         manager.registerEvents(new EntityDamageListener(), this);
         // manager.registerEvents(new EntityMetadataListener(), this);
-        manager.registerEvents(new HandshakeListener(), this);
+        // manager.registerEvents(new HandshakeListener(), this);
         manager.registerEvents(new InteractListener(), this);
         manager.registerEvents(new JoinListener(), this);
         manager.registerEvents(new KeepAliveListener(), this);
