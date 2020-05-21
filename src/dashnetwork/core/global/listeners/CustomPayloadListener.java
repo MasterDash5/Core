@@ -48,6 +48,8 @@ public class CustomPayloadListener implements Listener {
 
                 buffer.writeBytes(array);
                 packet.getModifier().withType(ByteBuf.class).write(0, MinecraftReflection.getPacketDataSerializer(buffer));
+
+                event.setPacket(packet);
             }
         }
 
@@ -80,8 +82,6 @@ public class CustomPayloadListener implements Listener {
                     break;
             }
         }
-
-        event.setPacket(packet);
     }
 
 }
