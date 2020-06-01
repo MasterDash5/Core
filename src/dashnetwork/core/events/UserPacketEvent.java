@@ -2,6 +2,7 @@ package dashnetwork.core.events;
 
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
+import dashnetwork.core.packet.listeners.PacketEventType;
 import dashnetwork.core.utils.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -14,9 +15,10 @@ public class UserPacketEvent extends Event implements Cancellable {
     private User user;
     private Player player;
     private PacketContainer packet;
+    private PacketEventType type;
     private boolean cancelled;
 
-    public UserPacketEvent(PacketEvent event) {
+    public UserPacketEvent(PacketEvent event, PacketEventType type) {
         super(event.isAsync());
 
         Player player = event.getPlayer();
@@ -27,6 +29,7 @@ public class UserPacketEvent extends Event implements Cancellable {
             this.user = null;
 
         this.player = player;
+        this.type = type;
         this.packet = event.getPacket();
         this.cancelled = event.isCancelled();
     }

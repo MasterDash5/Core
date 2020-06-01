@@ -2,7 +2,6 @@ package dashnetwork.core.utils;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
-import com.earth2me.essentials.UserData;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -81,11 +80,15 @@ public class User implements CommandSender {
         return new User(player);
     }
 
-    public <T>UserAddon getAddon(T addonClass) {
+    public <T> UserAddon getAddon(T addonClass) {
         for (UserAddon addon : addons)
             if (addon.getClass() == addonClass)
                 return addon;
         return null;
+    }
+
+    public <T> boolean hasAddon(UserAddon addon) {
+        return addons.contains(addon);
     }
 
     public void remove() {
