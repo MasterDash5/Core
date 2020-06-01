@@ -49,6 +49,10 @@ public class UserPacketEvent extends Event implements Cancellable {
     public void setPacket(PacketContainer packet) {
         this.packet = packet;
     }
+    
+    public PacketEventType getType() {
+        return type;
+    }
 
     @Override
     public boolean isCancelled() {
