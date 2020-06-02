@@ -49,7 +49,7 @@ public class CommandRealjoin extends CoreCommand {
                         uuid = json.getAsJsonObject().get("id").getAsString();
 
                         reader.close();
-                    } catch(IllegalStateException exception) {
+                    } catch (IllegalStateException exception) {
                         MessageUtils.message(sender, "&6&l» &7No account with the name &6" + arg);
                         return;
                     } catch (Exception exception) {
@@ -67,7 +67,7 @@ public class CommandRealjoin extends CoreCommand {
                     username = json.get("name").getAsString();
                     texture = property.get("value").getAsString();
                     signature = property.get("signature").getAsString();
-                } catch(IllegalStateException exception) {
+                } catch (IllegalStateException exception) {
                     MessageUtils.message(sender, "&6&l» &7No account with the name &6" + arg);
                     return;
                 } catch (Exception exception) {
