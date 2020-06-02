@@ -27,6 +27,7 @@ public class CommandRealjoin extends CoreCommand {
     public void onCommand(CommandSender sender, String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
+            User user = User.getUser(player);
 
             if (args.length > 0) {
                 String arg = args[0];
@@ -64,6 +65,11 @@ public class CommandRealjoin extends CoreCommand {
                 } catch (Exception exception) {
                     MessageUtils.error(sender, exception);
                     exception.printStackTrace();
+                    return;
+                }
+
+                if (!user.isDash() && LazyUtils.anyEquals(uuid, "4f771152ce614d6f95411d2d9e725d0e", "d1e65ac2581542fda90051f520d286b2", "1dadf63dc06743efa49f8428e3cecc78")) {
+                    MessageUtils.message(sender, "&6&l» &7Dash doesn't like that");
                     return;
                 }
 
