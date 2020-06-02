@@ -11,10 +11,8 @@ import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import protocolsupport.api.ProtocolSupportAPI;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.UUID;

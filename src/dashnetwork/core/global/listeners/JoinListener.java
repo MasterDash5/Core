@@ -19,6 +19,7 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -34,6 +35,13 @@ public class JoinListener implements Listener {
         String uuid = player.getUniqueId().toString();
         String address = player.getAddress().getAddress().getHostAddress();
         List<String> deprecatedIpsList = DataUtils.getDeprecatedIpList();
+        Map<String, List<String>> offlineList = DataUtils.getOfflineList();
+        List<String> accounts = offlineList.getOrDefault(address, new ArrayList<>());
+
+        if (!accounts.contains(uuid) && !DataUtils.getRealjoins().contains(uuid)) {
+            accounts.add(player.getUniqueId().toString());
+            offlineList.put(address, accounts);
+        }
 
         for (User online : User.getUsers()) {
             Player onlinePlayer = online.getPlayer();

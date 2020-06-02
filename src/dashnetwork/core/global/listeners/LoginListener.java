@@ -18,20 +18,12 @@ public class LoginListener implements Listener {
     public void onPlayerLogin(PlayerLoginEvent event) {
         Player player = event.getPlayer();
         User user = User.getUser(player);
-        String uuid = player.getUniqueId().toString();
-        String address = event.getAddress().getHostAddress();
-        Map<String, List<String>> offlineList = DataUtils.getOfflineList();
-        List<String> accounts = offlineList.getOrDefault(address, new ArrayList<>());
-
-        if (!accounts.contains(uuid)) {
-            accounts.add(player.getUniqueId().toString());
-            offlineList.put(address, accounts);
-        }
+        PlayerLoginEvent.Result result = event.getResult();
 
         if (CommandFuckoff.getFuckoff() && !player.hasPlayedBefore())
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "&cYou are not allowed to join right now");
 
-        if (event.getResult().equals(PlayerLoginEvent.Result.KICK_FULL) && user.isStaff())
+        if (result.equals(PlayerLoginEvent.Result.KICK_FULL) && user.isStaff())
             event.allow();
 
         if (user.isOwner())

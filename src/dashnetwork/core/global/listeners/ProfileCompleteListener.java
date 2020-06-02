@@ -1,10 +1,7 @@
 package dashnetwork.core.global.listeners;
 
 import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
 import dashnetwork.core.utils.DataUtils;
-import dashnetwork.core.utils.MessageUtils;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import protocolsupport.api.Connection;
@@ -22,16 +19,17 @@ public class ProfileCompleteListener implements Listener {
         UUID uuid = connection.getProfile().getUUID();
 
         if (queue.containsKey(uuid)) {
-            Player player = connection.getPlayer();
             GameProfile profile = queue.get(uuid);
-            Property property = profile.getProperties().get("textures").iterator().next();
+            // Property property = profile.getProperties().get("textures").iterator().next();
+            UUID id = profile.getId();
 
-            event.setForcedUUID(profile.getId());
+            event.setForcedUUID(id);
             event.setForcedName(profile.getName());
 
             // event.getProperties("texture").add(new ProfileProperty("textures", property.getValue(), property.getSignature())); TODO: Add when implemented by ProtocolSupport
 
             queue.remove(uuid);
+            DataUtils.getRealjoins().add(id.toString());
         }
     }
 

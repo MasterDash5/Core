@@ -38,6 +38,8 @@ public class QuitListener implements Listener {
         if (objective.getName().equals("Core"))
             objective.getScore(player.getName()).setScore(0);
 
+        DataUtils.getRealjoins().remove(player.getUniqueId());
+
         user.remove();
     }
 
