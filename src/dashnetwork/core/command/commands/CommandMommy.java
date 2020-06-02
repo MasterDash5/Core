@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class CommandMommy extends CoreCommand {
 
-    private String[] mommies = { "Dash", "Matt", "Furp", "Skull", "Golden", "Hannah" };
+    private String[] mommies = { "Dash", "Matt", "Furpy", "Skull", "Golden", "Hannah", "Imani", "Ryan" };
 
     public CommandMommy() {
         super("mommy", PermissionType.NONE, true);
@@ -27,9 +27,12 @@ public class CommandMommy extends CoreCommand {
         MessageUtils.message(sender, "&6&l» &7Scanning face for " + member + "...");
 
         new BukkitRunnable() {
+
+            @Override
             public void run() {
                 MessageUtils.message(sender, "&6&l» &7Face identified. Your " + member + " is &6" + random);
             }
+
         }.runTaskLaterAsynchronously(plugin, 20);
     }
 
