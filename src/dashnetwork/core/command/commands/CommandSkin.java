@@ -77,10 +77,12 @@ public class CommandSkin extends CoreCommand {
                             reader.close();
                         } catch (IllegalStateException illegal) {
                             MessageUtils.message(sender, "&6&l» &7No account with the name &6" + arg);
+                            return;
                         } catch (FileNotFoundException file) {}
                         catch (Exception exception) {
                             MessageUtils.error(sender, exception);
                             exception.printStackTrace();
+                            return;
                         }
                     }
 

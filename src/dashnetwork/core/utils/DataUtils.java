@@ -1,20 +1,19 @@
 package dashnetwork.core.utils;
 
+import com.mojang.authlib.GameProfile;
 import dashnetwork.core.Core;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DataUtils {
 
     private static Map<String, List<String>> offlineList = new HashMap<>();
     private static Map<String, String> survivalLocationList = new HashMap<>();
+    private static Map<UUID, GameProfile> queuedRealjoins = new HashMap<>();
     private static List<String> ownerchatList = new ArrayList<>();
     private static List<String> adminchatList = new ArrayList<>();
     private static List<String> staffchatList = new ArrayList<>();
@@ -114,6 +113,10 @@ public class DataUtils {
 
     public static Map<String, String> getSurvivalLocationList() {
         return survivalLocationList;
+    }
+
+    public static Map<UUID, GameProfile> getQueuedRealjoins() {
+        return queuedRealjoins;
     }
 
     public static List<String> getOwnerchatList() {

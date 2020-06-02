@@ -75,6 +75,7 @@ public class Core extends JavaPlugin {
         manager.registerEvents(new ParticleListener(), this);
         manager.registerEvents(new PickupItemListener(), this);
         manager.registerEvents(new PortalListener(), this);
+        manager.registerEvents(new ProfileCompleteListener(), this);
         manager.registerEvents(new QuitListener(), this);
         manager.registerEvents(new RespawnListener(), this);
         manager.registerEvents(new ServerCommandListener(), this);
@@ -135,6 +136,7 @@ public class Core extends JavaPlugin {
         new CommandPing();
         new CommandPingspy();
         new CommandPlayerinfo();
+        new CommandRealjoin();
         new CommandRegen();
         new CommandRename();
         new CommandRespawn();

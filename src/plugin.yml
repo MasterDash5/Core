@@ -82,6 +82,8 @@ commands:
   ping:
   pingspy:
   playerinfo:
+  realjoin:
+    aliases: [setprofile, profile, persuit]
   regen:
   rename:
     aliases: [setname]
