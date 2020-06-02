@@ -30,6 +30,8 @@ public class CommandRealjoin extends CoreCommand {
             User user = User.getUser(player);
 
             if (args.length > 0) {
+                MessageUtils.message(sender, "&6&l» &7Loading profile...");
+
                 String arg = args[0];
                 String username;
                 String uuid;
@@ -47,6 +49,9 @@ public class CommandRealjoin extends CoreCommand {
                         uuid = json.getAsJsonObject().get("id").getAsString();
 
                         reader.close();
+                    } catch(IllegalStateException exception) {
+                        MessageUtils.message(sender, "&6&l» &7No account with the name &6" + arg);
+                        return;
                     } catch (Exception exception) {
                         MessageUtils.error(sender, exception);
                         return;
@@ -62,9 +67,11 @@ public class CommandRealjoin extends CoreCommand {
                     username = json.get("name").getAsString();
                     texture = property.get("value").getAsString();
                     signature = property.get("signature").getAsString();
+                } catch(IllegalStateException exception) {
+                    MessageUtils.message(sender, "&6&l» &7No account with the name &6" + arg);
+                    return;
                 } catch (Exception exception) {
                     MessageUtils.error(sender, exception);
-                    exception.printStackTrace();
                     return;
                 }
 
