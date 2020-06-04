@@ -51,7 +51,7 @@ public class NPC implements Listener {
     }
 
     public void setSkin(String texture, String signature) {
-        profile.getProperties().put("textures", new Property("texture", texture, signature));
+        profile.getProperties().put("textures", new Property("textures", texture, signature));
     }
 
     public void setTabName(String tabName) {
