@@ -111,6 +111,9 @@ public class NPC implements Listener {
 
     public void sendNamedEntitySpawn(User user) {
         PacketContainer packet = new PacketContainer(PacketType.Play.Server.NAMED_ENTITY_SPAWN);
+        WrappedDataWatcher data = new WrappedDataWatcher();
+
+        data.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(0, WrappedDataWatcher.Registry.get(Byte.class)), generateMetadata());
 
         packet.getIntegers().write(0, entityId);
         packet.getUUIDs().write(0, profile.getId());
@@ -119,6 +122,9 @@ public class NPC implements Listener {
         packet.getDoubles().write(2, location.getZ());
         packet.getBytes().write(0, (byte) (location.getYaw() * 256.0F / 360.0F));
         packet.getBytes().write(1, (byte) (location.getPitch() * 256.0F / 360.0F));
+        packet.getDataWatcherModifier().write(0, data);
+
+        user.sendPacket(packet);
     }
 
     private int generateEntityId() {
@@ -128,6 +134,27 @@ public class NPC implements Listener {
             count += world.getEntityCount();
 
         return ThreadLocalRandom.current().nextInt(count, Integer.MAX_VALUE);
+    }
+
+    private byte generateMetadata() {
+        byte metadata = 0x00;
+
+        if (fire)
+            metadata += 0x01;
+        if (sneaking)
+            metadata += 0x02;
+        if (sprinting)
+            metadata += 0x08;
+        if (swimming)
+            metadata += 0x10;
+        if (invisible)
+            metadata += 0x20;
+        if (glowing)
+            metadata += 0x40;
+        if (gliding)
+            metadata += 0x80;
+
+        return metadata;
     }
 
 }
