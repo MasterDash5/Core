@@ -116,7 +116,7 @@ public class CommandServerinfo extends CoreCommand {
             message.append("&6&l» &7TPS: &6" + tps);
             message.append("\n&6&l» &7Memory: &6" + usedFormat + "&7/&6" + allocatedFormat + " &7MB (&6" + memoryFormat + "&7 MB max)").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + freeFormat + " &7MB free");
             message.append("\n&6&l» &7Total CPU Usage: &6" + totalUsage + "&7 Server CPU Usage: &6" + serverUsage).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&7CPU Cores: &6" + cores);
-            message.append("\n&6&l» &7Loaded Chunks: &6" + chunks + "&7 Entiies: &6" + entities + "&7 Tiles: &6" + tiles);
+            message.append("\n&6&l» &7Loaded Chunks: &6" + chunks + "&7 Entities: &6" + entities + "&7 Tiles: &6" + tiles);
 
             MessageUtils.message(sender, message.build());
         }
