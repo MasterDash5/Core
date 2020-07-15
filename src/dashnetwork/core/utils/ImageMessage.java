@@ -1,12 +1,11 @@
 package dashnetwork.core.utils;
 
-import java.awt.Color;
+import org.bukkit.ChatColor;
+
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 public class ImageMessage {
 

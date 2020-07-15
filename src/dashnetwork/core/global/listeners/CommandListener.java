@@ -1,10 +1,8 @@
 package dashnetwork.core.global.listeners;
 
 import dashnetwork.core.Core;
-import dashnetwork.core.creative.Creative;
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.User;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

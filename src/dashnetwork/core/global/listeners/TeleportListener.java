@@ -2,7 +2,6 @@ package dashnetwork.core.global.listeners;
 
 import dashnetwork.core.utils.MessageUtils;
 import dashnetwork.core.utils.User;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

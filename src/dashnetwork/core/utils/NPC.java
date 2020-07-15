@@ -8,7 +8,10 @@ import com.mojang.authlib.properties.Property;
 import org.bukkit.*;
 import org.bukkit.event.Listener;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class NPC implements Listener {

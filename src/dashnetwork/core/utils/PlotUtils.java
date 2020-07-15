@@ -1,7 +1,6 @@
 package dashnetwork.core.utils;
 
 import com.github.intellectualsites.plotsquared.api.PlotAPI;
-import com.github.intellectualsites.plotsquared.plot.object.Plot;
 import com.github.intellectualsites.plotsquared.plot.object.PlotArea;
 import com.sk89q.worldedit.math.BlockVector2;
 import com.sk89q.worldedit.math.BlockVector3;

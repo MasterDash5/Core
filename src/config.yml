@@ -1,1 +1,11 @@
 lock-password: ""
+
+cobble-gen-blocks:
+  COBBLESTONE: 85.3
+  IRON_ORE: 4.0
+  COAL_ORE: 3.0
+  GOLD_ORE: 2.0
+  LAPIS_ORE: 2.0
+  REDSTONE_ORE: 2.0
+  DIAMOND_ORE: 1.0
+  EMERALD_ORE: 0.7

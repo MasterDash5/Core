@@ -12,8 +12,6 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
-import java.util.List;
-
 public class QuitListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)

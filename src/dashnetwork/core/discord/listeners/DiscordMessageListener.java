@@ -11,7 +11,6 @@ import github.scarsz.discordsrv.util.DiscordUtil;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DiscordMessageListener {

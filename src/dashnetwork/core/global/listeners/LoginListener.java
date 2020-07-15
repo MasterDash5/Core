@@ -1,16 +1,11 @@
 package dashnetwork.core.global.listeners;
 
 import dashnetwork.core.command.commands.CommandFuckoff;
-import dashnetwork.core.utils.DataUtils;
 import dashnetwork.core.utils.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class LoginListener implements Listener {
 
