@@ -2,15 +2,15 @@ package dashnetwork.core.utils;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.minecraft.server.v1_15_R1.*;
+import net.minecraft.server.v1_16_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
-import org.bukkit.craftbukkit.v1_15_R1.CraftServer;
-import org.bukkit.craftbukkit.v1_15_R1.command.CraftBlockCommandSender;
-import org.bukkit.craftbukkit.v1_15_R1.command.ProxiedNativeCommandSender;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftMinecartCommand;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_16_R1.command.CraftBlockCommandSender;
+import org.bukkit.craftbukkit.v1_16_R1.command.ProxiedNativeCommandSender;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftMinecartCommand;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.minecart.CommandMinecart;
@@ -26,7 +26,7 @@ public class SelectorUtils {
 
         if (entitySelector != null) {
             try {
-                for (net.minecraft.server.v1_15_R1.Entity entity : entitySelector.getEntities(toCommandListenerWrapper(sender)))
+                for (net.minecraft.server.v1_16_R1.Entity entity : entitySelector.getEntities(toCommandListenerWrapper(sender)))
                     entities.add(CraftEntity.getEntity((CraftServer) Bukkit.getServer(), entity));
 
                 return entities;

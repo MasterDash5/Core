@@ -4,9 +4,9 @@ import com.mojang.brigadier.arguments.*;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
-import net.minecraft.server.v1_15_R1.ArgumentEntity;
-import net.minecraft.server.v1_15_R1.CommandDispatcher;
-import net.minecraft.server.v1_15_R1.CommandListenerWrapper;
+import net.minecraft.server.v1_16_R1.ArgumentEntity;
+import net.minecraft.server.v1_16_R1.CommandDispatcher;
+import net.minecraft.server.v1_16_R1.CommandListenerWrapper;
 
 public class Arguments {
 

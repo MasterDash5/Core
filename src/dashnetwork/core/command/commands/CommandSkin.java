@@ -18,10 +18,10 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.tree.CommandNode;
 import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
-import net.minecraft.server.v1_15_R1.EntityPlayer;
+import net.minecraft.server.v1_16_R1.EntityPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.io.BufferedReader;
@@ -139,7 +139,7 @@ public class CommandSkin extends CoreCommand {
                         exception.printStackTrace();
                     }
 
-                    entityplayer.server.getPlayerList().moveToWorld(entityplayer, entityplayer.dimension, false, target.getLocation(), true);
+                    entityplayer.server.getPlayerList().moveToWorld(entityplayer, entityplayer.getWorldServer(), false, target.getLocation(), true);
                 }
             }
         } else
