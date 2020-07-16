@@ -13,7 +13,7 @@ public class PortalListener implements Listener {
     public void onPlayerPortal(PlayerPortalEvent event) {
         String from = event.getFrom().getWorld().getName();
         String to = event.getTo().getWorld().getName();
-        String[] worlds = { Survival.getWorld().getName(), Survival.getNether().getName(), Survival.getEnd().getName(), "skyworld", "skyworld_nether", "skygrid-world", "skygrid-world_nether", "skygrid-world_the_end" };
+        String[] worlds = { Survival.getWorld().getName(), Survival.getNether().getName(), Survival.getEnd().getName(), "skyworld", "skyworld_nether", "skygrid-world", "skygrid-world_nether", "skygrid-world_the_end", "staff-survival", "staff-survival_nether", "staff-survival_the_end" };
 
         if (!LazyUtils.anyEquals(from, worlds) || !LazyUtils.anyEquals(to, worlds))
             event.setCancelled(true);

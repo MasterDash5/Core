@@ -8,7 +8,7 @@ import org.bukkit.World;
 public class WorldUtils {
 
     private static String[] playerWorlds = { Creative.getWorld().getName(), "Hub", "Prison", "skyworld", "skyworld_nether", Survival.getWorld().getName(), Survival.getNether().getName(), Survival.getEnd().getName(), "skygrid-world", "skygrid-world_nether", "skygrid-world_the_end", "KitPvP" };
-    private static String[] staffWorlds = { "BuildTeamWorld", "WIP", "Creative_World", "DashRealm", "GoldenRealm", "AndreaRealm", "RedstoneReady" };
+    private static String[] staffWorlds = { "BuildTeamWorld", "WIP", "Creative_World", "DashRealm", "GoldenRealm", "AndreaRealm", "RedstoneReady", "staff-survival", "staff-survival_nether", "staff-survival_the_end" };
 
     public static boolean isPlayerWorld(World world) {
         return LazyUtils.anyEqualsIgnoreCase(world.getName(), playerWorlds);
