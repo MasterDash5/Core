@@ -44,14 +44,9 @@ public class ImageMessage {
             String line = "";
 
             for (int x = 0; x < colors.length; ++x) {
-                Color color = colors[x][y];
-                String hex = String.format("#%06x", color.getRGB() & 0xFFFFFF);
-                String formatted = "";
+                String hex = ColorUtils.toHexColor(colors[x][y]);
 
-                for (int i = 1; i < hex.length(); i++)
-                    formatted += "§" + hex.toCharArray()[i];
-
-                line += color != null ? "§x" + formatted + character : "Â§0#";
+                line += hex + character;
             }
 
             lines[y] = line;

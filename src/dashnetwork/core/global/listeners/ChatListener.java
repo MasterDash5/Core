@@ -16,12 +16,20 @@ public class ChatListener implements Listener {
         Player player = event.getPlayer();
         User user = User.getUser(player);
         String message = event.getMessage();
-        String trimmed = message.length() > 3 ? message.substring((message.substring(3).startsWith(" ") ? 4 : 3)) : "";
+        int length = message.length();
+        boolean staff = user.isStaff();
 
         event.setCancelled(true);
 
         if (user.isLocked())
             return;
+
+        if (staff) {
+            message = ColorUtils.translateHexColors('&', message);
+            event.setMessage(message);
+        }
+
+        String trimmed = length > 3 ? message.substring((message.substring(3).startsWith(" ") ? 4 : 3)) : "";
 
         if (user.inOwnerChat())
             ownerChat(player, message);
@@ -33,7 +41,7 @@ public class ChatListener implements Listener {
             adminChat(player, trimmed);
         else if (user.inStaffChat())
             staffChat(player, message);
-        else if (user.isStaff() && StringUtils.startsWithIgnoreCase(message, "@sc"))
+        else if (staff && StringUtils.startsWithIgnoreCase(message, "@sc"))
             staffChat(player, trimmed);
         else
             event.setCancelled(false);
