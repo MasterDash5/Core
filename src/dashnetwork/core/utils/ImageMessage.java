@@ -27,12 +27,9 @@ public class ImageMessage {
         int resizedHeight = resized.getHeight();
         Color[][] colors = new Color[resizedWidth][resizedHeight];
 
-        for (int x = 0; x < resizedWidth; ++x) {
-            for (int y = 0; y < resizedHeight; ++y) {
-                int rgb = resized.getRGB(x, y);
-                colors[x][y] = new Color(rgb, true);
-            }
-        }
+        for (int x = 0; x < resizedWidth; ++x)
+            for (int y = 0; y < resizedHeight; ++y)
+                colors[x][y] = new Color(resized.getRGB(x, y), true);
 
         return colors;
     }
