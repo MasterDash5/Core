@@ -16,12 +16,6 @@ import java.util.List;
 public class EntitySpawnListener implements Listener {
 
     @EventHandler
-    public void onCreatureSpawn(CreatureSpawnEvent event) {
-        if (event.getEntity().getWorld().equals(Creative.getWorld()))
-            event.setCancelled(true);
-    }
-
-    @EventHandler
     public void onEntitySpawn(EntitySpawnEvent event) {
         Entity entity = event.getEntity();
         EntityType type = entity.getType();
@@ -35,7 +29,7 @@ public class EntitySpawnListener implements Listener {
                         if (entity.getType().equals(type))
                             entities.add(entity);
 
-                    while (entities.size() > 100) {
+                    while (entities.size() > (type.isAlive() ? 50 : 100)) {
                         Entity entity = entities.get(0);
                         entity.remove();
                         entities.remove(0);
