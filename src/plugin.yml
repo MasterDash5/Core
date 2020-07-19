@@ -102,6 +102,7 @@ commands:
   spin:
   staffchat:
     aliases: [sc]
+  test:
   thefurpysong:
     aliases: [furpysong]
   vanish:

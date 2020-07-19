@@ -152,6 +152,7 @@ public class Core extends JavaPlugin {
         new CommandSpawn();
         new CommandSpin();
         new CommandStaffchat();
+        new CommandTest();
         new CommandThefurpysong();
         new CommandVanish();
         new CommandVersionlist();
