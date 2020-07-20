@@ -22,7 +22,7 @@ public class PacketListener extends PacketAdapter {
     private static Set<PacketType> enabledPackets = StreamSupport.stream(PacketType.values().spliterator(), false).filter(type -> type.isSupported() && type.getProtocol().equals(PacketType.Play.getProtocol())).collect(Collectors.toSet());
 
     public PacketListener() {
-        super(new AdapterParameteters().gamePhase(GamePhase.BOTH).plugin(Core.getInstance()).types(enabledPackets).listenerPriority(ListenerPriority.HIGHEST));
+        super(new AdapterParameteters().gamePhase(GamePhase.BOTH).plugin(plugin).types(enabledPackets).listenerPriority(ListenerPriority.HIGHEST));
     }
 
     public void start() {
