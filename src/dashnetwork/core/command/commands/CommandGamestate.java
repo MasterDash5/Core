@@ -9,7 +9,10 @@ import dashnetwork.core.command.CoreCommand;
 import dashnetwork.core.utils.*;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
+import net.minecraft.server.v1_16_R1.EntityPlayer;
+import net.minecraft.server.v1_16_R1.PacketPlayOutGameStateChange;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -42,19 +45,11 @@ public class CommandGamestate extends CoreCommand {
         } else {
             int reason = Integer.parseInt(args[1]);
             float value = Float.parseFloat(args[2]);
-            PacketContainer packet = new PacketContainer(PacketType.Play.Server.GAME_STATE_CHANGE);
 
-            packet.getIntegers().write(0, reason);
-            packet.getFloat().write(0, value);
+            PacketPlayOutGameStateChange packet = new PacketPlayOutGameStateChange(new PacketPlayOutGameStateChange.a(reason), value);
 
-            for (Player target : targets) {
-                try {
-                    ProtocolLibrary.getProtocolManager().sendServerPacket(target, packet);
-                } catch (Exception exception) {
-                    MessageUtils.error(sender, exception);
-                    exception.printStackTrace();
-                }
-            }
+            for (Player target : targets)
+                ((CraftPlayer) target).getHandle().playerConnection.sendPacket(packet);
 
             String displaynames = ListUtils.fromList(NameUtils.toDisplayNames(targets), false ,false);
             String names = ListUtils.fromList(NameUtils.toNames(targets), false, false);
