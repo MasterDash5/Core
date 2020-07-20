@@ -1,18 +1,17 @@
 package dashnetwork.core.utils;
 
 import dashnetwork.core.creative.Creative;
-import dashnetwork.core.survival.Survival;
 import org.bukkit.Location;
 import org.bukkit.World;
 
 public class WorldUtils {
 
-    private static String[] playerWorlds = { Creative.getWorld().getName(), "Hub", "Prison", "skyworld", "skyworld_nether", Survival.getWorld().getName(), Survival.getNether().getName(), Survival.getEnd().getName(), "skygrid-world", "skygrid-world_nether", "skygrid-world_the_end", "KitPvP" };
-    private static String[] staffWorlds = { "BuildTeamWorld", "WIP", "Creative_World", "DashRealm", "GoldenRealm", "AndreaRealm", "RedstoneReady", "staff-survival", "staff-survival_nether", "staff-survival_the_end" };
+    private static String[] playerWorlds = { Creative.getWorld().getName(), "Hub", "Prison", "skyworld", "skyworld_nether", "skygrid-world", "skygrid-world_nether", "skygrid-world_the_end", "KitPvP" };
+    private static String[] staffWorlds = { "BuildTeamWorld", "WIP", "Creative_World", "DashRealm", "GoldenRealm", "AndreaRealm", "RedstoneReady" };
 
     public static boolean isPlayerWorld(World world) {
         return LazyUtils.anyEqualsIgnoreCase(world.getName(), playerWorlds);
-}
+    }
 
     public static boolean isStaffWorld(World world) {
         return LazyUtils.anyEqualsIgnoreCase(world.getName(), staffWorlds);
