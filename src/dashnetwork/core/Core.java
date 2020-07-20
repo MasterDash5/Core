@@ -8,6 +8,7 @@ import dashnetwork.core.packet.listeners.PacketListener;
 import dashnetwork.core.skyblock.Skyblock;
 import dashnetwork.core.survival.Survival;
 import dashnetwork.core.task.Task;
+import dashnetwork.core.task.tasks.CreativeEntityTask;
 import dashnetwork.core.task.tasks.ServerinfoTask;
 import dashnetwork.core.task.tasks.SpinTask;
 import dashnetwork.core.utils.DataUtils;
@@ -158,6 +159,7 @@ public class Core extends JavaPlugin {
         new CommandVersionlist();
 
         // Register tasks
+        new CreativeEntityTask();
         new ServerinfoTask();
         new SpinTask();
     }
