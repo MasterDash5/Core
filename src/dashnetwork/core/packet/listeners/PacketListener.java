@@ -36,7 +36,7 @@ public class PacketListener extends PacketAdapter {
 
     @Override
     public void onPacketReceiving(PacketEvent event) {
-        UserPacketEvent userPacketEvent = new UserPacketEvent(event, PacketEventType.RECIEVED);
+        UserPacketEvent userPacketEvent = new UserPacketEvent(event, PacketEventType.RECEIVED);
 
         Bukkit.getPluginManager().callEvent(userPacketEvent);
 
