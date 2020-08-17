@@ -1,6 +1,7 @@
-package dashnetwork.core.packet.listeners;
+package dashnetwork.core.utils;
 
 public enum PacketEventType {
 
     RECIEVED, SENT
+
 }
