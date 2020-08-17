@@ -42,6 +42,22 @@ public class VersionUtils {
         return version;
     }
 
+    public static String toName(int id) {
+        if (hasViaVersion) {
+            ProtocolVersion version = ProtocolVersion.getProtocol(id);
+
+            if (!version.getName().startsWith("Unknown"))
+                return version.getName();
+        }
+
+        if (hasProtocolSupport)
+            for (protocolsupport.api.ProtocolVersion version : protocolsupport.api.ProtocolVersion.values())
+                if (version.getId() == id)
+                    return version.getName();
+
+        return "???";
+    }
+
     public static String getOldest() {
         if (hasProtocolSupport)
             return "1.4.7";

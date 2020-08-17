@@ -1,5 +1,6 @@
 package dashnetwork.core.global.listeners;
 
+import com.destroystokyo.paper.event.server.PaperServerListPingEvent;
 import dashnetwork.core.Core;
 import dashnetwork.core.utils.*;
 import github.scarsz.discordsrv.DiscordSRV;
@@ -12,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import us.myles.ViaVersion.api.protocol.ProtocolVersion;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -21,7 +23,7 @@ public class ServerPingListener implements Listener {
     private List<String> recentPings = new ArrayList<>();
 
     @EventHandler
-    public void onServerListPing(ServerListPingEvent event) {
+    public void onServerListPing(PaperServerListPingEvent event) {
         String address = event.getAddress().getHostAddress();
         String motd = "&6DashNetwork &6&l» &7[" + VersionUtils.getOldest() + " - " + VersionUtils.getLatest() + "]"; // TODO: Think of something better to put here
 
@@ -47,9 +49,10 @@ public class ServerPingListener implements Listener {
 
                     String fromNames = ListUtils.fromList(names, false, true);
                     String date = new SimpleDateFormat("MM/dd/yyy HH:mm:ss").format(Calendar.getInstance().getTime());
+                    String version = VersionUtils.toName(event.getProtocolVersion());
 
                     MessageBuilder message = new MessageBuilder();
-                    message.append("&c&lPS &6" + address + " &7pinged the server").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + fromNames);
+                    message.append("&c&lPS &6" + address + " &7pinged the server with &6" + version).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + fromNames);
 
                     for (User user : User.getUsers())
                         if (user.inPingSpy())
