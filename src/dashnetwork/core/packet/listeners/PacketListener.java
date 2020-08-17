@@ -9,6 +9,7 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.injector.GamePhase;
 import dashnetwork.core.Core;
 import dashnetwork.core.events.UserPacketEvent;
+import dashnetwork.core.utils.PacketEventType;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
@@ -67,7 +68,5 @@ public class PacketListener extends PacketAdapter {
     public ListeningWhitelist getSendingWhitelist() {
         return ListeningWhitelist.newBuilder().gamePhase(GamePhase.BOTH).types(enabledPackets).priority(ListenerPriority.HIGHEST).build();
     }
-
-
 
 }
