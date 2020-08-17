@@ -2,7 +2,7 @@ package dashnetwork.core.events;
 
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
-import dashnetwork.core.packet.listeners.PacketEventType;
+import dashnetwork.core.utils.PacketEventType;
 import dashnetwork.core.utils.User;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
