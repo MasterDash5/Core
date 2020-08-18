@@ -113,6 +113,7 @@ public class Core extends JavaPlugin {
         new CommandConsole();
         new CommandCrash();
         new CommandDebugstick();
+        new CommandElytra();
         new CommandFakejoin();
         new CommandFakeleave();
         new CommandFakeop();
