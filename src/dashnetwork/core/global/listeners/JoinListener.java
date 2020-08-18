@@ -41,81 +41,82 @@ public class JoinListener implements Listener {
         if (!accounts.contains(uuid) && !DataUtils.getRealjoins().contains(uuid)) {
             accounts.add(player.getUniqueId().toString());
             offlineList.put(address, accounts);
+        }
 
-            for (User online : User.getUsers()) {
-                Player onlinePlayer = online.getPlayer();
+        new Thread(() -> { // Bukkit.getOfflinePlayer can be laggy
+            List<String> alts = new ArrayList<>();
 
-                if (online.inAutoWelcome()) {
-                    new BukkitRunnable() {
-                        public void run() {
-                            onlinePlayer.chat(player.hasPlayedBefore() ? "wb" : "welcome");
-                        }
-                    }.runTaskLater(Core.getInstance(), ThreadLocalRandom.current().nextInt(40, 100));
+            for (String account : DataUtils.getOfflineList().getOrDefault(address, new ArrayList<>())) {
+                if (!account.equals(uuid)) {
+                    OfflinePlayer offline = Bukkit.getOfflinePlayer(UUID.fromString(account));
+
+                    if (offline != null)
+                        alts.add(offline.getName());
                 }
-
-                if (online.isVanished())
-                    player.hidePlayer(Core.getInstance(), onlinePlayer);
             }
 
-            new Thread(() -> { // Bukkit.getOfflinePlayer can be laggy
-                List<String> alts = new ArrayList<>();
-
-                for (String account : DataUtils.getOfflineList().getOrDefault(address, new ArrayList<>())) {
-                    if (!account.equals(uuid)) {
-                        OfflinePlayer offline = Bukkit.getOfflinePlayer(UUID.fromString(account));
-
-                        if (offline != null)
-                            alts.add(offline.getName());
-                    }
-                }
-
-                if (!alts.isEmpty()) {
-                    MessageBuilder message = new MessageBuilder();
-                    message.append("&c&lAlt &6" + displayname + " &c&l>&7 hover for list of &6" + alts.size() + " alts").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(alts, false, true));
-
-                    for (User online : User.getUsers())
-                        if (online.inAltSpy())
-                            MessageUtils.message(online, message.build());
-                }
-            }).start();
-
-            if (!player.hasPlayedBefore()) {
+            if (!alts.isEmpty()) {
                 MessageBuilder message = new MessageBuilder();
-                message.append("&6&l» &6Welcome, ");
-                message.append("&6" + displayname).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + name);
-                message.append("&6 to DashNetwork");
+                message.append("&c&lAlt &6" + displayname + " &c&l>&7 hover for list of &6" + alts.size() + " alts").hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + ListUtils.fromList(alts, false, true));
 
-                MessageUtils.broadcast(true, null, PermissionType.NONE, message.build());
+                for (User online : User.getUsers())
+                    if (online.inAltSpy())
+                        MessageUtils.message(online, message.build());
+            }
+        }).start();
+
+        for (User online : User.getUsers()) {
+            Player onlinePlayer = online.getPlayer();
+
+            if (online.inAutoWelcome()) {
+                new BukkitRunnable() {
+                    public void run() {
+                        onlinePlayer.chat(player.hasPlayedBefore() ? "wb" : "welcome");
+                    }
+                }.runTaskLater(Core.getInstance(), ThreadLocalRandom.current().nextInt(40, 100));
             }
 
-            if (deprecatedIpsList.contains(address)) {
-                MessageUtils.message(player, "&6&l» &7We noticed you're using an outdated server IP! The IP you're using could be changed in the future. Please change your IP to &6dashnetwork.mc-srv.com");
+            if (online.isVanished())
+                player.hidePlayer(Core.getInstance(), onlinePlayer);
+        }
 
-                deprecatedIpsList.remove(address);
-            }
+        if (!player.hasPlayedBefore()) {
+            MessageBuilder message = new MessageBuilder();
+            message.append("&6&l» &6Welcome, ");
+            message.append("&6" + displayname).hoverEvent(HoverEvent.Action.SHOW_TEXT, "&6" + name);
+            message.append("&6 to DashNetwork");
 
-            String header = ChatColor.translateAlternateColorCodes('&', "&7&l» &6&lDashNetwork &7&l«\n ");
-            String footer = ChatColor.translateAlternateColorCodes('&', "\n&6dashnetwork.mc-srv.com");
-            player.setPlayerListHeaderFooter(header, footer);
+            MessageUtils.broadcast(true, null, PermissionType.NONE, message.build());
+        }
 
-            Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
-            Objective objective = scoreboard.getObjective(DisplaySlot.PLAYER_LIST);
+        if (deprecatedIpsList.contains(address)) {
+            MessageUtils.message(player, "&6&l» &cWe noticed you're using an outdated server IP! The IP you're using could be changed in the future. Please change your IP to &6dashnetwork.mc-srv.com");
 
-            if (objective.getName().equals("Core"))
-                objective.getScore(player.getName()).setScore(0);
+            deprecatedIpsList.remove(address);
+        }
 
-            if (LazyUtils.anyEquals(world.getName(), "Hub", "KitPvP"))
-                player.teleport(WorldUtils.getWarp(world), PlayerTeleportEvent.TeleportCause.PLUGIN);
+        String header = ChatColor.translateAlternateColorCodes('&', "&7&l» &6&lDashNetwork &7&l«\n ");
+        String footer = ChatColor.translateAlternateColorCodes('&', "\n&6dashnetwork.mc-srv.com");
+        player.setPlayerListHeaderFooter(header, footer);
 
-            if (user.isGolden()) {
-                user.setLocked(true);
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        Objective objective = scoreboard.getObjective(DisplaySlot.PLAYER_LIST);
 
-                if (!player.isOnGround()) {
-                    player.setAllowFlight(true);
-                    player.setFlying(true);
-                }
+        if (objective.getName().equals("Core"))
+            objective.getScore(player.getName()).setScore(0);
+
+        if (LazyUtils.anyEquals(world.getName(), "Hub", "KitPvP"))
+            player.teleport(WorldUtils.getWarp(world), PlayerTeleportEvent.TeleportCause.PLUGIN);
+
+        if (user.isGolden()) {
+            user.setLocked(true);
+
+            if (!player.isOnGround()) {
+                player.setAllowFlight(true);
+                player.setFlying(true);
             }
         }
+
     }
 
 }
