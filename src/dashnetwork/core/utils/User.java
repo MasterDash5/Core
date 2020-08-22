@@ -1,12 +1,20 @@
 package dashnetwork.core.utils;
 
+import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.comphenix.protocol.wrappers.PlayerInfoData;
+import com.comphenix.protocol.wrappers.WrappedChatComponent;
+import com.comphenix.protocol.wrappers.WrappedGameProfile;
+import dashnetwork.core.Core;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.permissions.Permission;
@@ -15,6 +23,7 @@ import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -22,10 +31,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class User implements CommandSender {
 
     private static List<User> users = new CopyOnWriteArrayList<>();
+    private static Core plugin = Core.getInstance();
     private Player player;
     private List<UserAddon> addons;
     private List<String> mods;
     private String client;
+    private ArmorStand nametag;
     private boolean inOwnerChat;
     private boolean inAdminChat;
     private boolean inStaffChat;
@@ -47,6 +58,7 @@ public class User implements CommandSender {
         this.addons = new CopyOnWriteArrayList<>();
         this.mods = new ArrayList<>();
         this.client = "Vanilla";
+        this.nametag = null;
         this.inOwnerChat = false;
         this.inAdminChat = false;
         this.inStaffChat = false;
@@ -152,6 +164,28 @@ public class User implements CommandSender {
         else if (!inPingSpy && inPingSpyList)
             pingspyList.remove(uuid);
 
+        if (dinnerbone) {
+            PacketContainer remove = new PacketContainer(PacketType.Play.Server.PLAYER_INFO);
+            PacketContainer add = remove.shallowClone();
+            WrappedGameProfile spoofed = new WrappedGameProfile(player.getUniqueId(), "Dinnerbone");
+            WrappedGameProfile profile = WrappedGameProfile.fromPlayer(player);
+            int ping = getPing();
+            EnumWrappers.NativeGameMode gamemode = EnumWrappers.NativeGameMode.fromBukkit(player.getGameMode());
+            WrappedChatComponent tabName = WrappedChatComponent.fromText(player.getPlayerListName());
+
+            remove.getPlayerInfoAction().write(0, EnumWrappers.PlayerInfoAction.REMOVE_PLAYER);
+            remove.getPlayerInfoDataLists().write(0, Arrays.asList(new PlayerInfoData(spoofed, ping, gamemode, tabName)));
+            add.getPlayerInfoAction().write(0, EnumWrappers.PlayerInfoAction.ADD_PLAYER);
+            add.getPlayerInfoDataLists().write(0, Arrays.asList(new PlayerInfoData(profile, ping, gamemode, tabName)));
+
+            ProtocolManager manager = ProtocolLibrary.getProtocolManager();
+            manager.broadcastServerPacket(remove);
+            manager.broadcastServerPacket(add);
+        }
+
+        if (nametag != null)
+            nametag.remove();
+
         users.remove(this);
     }
 
@@ -191,6 +225,14 @@ public class User implements CommandSender {
 
     public void setClient(String client) {
         this.client = client;
+    }
+
+    public ArmorStand getNametag() {
+        return nametag;
+    }
+
+    public void setNametag(ArmorStand nametag) {
+        this.nametag = nametag;
     }
 
     public boolean inOwnerChat() {

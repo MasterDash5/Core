@@ -20,7 +20,7 @@ import java.util.stream.StreamSupport;
 public class PacketListener extends PacketAdapter {
 
     private static Core plugin = Core.getInstance();
-    private static Set<PacketType> enabledPackets = StreamSupport.stream(PacketType.values().spliterator(), false).filter(type -> type.isSupported() && (type.getProtocol().equals(PacketType.Play.getProtocol()) || type.equals(PacketType.Handshake.Client.SET_PROTOCOL))).collect(Collectors.toSet());
+    private static Set<PacketType> enabledPackets = StreamSupport.stream(PacketType.values().spliterator(), false).filter(type -> type.isSupported() && (type.getProtocol().equals(PacketType.Play.getProtocol()) || type.equals(PacketType.Handshake.Client.SET_PROTOCOL) || type.equals(PacketType.Login.Server.SUCCESS))).collect(Collectors.toSet());
 
     public PacketListener() {
         super(new AdapterParameteters().gamePhase(GamePhase.BOTH).plugin(plugin).types(enabledPackets).listenerPriority(ListenerPriority.HIGHEST));

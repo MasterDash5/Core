@@ -15,7 +15,12 @@ import net.minecraft.server.v1_16_R1.EntityPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.metadata.MetadataValue;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,10 +55,32 @@ public class CommandDinnerbone extends CoreCommand {
                 User user = User.getUser(target);
                 boolean dinnerbone = !user.isDinnerbone();
 
-                if (dinnerbone)
+                if (dinnerbone) {
+                    Location location = target.getLocation().add(0, 1.8, 0);
+                    ArmorStand nametag = location.getWorld().spawn(location, ArmorStand.class);
+                    nametag.setGravity(false);
+                    nametag.setVisible(false);
+                    nametag.setMarker(true);
+                    nametag.setSmall(true);
+                    nametag.setBasePlate(false);
+                    nametag.setCustomName(target.getName());
+                    nametag.setCustomNameVisible(true);
+                    nametag.setMetadata("canMoveWorlds", new FixedMetadataValue(plugin, true));
+
+                    user.setNametag(nametag);
+
+                    PacketContainer packet = new PacketContainer(PacketType.Play.Server.ENTITY_DESTROY);
+                    packet.getIntegerArrays().write(0, new int[] { nametag.getEntityId() });
+
+                    user.sendPacket(packet);
+
                     MessageUtils.message(target, "&6&l» &7You are now Dinnerbone");
-                else
+                } else {
+                    user.getNametag().remove();
+                    user.setNametag(null);
+
                     MessageUtils.message(target, "&6&l» &7You are no longer Dinnerbone");
+                }
 
                 for (Player online : Bukkit.getOnlinePlayers())
                     online.hidePlayer(plugin, target);
