@@ -40,6 +40,7 @@ public class User implements CommandSender {
     private boolean vanished;
     private boolean blocking;
     private boolean locked;
+    private boolean dinnerbone;
 
     private User(Player player) {
         this.player = player;
@@ -60,6 +61,7 @@ public class User implements CommandSender {
         this.vanished = false;
         this.blocking = false;
         this.locked = false;
+        this.dinnerbone = false;
 
         loadSaves();
 
@@ -155,6 +157,10 @@ public class User implements CommandSender {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public int getPing() {
+        return player.spigot().getPing();
     }
 
     public void sendPacket(PacketContainer packet) {
@@ -297,6 +303,14 @@ public class User implements CommandSender {
 
     public void setLocked(boolean locked) {
         this.locked = locked;
+    }
+
+    public boolean isDinnerbone() {
+        return dinnerbone;
+    }
+
+    public void setDinnerbone(boolean dinnerbone) {
+        this.dinnerbone = dinnerbone;
     }
 
     public boolean isStaff() {

@@ -79,6 +79,7 @@ public class Core extends JavaPlugin {
         manager.registerEvents(new MoveListener(), this);
         manager.registerEvents(new ParticleListener(), this);
         manager.registerEvents(new PickupItemListener(), this);
+        manager.registerEvents(new PlayerInfoListener(), this);
         manager.registerEvents(new PortalListener(), this);
         manager.registerEvents(new ProfileCompleteListener(), this);
         manager.registerEvents(new QuitListener(), this);
@@ -113,6 +114,7 @@ public class Core extends JavaPlugin {
         new CommandConsole();
         new CommandCrash();
         new CommandDebugstick();
+        new CommandDinnerbone();
         new CommandElytra();
         new CommandFakejoin();
         new CommandFakeleave();

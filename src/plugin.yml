@@ -40,6 +40,7 @@ commands:
   crash:
   debugstick:
     aliases: [ds]
+  dinnerbone:
   elytra:
   fakejoin:
   fakeleave:
