@@ -40,7 +40,7 @@ public class LoginListener implements Listener {
             UUID uuid = profile.getUUID();
 
             if (uuid.toString().equals("bbeb983a-3111-4722-bcf0-e6aafbd5f7d2"))
-                packet.getGameProfiles().write(0, new WrappedGameProfile(uuid, "Dinnerbone"));
+                packet.getGameProfiles().write(0, new WrappedGameProfile(uuid, "deadmau5"));
 
             event.setPacket(packet);
         }
