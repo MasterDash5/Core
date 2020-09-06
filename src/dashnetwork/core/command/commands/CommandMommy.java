@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class CommandMommy extends CoreCommand {
 
-    private String[] mommies = { "Dash", "Matt", "Furpy", "Skull", "Golden", "Hannah", "Imani", "Ryan" };
+    private String[] mommies = { "Dash", "Matt", "Furpy", "Skull", "Golden", "Hannah", "Ryan", "Gibby" };
 
     public CommandMommy() {
         super("mommy", PermissionType.NONE, true);
