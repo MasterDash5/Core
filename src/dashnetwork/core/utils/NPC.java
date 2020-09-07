@@ -53,6 +53,50 @@ public class NPC implements Listener {
         return npcs;
     }
 
+    public String getTabName() {
+        return tabName;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
+    }
+
+    public int getPing() {
+        return ping;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public boolean isOnFire() {
+        return fire;
+    }
+
+    public boolean isSneaking() {
+        return sneaking;
+    }
+
+    public boolean isSprinting() {
+        return sprinting;
+    }
+
+    public boolean isSwimming() {
+        return swimming;
+    }
+
+    public boolean isInvisible() {
+        return invisible;
+    }
+
+    public boolean isGlowing() {
+        return glowing;
+    }
+
+    public boolean isGliding() {
+        return gliding;
+    }
+
     public void setSkin(String texture, String signature) {
         profile.getProperties().put("textures", new Property("textures", texture, signature));
     }
@@ -112,7 +156,9 @@ public class NPC implements Listener {
         user.sendPacket(packet);
     }
 
-    public void sendNamedEntitySpawn(User user) {
+    public void sendNamedEntitySpawn(User user, Location location) {
+        this.location = location;
+
         PacketContainer packet = new PacketContainer(PacketType.Play.Server.NAMED_ENTITY_SPAWN);
         WrappedDataWatcher data = new WrappedDataWatcher();
 
@@ -125,6 +171,30 @@ public class NPC implements Listener {
         packet.getDoubles().write(2, location.getZ());
         packet.getBytes().write(0, (byte) (location.getYaw() * 256.0F / 360.0F));
         packet.getBytes().write(1, (byte) (location.getPitch() * 256.0F / 360.0F));
+        packet.getDataWatcherModifier().write(0, data);
+
+        user.sendPacket(packet);
+    }
+
+    public void sendEntityTeleport(User user, Location location) {
+        this.location = location;
+
+        PacketContainer packet = new PacketContainer(PacketType.Play.Server.ENTITY_TELEPORT);
+        packet.getIntegers().write(0, entityId);
+        packet.getDoubles().write(0, location.getX());
+        packet.getDoubles().write(1, location.getY());
+        packet.getDoubles().write(2, location.getZ());
+        packet.getBytes().write(0, (byte) (location.getYaw() * 256.0F / 360.0F));
+        packet.getBytes().write(1, (byte) (location.getPitch() * 256.0F / 360.0F));
+
+        user.sendPacket(packet);
+    }
+
+    public void sendEntityMetadata(User user) {
+        PacketContainer packet = new PacketContainer(PacketType.Play.Server.ENTITY_METADATA);
+        WrappedDataWatcher data = new WrappedDataWatcher();
+
+        data.setObject(new WrappedDataWatcher.WrappedDataWatcherObject(0, WrappedDataWatcher.Registry.get(Byte.class)), generateMetadata());
         packet.getDataWatcherModifier().write(0, data);
 
         user.sendPacket(packet);
