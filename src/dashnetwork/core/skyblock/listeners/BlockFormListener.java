@@ -4,6 +4,7 @@ import com.google.common.collect.Iterables;
 import dashnetwork.core.Core;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
@@ -38,8 +39,9 @@ public class BlockFormListener implements Listener {
     @EventHandler
     public void onBlockForm(BlockFormEvent event) {
         Block block = event.getBlock();
+        BlockState state = event.getNewState();
 
-        if (block.getWorld().getName().equals("skyworld") && block.getType() == Material.COBBLESTONE)
+        if (block.getWorld().getName().equals("skyworld") && state.getType() == Material.COBBLESTONE)
             block.setType(getRandomMaterial());
     }
 
