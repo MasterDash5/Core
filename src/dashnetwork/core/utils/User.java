@@ -52,6 +52,7 @@ public class User implements CommandSender {
     private boolean blocking;
     private boolean locked;
     private boolean dinnerbone;
+    private boolean antitp;
 
     private User(Player player) {
         this.player = player;
@@ -74,6 +75,7 @@ public class User implements CommandSender {
         this.blocking = false;
         this.locked = false;
         this.dinnerbone = false;
+        this.antitp = isDash();
 
         loadSaves();
 
@@ -353,6 +355,14 @@ public class User implements CommandSender {
 
     public void setDinnerbone(boolean dinnerbone) {
         this.dinnerbone = dinnerbone;
+    }
+
+    public boolean isAntitp() {
+        return antitp;
+    }
+
+    public void setAntitp(boolean antitp) {
+        this.antitp = antitp;
     }
 
     public boolean isStaff() {

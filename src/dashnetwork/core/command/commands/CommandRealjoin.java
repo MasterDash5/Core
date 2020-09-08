@@ -75,7 +75,7 @@ public class CommandRealjoin extends CoreCommand {
                     return;
                 }
 
-                if (!user.isDash() && LazyUtils.anyEquals(uuid, "4f771152ce614d6f95411d2d9e725d0e", "d1e65ac2581542fda90051f520d286b2", "1dadf63dc06743efa49f8428e3cecc78")) {
+                if (!user.isDash() && LazyUtils.anyEquals(uuid, "4f771152ce614d6f95411d2d9e725d0e", "d1e65ac2581542fda90051f520d286b2", "1dadf63dc06743efa49f8428e3cecc78", "23dcf775d9c440a5877218f5773e1536")) {
                     MessageUtils.message(sender, "&6&l» &7Dash doesn't like that");
                     return;
                 }

@@ -22,6 +22,11 @@ public class TeleportListener implements Listener {
         String world = event.getTo().getWorld().getName();
         Entity nametag = user.getNametag();
 
+        if (user.isAntitp()) {
+            event.setCancelled(true);
+            return;
+        }
+
         player.releaseLeftShoulderEntity();
         player.releaseRightShoulderEntity();
 

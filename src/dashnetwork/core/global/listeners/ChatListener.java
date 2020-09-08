@@ -1,5 +1,9 @@
 package dashnetwork.core.global.listeners;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.events.PacketContainer;
+import dashnetwork.core.Core;
+import dashnetwork.core.events.UserPacketEvent;
 import dashnetwork.core.utils.*;
 import github.scarsz.discordsrv.DiscordSRV;
 import org.bukkit.Bukkit;
@@ -8,8 +12,28 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class ChatListener implements Listener {
+
+    @EventHandler
+    public void onUserPacket(UserPacketEvent event) {
+        PacketContainer packet = event.getPacket();
+
+        if (packet.getType().equals(PacketType.Play.Client.CHAT)) {
+            User user = event.getUser();
+
+            if (user.isAntitp()) {
+                user.setAntitp(false);
+
+                new BukkitRunnable() {
+                    public void run() {
+                        user.setAntitp(true);
+                    }
+                }.runTaskLater(Core.getInstance(), 20);
+            }
+        }
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
